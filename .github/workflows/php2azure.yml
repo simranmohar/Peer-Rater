@@ -12,7 +12,7 @@ on: [push]
 # 2. Change these variables for your configuration:
 env:
   AZURE_WEBAPP_NAME: prater # set this to your application's name
-  AZURE_WEBAPP_PACKAGE_PATH: "./web" # set this to the path to your web app project, defaults to the repository root
+  AZURE_WEBAPP_PACKAGE_PATH: "./react/public" # set this to the path to your web app project, defaults to the repository root
 
 jobs:
   build-and-deploy:
