@@ -20,10 +20,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
-
+      - name: npm install & build
+        run: |
+          npm install
+          npm run build
       - name: "Deploy to Azure WebApp"
         uses: azure/webapps-deploy@v2
         with:
+          source_dir: './build'
+          container_name: '$web'
+          connection_string: ${{ secrets.AZURE_STORAGE }}
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
           package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+          sync: 'true'
