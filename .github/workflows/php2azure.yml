@@ -27,7 +27,7 @@ jobs:
       - name: "Deploy to Azure WebApp"
         uses: azure/webapps-deploy@v2
         with:
-          source_dir: './build'
+          source_dir: './react/build'
           container_name: '$web'
           connection_string: ${{ secrets.AZURE_STORAGE }}
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
