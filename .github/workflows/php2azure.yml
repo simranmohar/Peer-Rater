@@ -1,29 +1,38 @@
-name: Deploy PHP to Azure Web App
+name: Deploy React App to Azure Storage
 
-on: [push]
-
-# put this in the .github/workflows folder
-# CONFIGURATION
-# For help, go to https://github.com/Azure/Actions
-#
-# 1. Set up the following secrets in your repository:
-#   AZURE_WEBAPP_PUBLISH_PROFILE
-#
-# 2. Change these variables for your configuration:
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - '*'
+defaults:
+  run:
+    working-directory: ./
 env:
-  AZURE_WEBAPP_NAME: prater # set this to your application's name
-  AZURE_WEBAPP_PACKAGE_PATH: "./react/public" # set this to the path to your web app project, defaults to the repository root
-
+  NODE_VERSION: '17'
+  CI: false
 jobs:
   build-and-deploy:
     name: Build and Deploy
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
-
-      - name: "Deploy to Azure WebApp"
-        uses: azure/webapps-deploy@v2
-        with:
-          app-name: ${{ env.AZURE_WEBAPP_NAME }}
-          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-          package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+    - uses: actions/checkout@v2
+    - name: Use Node.js ${{ env.NODE_VERSION }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+    - name: npm install & build
+      run: |
+        # Build and test the project, then
+        # deploy to Azure Web App.
+        npm install
+        npm run build
+    - name: 'Deploy react app to Azure blob storage'
+      uses: bacongobbler/azure-blob-storage-upload@main
+      with:
+          source_dir: './build'
+          container_name: '$web'
+          connection_string: ${{ secrets.AZURE_STORAGE }} 
+          sync: 'true'
