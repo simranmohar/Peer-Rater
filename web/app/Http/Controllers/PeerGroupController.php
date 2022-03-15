@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\PeerGroup;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PeerGroupController extends Controller
 {
@@ -14,17 +16,9 @@ class PeerGroupController extends Controller
      */
     public function index()
     {
-        //
-    }
+        $peerGroups = PeerGroup::all();
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return response()->json($peerGroups);
     }
 
     /**
@@ -35,7 +29,22 @@ class PeerGroupController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'description' => 'required'
+        ]);
+
+        $peerGroup = new PeerGroup;
+        $peerGroup->description = $request->input('description');
+
+        $peerGroup->save();
+
+        $user = Auth::user();
+        $peerGroup->users()->attach($user);
+
+        return response()->json([
+            'message' => 'Great success! New peer group created',
+            'peerGroup' => $peerGroup
+        ]);
     }
 
     /**
@@ -46,18 +55,7 @@ class PeerGroupController extends Controller
      */
     public function show(PeerGroup $peerGroup)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\PeerGroup  $peerGroup
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(PeerGroup $peerGroup)
-    {
-        //
+        return $peerGroup;
     }
 
     /**
@@ -69,7 +67,16 @@ class PeerGroupController extends Controller
      */
     public function update(Request $request, PeerGroup $peerGroup)
     {
-        //
+        $request->validate([
+           'description' => 'nullable'
+        ]);
+
+        $peerGroup->update($request->all());
+
+        return response()->json([
+            'message' => 'Great success! Peer group updated',
+            'peerGroup' => $peerGroup
+        ]);
     }
 
     /**
@@ -80,6 +87,14 @@ class PeerGroupController extends Controller
      */
     public function destroy(PeerGroup $peerGroup)
     {
-        //
+        $user = Auth::user();
+
+        $peerGroup->users()->detach($user);
+
+        $peerGroup->delete();
+
+        return response()->json([
+            'message' => 'Successfully deleted peer group!'
+        ]);
     }
 }
