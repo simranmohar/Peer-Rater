@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PeerGroupController;
 use App\Http\Controllers\SurveyController;
 use Illuminate\Http\Request;
@@ -15,6 +16,12 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
+Route::post('/register', [AuthController::class, 'register']);
+
+Route::post('/login', [AuthController::class, 'login']);
+
+Route::post('/logout', [AuthController::class, 'logout']);
 
 Route::get('/peer-groups', [PeerGroupController::class, 'index'])->name('peer_groups.index');
 
