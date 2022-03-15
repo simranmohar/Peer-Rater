@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/peer-groups', [PeerGroupController::class, 'all'])->name('peer_groups.all');
+Route::get('/peer-groups', [PeerGroupController::class, 'index'])->name('peer_groups.index');
 
 Route::post('/peer-groups', [PeerGroupController::class, 'store'])->name('peer_groups.store');
 
@@ -26,7 +26,7 @@ Route::put('/peer-groups/{peerGroup}', [PeerGroupController::class, 'update'])->
 
 Route::delete('/peer-groups/{peerGroup}', [PeerGroupController::class, 'destroy'])->name('peer_groups.destroy');
 
-Route::get('/surveys', [SurveyController::class, 'all'])->name('surveys.all');
+Route::get('/surveys', [SurveyController::class, 'index'])->name('surveys.index');
 
 Route::post('/surveys', [SurveyController::class, 'store'])->name('surveys.store');
 
