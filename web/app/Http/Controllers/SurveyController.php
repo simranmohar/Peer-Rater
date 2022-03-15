@@ -14,17 +14,9 @@ class SurveyController extends Controller
      */
     public function index()
     {
-        //
-    }
+        $surveys = Survey::all();
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return response()->json($surveys);
     }
 
     /**
@@ -35,7 +27,16 @@ class SurveyController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'peer_group_id' => 'required'
+        ]);
+
+        $survey = Survey::create($request->all());
+
+        return response()->json([
+            'message' => 'Great success! New survey created',
+            'survey' => $survey
+        ]);
     }
 
     /**
@@ -46,18 +47,7 @@ class SurveyController extends Controller
      */
     public function show(Survey $survey)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Survey  $survey
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Survey $survey)
-    {
-        //
+        return $survey;
     }
 
     /**
@@ -69,7 +59,16 @@ class SurveyController extends Controller
      */
     public function update(Request $request, Survey $survey)
     {
-        //
+        $request->validate([
+           'peer_group_id' => 'nullable'
+        ]);
+
+        $survey->update($request->all());
+
+        return response()->json([
+            'message' => 'Great success! Survey updated',
+            'survey' => $survey
+        ]);
     }
 
     /**
@@ -80,6 +79,10 @@ class SurveyController extends Controller
      */
     public function destroy(Survey $survey)
     {
-        //
+        $survey->delete();
+
+        return response()->json([
+            'message' => 'Successfully deleted survey!'
+        ]);
     }
 }
