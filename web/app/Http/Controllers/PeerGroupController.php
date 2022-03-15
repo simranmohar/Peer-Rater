@@ -33,12 +33,14 @@ class PeerGroupController extends Controller
             'description' => 'required'
         ]);
 
+        $user = Auth::user();
+
         $peerGroup = new PeerGroup;
+        $peerGroup->user_id = $user->id;
         $peerGroup->description = $request->input('description');
 
         $peerGroup->save();
 
-        $user = Auth::user();
         $peerGroup->users()->attach($user);
 
         return response()->json([
