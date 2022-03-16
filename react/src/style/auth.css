@@ -1,0 +1,160 @@
+body {
+  height: 100%;
+    width: 100%;
+    overflow-y:hidden;
+    overflow-x:hidden;
+}
+
+#root {
+    height: 100vh;
+}
+
+.login-button {
+    border-radius: 10rem;
+    padding: .75rem 1rem;
+    font-family: 'Roboto', serif;
+    font-style: normal;
+    text-align: center;
+    background-color: #5E4AE3;
+    stroke-width: 0;
+
+}
+
+
+.signup-button {
+    border-radius: 10rem;
+    padding: .75rem 1rem;
+    font-family: 'Roboto', serif;
+    font-style: normal;
+    text-align: center;
+    background-color: #5E4AE3;
+    stroke-width: 0;
+
+}
+.bg-image-login {
+    background: url("srcackground1.png") center;
+    background-size: cover;
+}
+
+.bg-image-register {
+    background: url("srcackground2.png") center;
+    background-size: cover;
+}
+
+.bg-image-createProfile {
+    background: url("srcackground3.png") center;
+    background-size: cover;
+}
+
+
+.profile-box-textinput {
+    /* Linear/White */
+    background: #FFFFFF;
+    /* Linear/Dark Snow */
+    border: 1px solid #C7CCD0;
+    box-sizing: border-box;
+    border-radius: 8px;
+    font-family: 'Roboto', serif;
+    height: 50px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 140%;
+    color: #7B809A;
+}
+
+.login-box-username {
+    /* Linear/White */
+    background: #FFFFFF;
+    /* Linear/Dark Snow */
+    border: 1px solid #C7CCD0;
+    box-sizing: border-box;
+    border-radius: 8px;
+    font-family: 'Roboto', serif;
+    height: 50px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 140%;
+    color: #7B809A;
+}
+
+.login-box-password {
+    /* Linear/White */
+    background: #FFFFFF;
+    /* Linear/Dark Snow */
+    border: 1px solid #C7CCD0;
+    box-sizing: border-box;
+    border-radius: 8px;
+    font-family: 'Roboto', serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 140%;
+    color: #7B809A;
+    height: 50px;
+}
+
+
+.title{
+    font-family: 'Roboto', serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 36px;
+    line-height: 140%;
+    /* or 50px */
+    color: #5E4AE3;
+}
+
+.sign-in-text{
+    font-family: 'Roboto', serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 22px;
+    line-height: 140%;
+    /* identical to box height, or 31px */
+    color: #5E4AE3;
+    text-align: center;
+}
+
+.sign-in-description {
+    font-family: 'Roboto', serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 140%;
+    color: #7B809A;
+    text-align: center;
+}
+
+.dont-have-account-message{
+    font-family: 'Roboto', serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 140%;
+    color: #7B809A;
+}
+
+.remember-me-text {
+    font-family: 'Roboto', serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 140%;
+    color: #7B809A;
+}
+
+.sign-up-link{
+    color: #5E4AE3;
+}
+
+.forgot-password {
+    font-family: 'Roboto', serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 140%;
+    color: #7B809A;
+}
+
