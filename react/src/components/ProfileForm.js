@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {Button, Form} from "react-bootstrap";
 
+import '../pages/Auth/auth.css';
 class ProfileForm extends Component {
     render() {
         return (

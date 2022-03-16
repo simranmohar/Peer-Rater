@@ -1,7 +1,5 @@
 import React from 'react';
-import SideBar from "../components/SideBar";
-import NavBar from "../components/NavBar";
-import Footer from "../components/Footer";
+import {Footer, SideBar, NavBar} from '../../components';
 
 const profileStyle = {
     main: {
@@ -49,7 +47,7 @@ const ProfilePage = () => (
                                                     <div style={profileStyle.profile}>
 
                                                         <img style={profileStyle.images}
-                                                             src={require('../img/blank-profile-picture.png')} alt={"placeholder profile picture"}/>
+                                                             src={require('../../img/blank-profile-picture.png')} alt={"placeholder profile"}/>
 
                                                         <h6>John Doe</h6>
                                                     </div>
