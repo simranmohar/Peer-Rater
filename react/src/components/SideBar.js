@@ -19,7 +19,7 @@ const SideBar = () => (
             {/* Sidebar - Brand */}
             <a
                 className="sidebar-brand d-flex align-items-center justify-content-center"
-                href="../"
+                href=".."
             >
                 <div className="sidebar-brand-icon rotate-n-15">
                     <FontAwesomeIcon className="fa-lg" icon={faListNumeric} />
@@ -33,7 +33,7 @@ const SideBar = () => (
             <hr className="sidebar-divider my-0" />
             {/* Nav Item - Dashboard */}
             <li className="nav-item active">
-                <a className="nav-link" href="../">
+                <a className="nav-link" href="..">
                     <FontAwesomeIcon className="fas fa-fw fa-sm mr-2" icon={faHome} />
                     <span>Home</span>
                 </a>
