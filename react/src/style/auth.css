@@ -46,6 +46,15 @@ body {
     background-size: cover;
 }
 
+.failure-message {
+    font-family: 'Roboto', serif;
+    font-style: normal;
+    font-size: 15px;
+    /* identical to box height, or 31px */
+    color: #dc3545;
+    text-align: left;
+}
+
 
 .profile-box-textinput {
     /* Linear/White */
