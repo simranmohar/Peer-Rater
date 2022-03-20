@@ -1,11 +1,15 @@
 import React, {useEffect, useState} from 'react';
 import {Button, Form} from "react-bootstrap";
+import AuthService from "../services/auth";
+import { useNavigate } from "react-router-dom";
 
 const SignupForm = () => {
 
     const [form, setForm] = useState({})
     const [errors, setErrors] = useState({})
     const [message, setMessage] = useState("");
+
+    const navigate = useNavigate();
 
     const setField = (field, value) => {
         setForm({
@@ -23,15 +27,8 @@ const SignupForm = () => {
         let email = form.email;
         let name = form.name;
         let password = form.password;
-
-        const requestOptions = {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({name, email, password})
-        };
-
-
         e.preventDefault()
+
         // get our new errors
         const newErrors = findFormErrors()
         // Conditional logic:
@@ -39,18 +36,23 @@ const SignupForm = () => {
             // We got errors!
             setErrors(newErrors)
         } else {
-            fetch(`http://127.0.0.1:8000/api/register`, requestOptions)
-                .then(handleResponse => {
-                    if (handleResponse.status === 200) {
-                        localStorage.setItem('currentUser', JSON.stringify(handleResponse));
-                        setMessage("");
-                        handleResponse.json().then(e => {
-                            alert(e.access_token)
-                        })
-                    }else {
+            try {
+                await AuthService.signup(email, password, name).then(
+                    (response) => {
+                        // check for token and user already exists with 200
+                        //   console.log("Sign up successfully", response);
+                        navigate("/home");
+                        window.location.reload();
+                    },
+                    (error) => {
+                        console.log(error);
                         setMessage("Email address already in use.");
                     }
-                    })
+                );
+            } catch (err) {
+                alert("Something went wrong, please try again later.")
+                console.log(err);
+            }
         }
     }
 
@@ -106,13 +108,6 @@ const SignupForm = () => {
                               onChange={password => setField('password', password.target.value)}
                               isInvalid={!!errors.password}/>
                 <Form.Control.Feedback type='invalid' className={"ml-3 mt-2 failure-message"}>{errors.password}</Form.Control.Feedback>
-            </Form.Group>
-            <Form.Group className="form-group ml-2" controlId="rememberMeSwitch">
-                <div className="custom-control custom-switch">
-                    <input type="checkbox" className="custom-control-input" id="rememberMeSwitch"/>
-                    <label className="custom-control-label remember-me-text" htmlFor="rememberMeSwitch">Remember
-                        me</label>
-                </div>
             </Form.Group>
             <Button className="btn btn-primary btn-user btn-block signup-button mt-5" variant="primary" type="submit"
                     onClick={handleSubmit}>
