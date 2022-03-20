@@ -17,7 +17,7 @@ import {
 
 import SignupPage from "./pages/SignupPage";
 import LoginPage from "./pages/LoginPage";
-import CreateProfilePage from "./pages/CreateProfilePage";
+import CreateProfilePage from "./pages/EditProfilePage";
 
 function App() {
     return (
@@ -29,7 +29,7 @@ function App() {
                 <Route path="/newsurvey" element={<NewSurveyPage/>} exact/>
                 <Route path="/login" element={<LoginPage/>} exact/>
                 <Route path="/signup" element={<SignupPage/>} exact/>
-                <Route path="/createprofile" element={<CreateProfilePage/>} exact/>
+                <Route path="/editprofile" element={<CreateProfilePage/>} exact/>
                 <Route path="*" element={<NotFoundPage/>} exact/>
             </Routes>
         </BrowserRouter>

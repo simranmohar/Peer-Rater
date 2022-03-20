@@ -24,6 +24,8 @@ const NavBar = () => {
 
     return (
     <nav className="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow" id="navbartop">
+
+        {/* Used to redirect the user if not logged in*/}
         <UnauthorizedRedirect/>
 
         {/* Sidebar Toggle (Topbar) */}
@@ -256,14 +258,18 @@ const NavBar = () => {
                     aria-haspopup="true"
                     aria-expanded="false"
                 >
-          <span className="mr-2 d-none d-lg-inline text-gray-600 small">
-            Douglas McGee
+          <span className="mr-2 d-none d-lg-flex text-gray-600 small mt-2">
+                            <FontAwesomeIcon className="fas fa-search fa-lg mr-2" icon={faUser} />
+
+
+              {/* uncomment once the backend has implemented the user
+
+              {authService.getCurrentUser().user.name? <p>{authService.getCurrentUser().user.name.replace(/\b(\w)/g, k => k.toUpperCase())}</p> : null}
+
+              */}
+
+              Back End To Return User
           </span>
-                    <img
-                        className="img-profile rounded-circle"
-                        src="../img/undraw_profile.svg"
-                        alt="profile image"
-                    />
                 </a>
                 {/* Dropdown - User Information */}
                 <div
