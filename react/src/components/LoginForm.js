@@ -12,6 +12,7 @@ const LoginForm = () => {
     const [passwordNotFoundMessage, setPasswordNotFoundMessage] = useState("");
 
     const handleSubmit = async e => {
+
         let email = form.email;
         let password = form.password;
         e.preventDefault()
@@ -23,22 +24,22 @@ const LoginForm = () => {
             // We got errors!
             setErrors(newErrors)
         } else {
+
             try {
                 await AuthService.login(email, password).then(
                     (response) => {
                         // check for token and user already exists with 200
                         //   console.log("Sign up successfully", response);
-                        navigate("/home");
+                        navigate("/");
                         window.location.reload();
                     },
                     (error) => {
                         console.log(error);
-                        alert(error)
-                        setPasswordNotFoundMessage("Error" + error);
+                        setPasswordNotFoundMessage("Invalid email or password. Please try again.");
                     }
                 );
             } catch (err) {
-                alert("Something went wrong, please try again later.")
+                setPasswordNotFoundMessage("Something went wrong. Please try again later.");
                 console.log(err);
             }
         }
@@ -46,10 +47,8 @@ const LoginForm = () => {
 
     const findFormErrors = () => {
         const regex = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
-        const {name, email, password} = form
+        const {email, password} = form
         const newErrors = {}
-
-        if (!name || name === '') newErrors.name = 'Name cannot be empty.'
 
         if (!email || email === '') newErrors.email = 'Email address cannot be empty'
         else if (regex.test(email) === false) newErrors.email = "Invalid email address."
@@ -72,8 +71,6 @@ const LoginForm = () => {
             [field]: null
         })
     }
-
-
 
         return (
             <Form className="user">
