@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Survey;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class SurveyController extends Controller
@@ -31,7 +32,15 @@ class SurveyController extends Controller
             'peer_group_id' => 'required'
         ]);
 
-        $survey = Survey::create($request->all());
+        // $survey = Survey::create($request->all());
+
+        $survey = new Survey;
+        $categories = Category::where('survey_id', $survey->id)->get();
+        $survey->peer_group_id = $request['peer_group_id'];
+        $survey->save();
+        if ($categories) {
+            $survey->categories()->attach($categories);
+        }
 
         return response()->json([
             'message' => 'Great success! New survey created',
@@ -78,7 +87,11 @@ class SurveyController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy(Survey $survey)
-    {
+    {   
+        $categories = Category::where('survey_id', $survey->id)->get();
+        if ($categories) {
+            $survey->categories()->detach($categories);
+        }
         $survey->delete();
 
         return response()->json([
