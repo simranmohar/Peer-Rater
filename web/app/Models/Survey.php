@@ -12,4 +12,12 @@ class Survey extends Model
     protected $fillable = [
         'peer_group_id'
     ];
+
+    // protected $casts = [
+    //     'categories' => 'array'
+    // ];
+
+    public function categories() {
+        return $this->belongsToMany(Category::class);
+    }
 }
