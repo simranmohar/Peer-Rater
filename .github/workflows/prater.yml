@@ -9,13 +9,15 @@ on:
       - '*'
 defaults:
   run:
-    working-directory: ./react
+    working-directory: ./
 env:
   NODE_VERSION: '17'                # set this to the node version to use
   CI: false
+  AZURE_WEBAPP_NAME: prater    # set this to your application's name
+  AZURE_WEBAPP_PACKAGE_PATH: './web'      # set this to the path to your web app project, defaults to the repository root
 jobs:
-  build-and-deploy:
-    name: Build and Deploy
+  build-and-deploy-react:
+    name: Build and Deploy react
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -27,8 +29,10 @@ jobs:
       run: |
         # Build and test the project, then
         # deploy to Azure Web App.
+        cd react
         npm install
         npm run build
+      #working-directory: ./react
     - name: 'Deploy react app to Azure blob storage'
       uses: bacongobbler/azure-blob-storage-upload@main
       with:
@@ -36,3 +40,16 @@ jobs:
           container_name: '$web'
           connection_string: ${{ secrets.AZURE_STORAGE }} 
           sync: 'true'
+
+  build-and-deploy-php:
+    name: Build and Deploy php
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+
+    - name: 'Deploy to Azure WebApp'
+      uses: azure/webapps-deploy@v2
+      with: 
+        app-name: ${{ env.AZURE_WEBAPP_NAME }}
+        publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+        package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
