@@ -44,16 +44,6 @@ Route::put('/surveys/{survey}', [SurveyController::class, 'update'])->name('surv
 
 Route::delete('/surveys/{survey}', [SurveyController::class, 'destroy'])->name('surveys.destroy');
 
-Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
-
-Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store');
-
-Route::get('/categories/{category}', [CategoryController::class, 'show'])->name('categories.show');
-
-Route::put('/categories/{category}', [CategoryController::class, 'update'])->name('categories.update');
-
-Route::delete('/categories/{category}', [CategoryController::class, 'destroy'])->name('categories.destroy');
-
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
