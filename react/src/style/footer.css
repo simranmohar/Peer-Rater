@@ -1,0 +1,13 @@
+.love{
+    display: inline;
+    color: red;
+}
+
+.footer {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 140%;
+    color: #7B809A;
+}
