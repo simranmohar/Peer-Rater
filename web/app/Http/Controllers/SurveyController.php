@@ -33,14 +33,20 @@ class SurveyController extends Controller
         ]);
 
         // $survey = Survey::create($request->all());
-
+        // $categories = Category::where('survey_id', $request->get('id'));
         $survey = new Survey;
-        $categories = Category::where('survey_id', $survey->id)->get();
-        $survey->peer_group_id = $request['peer_group_id'];
-        $survey->save();
-        if ($categories) {
-            $survey->categories()->attach($categories);
+        $categories = array();
+        forEach($request['categories'] as $description) {
+            $category = new Category;
+            $category->peer_group_id = $request['peer_group_id'];
+            $category->survey_id = $survey->id;
+            $category->description = $description;
+            array_push($categories, $category);
         }
+        $survey->peer_group_id = $request['peer_group_id'];
+        $survey->categories()->saveMany($categories);
+        $survey->save();
+        unset($categories);
 
         return response()->json([
             'message' => 'Great success! New survey created',
@@ -74,6 +80,8 @@ class SurveyController extends Controller
 
         $survey->update($request->all());
 
+        // Ask Tristan about whehter the front end will have option to edit the survey questions
+
         return response()->json([
             'message' => 'Great success! Survey updated',
             'survey' => $survey
@@ -88,10 +96,6 @@ class SurveyController extends Controller
      */
     public function destroy(Survey $survey)
     {   
-        $categories = Category::where('survey_id', $survey->id)->get();
-        if ($categories) {
-            $survey->categories()->detach($categories);
-        }
         $survey->delete();
 
         return response()->json([
