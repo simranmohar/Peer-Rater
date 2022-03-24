@@ -16,7 +16,9 @@ class PeerGroupController extends Controller
      */
     public function index()
     {
-        $peerGroups = PeerGroup::all();
+        $user = Auth::user();
+
+        $peerGroups = $user->peerGroups()->get();
 
         return response()->json($peerGroups);
     }
