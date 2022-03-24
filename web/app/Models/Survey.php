@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Category;
 
 class Survey extends Model
 {
@@ -13,11 +14,7 @@ class Survey extends Model
         'peer_group_id'
     ];
 
-    // protected $casts = [
-    //     'categories' => 'array'
-    // ];
-
     public function categories() {
-        return $this->belongsToMany(Category::class);
+        return $this->hasMany(Category::class);
     }
 }
