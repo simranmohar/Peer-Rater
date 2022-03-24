@@ -94,8 +94,7 @@ jobs:
           node-version: '12'
           check-latest: true
       - name: Install NPM dependencies
-        run: 
-        npm install
+        run: npm install
       - name: Compile assets for production
         run: npm run production
 
