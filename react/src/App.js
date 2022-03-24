@@ -10,6 +10,7 @@ import PrivacyPage from './pages/PrivacyPage';
 import NotFoundPage from './pages/NotFoundPage';
 import ProfilePage from './pages/ProfilePage';
 import NewSurveyPage from './pages/NewSurveyPage';
+import SettingsPage from './pages/SettingsPage';
 // Routing stuff
 import {
     BrowserRouter, Route, Routes
@@ -31,6 +32,7 @@ function App() {
                 <Route path="/signup" element={<SignupPage/>} exact/>
                 <Route path="/editprofile" element={<CreateProfilePage/>} exact/>
                 <Route path="*" element={<NotFoundPage/>} exact/>
+                <Route path="/settings" element={<SettingsPage/>} exact/>
             </Routes>
         </BrowserRouter>
     );
