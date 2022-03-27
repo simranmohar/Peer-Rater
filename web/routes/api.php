@@ -35,6 +35,10 @@ Route::put('/peer-groups/{peerGroup}', [PeerGroupController::class, 'update'])->
 
 Route::delete('/peer-groups/{peerGroup}', [PeerGroupController::class, 'destroy'])->name('peer_groups.destroy');
 
+Route::post('/peer-groups/{peerGroup}/attach', [PeerGroupController::class, 'attach'])->name('peer_groups.attach');
+
+Route::post('/peer-groups/{peerGroup}/detach', [PeerGroupController::class, 'detach'])->name('peer_groups.detach');
+
 Route::get('/surveys', [SurveyController::class, 'index'])->name('surveys.index');
 
 Route::post('/surveys', [SurveyController::class, 'store'])->name('surveys.store');
