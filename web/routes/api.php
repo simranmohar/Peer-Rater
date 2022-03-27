@@ -23,6 +23,8 @@ Route::post('/login', [AuthController::class, 'login']);
 
 Route::post('/logout', [AuthController::class, 'logout']);
 
+Route::get('/me', [AuthController::class, 'me']);
+
 Route::get('/peer-groups', [PeerGroupController::class, 'index'])->name('peer_groups.index');
 
 Route::post('/peer-groups', [PeerGroupController::class, 'store'])->name('peer_groups.store');
