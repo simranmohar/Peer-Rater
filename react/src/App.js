@@ -19,6 +19,7 @@ import {
 import SignupPage from "./pages/SignupPage";
 import LoginPage from "./pages/LoginPage";
 import CreateProfilePage from "./pages/EditProfilePage";
+import GroupsPage from "./pages/GroupsPage";
 
 function App() {
     return (
@@ -28,6 +29,7 @@ function App() {
                 <Route path="/privacy" element={<PrivacyPage/>} exact/>
                 <Route path="/profilepage" element={<ProfilePage/>} exact/>
                 <Route path="/newsurvey" element={<NewSurveyPage/>} exact/>
+                <Route path="/groups" element={<GroupsPage/>} exact/>
                 <Route path="/login" element={<LoginPage/>} exact/>
                 <Route path="/signup" element={<SignupPage/>} exact/>
                 <Route path="/editprofile" element={<CreateProfilePage/>} exact/>

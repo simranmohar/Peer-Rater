@@ -26,7 +26,7 @@ const NavBar = () => {
     <nav className="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow" id="navbartop">
 
         {/* Used to redirect the user if not logged in*/}
-        <UnauthorizedRedirect/>
+        {/*<UnauthorizedRedirect/>*/}
 
         {/* Sidebar Toggle (Topbar) */}
         <button

@@ -10,6 +10,7 @@ import {
     faTachometer,
     faUserGroup
 } from "@fortawesome/free-solid-svg-icons";
+import {Link} from "react-router-dom";
 const SideBar = () => (
     <>
         <ul
@@ -43,6 +44,10 @@ const SideBar = () => (
             {/* Heading */}
             <div className="sidebar-heading">GROUPS</div>
             {/* Nav Item - Pages Collapse Menu */}
+            <li className="nav-item">
+                <Link to="/groups" className="nav-link collapsed"><FontAwesomeIcon className="fas fa-fw fa-sm mr-2" icon={faUserGroup} />
+                    <span>All Groups</span></Link>
+            </li>
             <li className="nav-item">
                 <a
                     className="nav-link collapsed"
