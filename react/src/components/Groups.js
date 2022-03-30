@@ -46,21 +46,20 @@ const grey = {
 const Root = styled('div')(
     ({ theme }) => `
   table {
-    font-family: IBM Plex Sans, sans-serif;
-    font-size: 0.875rem;
-    border-collapse: collapse;
+    font-family: "Roboto","Helvetica","Arial",sans-serif;
+    font-size: 1.0rem;
     width: 100%;
   }
 
   td,
   th {
-    border: 1px solid ${theme.palette.mode === 'dark' ? grey[800] : grey[200]};
     text-align: left;
-    padding: 6px;
+    padding-left: 10px;
   }
 
   th {
     background-color: ${theme.palette.mode === 'dark' ? grey[900] : grey[100]};
+    height: 40px
   }
   `,
 );
@@ -142,7 +141,7 @@ export default function Groups() {
     };
 
     return (
-        <Root sx={{ width: '100%', maxWidth: '100%' }}>
+        <Root sx={{ width: '100%', overflow: 'hidden' }}>
             <table aria-label="custom pagination table">
                 <thead>
                 <tr>

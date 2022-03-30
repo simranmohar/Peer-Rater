@@ -1,13 +1,7 @@
 import React from 'react';
 const Footer = () => (
   <>
-    <footer className="footer mt-3 mb-3">
-            <div className="row ml-5">
-                <div className="col">
-                    <p className="lead text-muted text-center">© 2022, made with <p className="love">♥</p> by BCIT CST students </p>
-                </div>
-            </div>
-    </footer>
+      <p className="lead text-muted footer">©  {new Date().getFullYear()} made with <p className="love">♥</p> by BCIT CST students</p>
   </>
 );
 export default Footer;

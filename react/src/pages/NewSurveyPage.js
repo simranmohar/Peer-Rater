@@ -8,21 +8,7 @@ import NewSurvey from "../components/NewSurvey";
 
 const NewSurveyPage = () => (
     <>
-        <div id="wrapper">
-            <SideBar/>
-            <div id="content-wrapper" className="d-flex flex-column">
-                <NavBar/>
-                <div className="container" id="main-container">
-
-                    <React.Fragment>
-
-                        <NewSurvey/>
-
-                    </React.Fragment>
-                </div>
-                <Footer/>
-            </div>
-        </div>
+        <NewSurvey/>
     </>
 
 )

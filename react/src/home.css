@@ -1,24 +1,3 @@
-main{
-    text-align: 'center';
-    border-radius: '25px';
-    overflow: 'hidden';
-    box-shadow: '1px 1px';
-    height: '100px';
-    padding: '20px';
-   }
+#root{
 
-images{
-    border-radius: '10%';
-    width: '10px';
-    padding: '1px';
-    border: '1px solid #ddd';
-}
-
-profile{
-    padding: '10px';
-    text-align: 'center';
-}
-
-card{
-    padding-top: '20px';
 }
