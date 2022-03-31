@@ -19,7 +19,7 @@ import {useEffect} from "react";
 export default function NavbarMenu() {
     let currentUserName = authService.getCurrentUserFull()
     if (!currentUserName) {
-        currentUserName = "Username"
+        currentUserName = ""
     } else {
         currentUserName = currentUserName.name
     }
