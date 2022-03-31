@@ -25,7 +25,8 @@ import Typography from "@mui/material/Typography";
 import Badge from "@mui/material/Badge";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import MuiAppBar from "@mui/material/AppBar";
-
+import Avatar from "@mui/material/Avatar";
+import ProfilePicture from  "../img/avatars/avatar1.png"
 
 
 function Sidebar() {
@@ -108,10 +109,8 @@ function Sidebar() {
                 >
                     Dashboard
                 </Typography>
-                <IconButton color="inherit">
-                    <Badge badgeContent={4} color="secondary">
-                        <NotificationsIcon />
-                    </Badge>
+                <IconButton color="inherit" component={Link} to="/profile">
+                        <Avatar alt="Remy Sharp" src={ProfilePicture} />
                 </IconButton>
             </Toolbar>
         </AppBar>

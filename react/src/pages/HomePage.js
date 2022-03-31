@@ -6,37 +6,6 @@ import Footer from "../components/Footer";
 // import SideBar from "../components/SideBar";
 // import NavBar from "../components/NavBar";
 import ActiveLastBreadcrumb from "../components/ActiveLastBreadcrumb";
-// import {Container, Stack} from "@mui/material";
-// import Typography from "@mui/material/Typography";
-//
-// function HomePage({page, title}) {
-//     return (
-//         <>
-//             <Box sx={{flex: 1}} >
-//                 <Grid container spacing={0} >
-//                     <Grid item xs="2" zeroMinWidth>
-//                         <Box item style={{minHeight: '100vh', overflow: "hidden"}}><SideBar/></Box>
-//                     </Grid>
-//                     <Grid item zeroMinWidth style={{width: "82vw"}}>
-//                         <Stack>
-//                             <NavBar/>
-//                             <Container maxWidth="false">
-//                                 <ActiveLastBreadcrumb/>
-//                                 <Typography variant="h4" sx={{mt: 1}}>{title}</Typography>
-//                             <Paper elevation={12} sx={{mt: 1, padding: 3, marginBottom: "20px"}}>{page}</Paper>
-//                             <Container><Footer/></Container>
-//                             </Container>
-//                         </Stack>
-//                     </Grid>
-//                 </Grid>
-//             </Box>
-//         </>
-//     );
-// }
-//
-//
-// export default HomePage;
-
 
 import * as React from 'react';
 import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
