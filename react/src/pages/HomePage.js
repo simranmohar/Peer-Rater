@@ -91,14 +91,14 @@ function ListItemTextWhite ({primary}) {
 
 export const mainListItems = (
     <React.Fragment>
-        <ListItemButton>
+        <ListItemButton component={Link} to="/">
             <ListItemIcon>
                 <DashboardIcon />
             </ListItemIcon>
             <ListItemTextWhite primary = "Home"/>
         </ListItemButton>
 
-        <ListItemButton>
+        <ListItemButton component={Link} to="/groups">
             <ListItemIcon>
                 <ShoppingCartIcon />
             </ListItemIcon>
@@ -110,25 +110,25 @@ export const mainListItems = (
             </ListItemIcon>
             <ListItemTextWhite primary = "Surveys"/>
         </ListItemButton>
-        <ListItemButton>
+        <ListItemButton component={Link} to="/privacy">
             <ListItemIcon>
                 <BarChartIcon />
             </ListItemIcon>
             <ListItemTextWhite primary = "Privacy"/>
         </ListItemButton>
-        <ListItemButton>
+        <ListItemButton component={Link} to="/editprofile">
             <ListItemIcon>
                 <LayersIcon />
             </ListItemIcon>
             <ListItemTextWhite primary = "Profile"/>
         </ListItemButton>
-        <ListItemButton>
+        <ListItemButton component={Link} to="/newsurvey">
             <ListItemIcon>
                 <LayersIcon />
             </ListItemIcon>
             <ListItemTextWhite primary = "New Survey"/>
         </ListItemButton>
-        <ListItemButton>
+        <ListItemButton component={Link} to="/settings">
             <ListItemIcon>
                 <LayersIcon />
             </ListItemIcon>
