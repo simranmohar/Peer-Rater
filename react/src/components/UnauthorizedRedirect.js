@@ -1,7 +1,7 @@
 import authService from "../services/auth";
 
 
-const UnauthorizedRedirect = () => {
+function UnauthorizedRedirect () {
     const isLogged = !!authService.getCurrentUser();
     if (!isLogged) {
         window.location.href = '/login'
