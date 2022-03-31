@@ -13,14 +13,17 @@ import Logout from '@mui/icons-material/Logout';
 import authService from "../services/auth";
 import ProfilePicture from "../img/avatars/avatar1.png"
 import {Link} from "react-router-dom";
+import {useEffect} from "react";
+
 
 export default function NavbarMenu() {
     let currentUserName = authService.getCurrentUserFull()
-    if (!currentUserName){
+    if (!currentUserName) {
         currentUserName = "Username"
-    }else{
+    } else {
         currentUserName = currentUserName.name
     }
+
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
@@ -38,20 +41,22 @@ export default function NavbarMenu() {
 
     return (
         <React.Fragment>
-            <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
+            <Box sx={{display: 'flex', alignItems: 'center', textAlign: 'center'}}>
 
-                <Typography className={"d-none d-sm-block"} sx={{ textTransform: "capitalize", marginRight: 1 }}>{currentUserName}</Typography>
-                <Divider className={"d-none d-sm-block"} orientation="vertical" style={{color: "black",  height: "32px", width: "1px"}} />
+                <Typography className={"d-none d-sm-block"}
+                            sx={{textTransform: "capitalize", marginRight: 1}}>{currentUserName}</Typography>
+                <Divider className={"d-none d-sm-block"} orientation="vertical"
+                         style={{color: "black", height: "32px", width: "1px"}}/>
                 <Tooltip title="Account settings">
                     <IconButton
                         onClick={handleClick}
                         size="large"
-                        sx={{ ml: 0 }}
+                        sx={{ml: 0}}
                         aria-controls={open ? 'account-menu' : undefined}
                         aria-haspopup="true"
                         aria-expanded={open ? 'true' : undefined}
                     >
-                        <Avatar alt={currentUserName} sx={{ width: 42, height: 42 }} src={ProfilePicture}/>
+                        <Avatar alt={currentUserName} sx={{width: 42, height: 42}} src={ProfilePicture}/>
                     </IconButton>
                 </Tooltip>
             </Box>
@@ -87,23 +92,23 @@ export default function NavbarMenu() {
                         },
                     },
                 }}
-                transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-                anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+                transformOrigin={{horizontal: 'right', vertical: 'top'}}
+                anchorOrigin={{horizontal: 'right', vertical: 'bottom'}}
             >
 
                 <MenuItem component={Link} to="/profile">
-                    <Avatar src={ProfilePicture} /> Profile
+                    <Avatar src={ProfilePicture}/> Profile
                 </MenuItem>
-                <Divider />
+                <Divider/>
                 <MenuItem component={Link} to="/settings">
                     <ListItemIcon>
-                        <Settings fontSize="small" />
+                        <Settings fontSize="small"/>
                     </ListItemIcon>
                     Settings
                 </MenuItem>
                 <MenuItem onClick={handleLogout}>
                     <ListItemIcon>
-                        <Logout fontSize="small" />
+                        <Logout fontSize="small"/>
                     </ListItemIcon>
                     Logout
                 </MenuItem>

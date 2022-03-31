@@ -8,8 +8,6 @@ const signup = (email, password, name) => {
     return axios.post(API_URL + "/register", {email, password, name}).then((response) => {
         if (response.data.access_token) {
             localStorage.setItem("user", JSON.stringify(response.data));
-            setCurrentUser().then({});
-
         }
         return response.data;
     });
@@ -19,8 +17,6 @@ const login = (email, password) => {
     return axios.post(API_URL + "/login", {email, password}).then((response) => {
         if (response.data.access_token) {
             localStorage.setItem("user", JSON.stringify(response.data));
-            setCurrentUser().then({});
-
         }
         return response.data;
     });
@@ -28,6 +24,8 @@ const login = (email, password) => {
 
 const logout = () => {
     localStorage.removeItem("user");
+    localStorage.removeItem("currentUser");
+
 };
 
 const setCurrentUser = () => {
@@ -38,9 +36,9 @@ const setCurrentUser = () => {
                 Authorization: "Bearer " + user.access_token
             }
         }
-        return axios.get(API_URL + "/me", config).then((response) => {
-            if (response.data.name) {
-                localStorage.setItem("currentUser", JSON.stringify(response.data));
+        axios.get(API_URL + "/me", config).then((response) => {
+            if (response.data) {
+                 localStorage.setItem("currentUser", JSON.stringify(response.data));
             }
         }).catch((e) => {
             alert("Fail")

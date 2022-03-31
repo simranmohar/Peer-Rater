@@ -41,6 +41,7 @@ const SignupForm = () => {
                     (response) => {
                         // check for token and user already exists with 200
                         //   console.log("Sign up successfully", response);
+                        AuthService.setCurrentUser();
                         navigate("/");
                         window.location.reload();
                     },
