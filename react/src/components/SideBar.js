@@ -54,8 +54,7 @@ function Sidebar() {
             '& .MuiDrawer-paper': {
                 position: 'relative',
                 whiteSpace: 'nowrap',
-                backgroundColor: '#4e73df',
-                backgroundImage: 'linear-gradient(180deg, #4e73df 10%, #224abe 100%)',
+                backgroundColor: '#3576cb',
                 width: drawerWidth,
                 transition: theme.transitions.create('width', {
                     easing: theme.transitions.easing.sharp,
@@ -126,16 +125,14 @@ function Sidebar() {
                     px: [1],
                 }}
             >
-                <Link className="d-flex align-items-center justify-content-center"  to={'/'} style={{color: 'white'}}>
-                                     <div className="sidebar-brand-icon rotate-n-15">
+                <Link className="d-flex align-items-center justify-content-center text-decoration-none"  to={'/'} style={{color: 'white'}}>
                                          <FontAwesomeIcon className="fa-lg" icon={faListNumeric}/>
                                          <FontAwesomeIcon className="fa-lg" icon={faFaceSurprise}/>
-                                     </div>
-                                     <div className="sidebar-brand-text mx-3">
+                                     <div className="mx-3">
                                          Peer Rater
                                      </div>
                                  </Link>
-                <IconButton onClick={toggleDrawer}>
+                <IconButton style={{color: "white"}} onClick={toggleDrawer}>
                     <ChevronLeftIcon />
                 </IconButton>
             </Toolbar>
