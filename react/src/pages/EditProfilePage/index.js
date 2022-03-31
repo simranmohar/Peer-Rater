@@ -1,6 +1,6 @@
 import React from 'react';
-import '../style/auth.css';
-import ProfileForm from "../components/ProfileForm";
+import '../Auth/auth.css';
+import ProfileForm from "../../components/ProfileForm";
 
 function CreateProfile () {
     return(

@@ -1,4 +1,4 @@
-import Footer from "../components/Footer";
+import Footer from "../../components/Footer";
 import * as React from 'react';
 import {styled, createTheme, ThemeProvider} from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -13,13 +13,13 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import PeopleIcon from '@mui/icons-material/People';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import LayersIcon from '@mui/icons-material/Layers';
-import Sidebar from "../components/SideBar";
+import Sidebar from "../../components/SideBar";
 import {Link} from "react-router-dom";
 import Masonry from '@mui/lab/Masonry';
-import People from "../components/People";
-import Groups from "../components/Groups";
-import NewSurvey from "../components/NewSurvey";
-import SurveyResults from "../components/SurveyResults";
+import People from "../../components/People";
+import Groups from "../../components/Groups";
+import NewSurvey from "../../components/NewSurvey";
+import SurveyResults from "../../components/SurveyResults";
 
 function ListItemTextWhite({primary}) {
     return (

@@ -1,5 +1,5 @@
 import React from 'react';
-import NewGroup from "../components/NewGroup";
+import NewGroup from "../../components/NewGroup";
 
 
 //code transferred to component**

@@ -26,7 +26,7 @@ const profileStyle = {
     }
 
 }
-
+const BLANK_PROFILE = require('./img/blank-profile-picture.png');
 const ProfilePage = () => (
     <>
             <div className="page-content page-container" id="page-content">
@@ -39,7 +39,7 @@ const ProfilePage = () => (
                                         <div style={profileStyle.profile}>
 
                                             <img style={profileStyle.images}
-                                                 src={require('../img/blank-profile-picture.png')} alt={"placeholder profile picture"}/>
+                                                 src={BLANK_PROFILE} alt={"placeholder profile picture"}/>
 
                                             <h6>John Doe</h6>
                                         </div>

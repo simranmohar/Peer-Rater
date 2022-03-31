@@ -21,17 +21,17 @@
 
 }
 .   bg-image-login {
-    background: url("../img/background1.png") center;
+    background: url("../../img/background1.png") center;
     background-size: cover;
 }
 
 .bg-image-register {
-    background: url("../img/background2.png") center;
+    background: url("../../img/background2.png") center;
     background-size: cover;
 }
 
 .bg-image-createProfile {
-    background: url("../img/background3.png") center;
+    background: url("../../img/background3.png") center;
     background-size: cover;
 }
 

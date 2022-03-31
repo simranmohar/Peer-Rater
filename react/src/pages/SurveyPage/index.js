@@ -1,5 +1,5 @@
 import React from 'react';
-import SurveyResults from "../components/SurveyResults";
+import SurveyResults from "../../components/SurveyResults";
 import List from "@mui/material/List";
 
 const SurveyPage = () => (

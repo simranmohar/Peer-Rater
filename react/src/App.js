@@ -15,8 +15,7 @@ import SettingsPage from "./pages/SettingsPage";
 // Routing stuff
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 
-import SignupPage from "./pages/SignupPage";
-import LoginPage from "./pages/LoginPage";
+
 import Groups from "./components/Groups";
 import EditProfilePage from "./pages/EditProfilePage";
 import People from "./components/People";
@@ -27,6 +26,9 @@ import React, {useEffect} from "react";
 import UnauthorizedRedirect from "./components/UnauthorizedRedirect";
 
 import auth from "./services/auth";
+import SignupPage from "./pages/Auth/SignupPage";
+import LoginPage from "./pages/Auth/LoginPage";
+
 
 const Page = ({
     title,
@@ -37,7 +39,7 @@ const Page = ({
     useEffect(() => (document.title = title));
     // is not private, or is private and current user is present, otherwise redirect.
     let isAllowed = !props.isPrivate || (props.isPrivate && auth.getCurrentUser());
-    console.log(isAllowed);
+    
     return isAllowed ? children : <UnauthorizedRedirect/>;
 };
 
