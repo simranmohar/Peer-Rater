@@ -1,14 +1,5 @@
 // ------------------------- Get Bearer Token -------------------------
 
-import authHeader from "../authheader";
-
-// const request = {
-//     method: 'GET',
-//     headers: { 'Content-Type': 'application/json' },
-//     body: JSON.stringify({ 'access_token': authHeader })
-//     // get bearer token from cookie in local storage
-// };
-
 const user = JSON.parse(localStorage.getItem("user"));
 if (!user){
     // Redirect to login page here
@@ -19,16 +10,8 @@ const config = {
     }
 }
 
-//     return axios.get(API_URL + "/me", config).then((response) => {
-//         if (response.data.name) {
-//             localStorage.setItem("currentUser", JSON.stringify(response.data));
-//         }
-//     }).catch((e) => {
-//         alert("Fail")
-//     })
-// }
-
 API_URL = `localhost:8888`
+// CHANGE API_URL ONCE BACKEND IS DONE
 
 // ------------------------- Get All peer-groups request -------------------------
 
@@ -44,21 +27,13 @@ useEffect(() => {
     fetchData();
 }, []);
 
-// Sets an error if no groups have been retrieved
-var others = GroupsInfo;
-if (param !== undefined) {
-    others = Object.values(GroupsInfo).filter(p => p.id !== +param.exceptId);
-}
-
-
 // ------------------------- Get ONE peer-groups request -------------------------
 
 const FetchOneGroup = async () => {
     const result = await fetch(API_URL + "/peer-groups" + id, config);
-    // CHANGE LOCALHOST TO API URL
     // $ID WILL BE THE GROUP ID
     const body = await result.json();
-    // setGroupInfo(body);
+    setGroupInfo(body);
 }
 
 // Code to set in UI to display all groups
