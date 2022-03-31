@@ -36,7 +36,7 @@ const setCurrentUser = () => {
                 Authorization: "Bearer " + user.access_token
             }
         }
-        axios.get(API_URL + "/me", config).then((response) => {
+        return axios.get(API_URL + "/me", config).then((response) => {
             if (response.data) {
                  localStorage.setItem("currentUser", JSON.stringify(response.data));
             }
