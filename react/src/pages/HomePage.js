@@ -53,7 +53,6 @@ import Badge from '@mui/material/Badge';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-import Link from '@mui/material/Link';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
@@ -67,6 +66,7 @@ import BarChartIcon from '@mui/icons-material/BarChart';
 import LayersIcon from '@mui/icons-material/Layers';
 import AssignmentIcon from '@mui/icons-material/Assignment';
 import Sidebar from "../components/SideBar";
+import {Link} from "react-router-dom";
 
 
 function Copyright(props) {
@@ -91,44 +91,44 @@ function ListItemTextWhite ({primary}) {
 
 export const mainListItems = (
     <React.Fragment>
-        <ListItemButton>
+        <ListItemButton component={Link} to="/">
             <ListItemIcon>
                 <DashboardIcon />
             </ListItemIcon>
             <ListItemTextWhite primary = "Home"/>
         </ListItemButton>
 
-        <ListItemButton>
+        <ListItemButton component={Link} to="/groups">
             <ListItemIcon>
                 <ShoppingCartIcon />
             </ListItemIcon>
             <ListItemTextWhite primary = "Groups"/>
         </ListItemButton>
-        <ListItemButton href='/newsurvey'>
+        <ListItemButton component={Link} to="/newsurvey">
             <ListItemIcon>
                 <PeopleIcon />
             </ListItemIcon>
             <ListItemTextWhite primary = "Surveys"/>
         </ListItemButton>
-        <ListItemButton>
+        <ListItemButton component={Link} to="/privacy">
             <ListItemIcon>
                 <BarChartIcon />
             </ListItemIcon>
             <ListItemTextWhite primary = "Privacy"/>
         </ListItemButton>
-        <ListItemButton>
+        <ListItemButton component={Link} to="/editprofile">
             <ListItemIcon>
                 <LayersIcon />
             </ListItemIcon>
             <ListItemTextWhite primary = "Profile"/>
         </ListItemButton>
-        <ListItemButton>
+        <ListItemButton component={Link} to="/newsurvey">
             <ListItemIcon>
                 <LayersIcon />
             </ListItemIcon>
             <ListItemTextWhite primary = "New Survey"/>
         </ListItemButton>
-        <ListItemButton>
+        <ListItemButton component={Link} to="/settings">
             <ListItemIcon>
                 <LayersIcon />
             </ListItemIcon>
