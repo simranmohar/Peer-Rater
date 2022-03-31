@@ -19,6 +19,7 @@ import {BrowserRouter, Route, Routes} from "react-router-dom";
 import Groups from "./components/Groups";
 import EditProfilePage from "./pages/EditProfilePage";
 import People from "./components/People";
+import Group from "./components/Group";
 import SurveyResults from "./components/SurveyResults";
 import SurveyPage from "./pages/SurveyPage";
 import HomePageMasonry from "./pages/HomePageMasonry";
@@ -67,7 +68,8 @@ function App() {
                     <Route path="/" index
                         element={
                             <Page
-                        title="Home"><People/></Page>
+                        title="Home"><Group img="https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2944&q=80"
+                        title="COMP 3975" description="Web Scripting Course"/></Page>
                         }/>
                     <Route path="/profile"
                         element={
