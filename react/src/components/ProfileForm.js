@@ -21,7 +21,7 @@ class ProfileForm extends Component {
                 </Form.Group>
 
                 <Button className="btn btn-primary btn-user btn-block signup-button mt-5" variant="primary" type="submit">
-                    Complete Registration
+                    Update Profile
                 </Button>
             </Form>
         );

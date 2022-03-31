@@ -27,7 +27,7 @@ const profileStyle = {
 
 }
 
-const ProfilePage = () => (
+const AdminProfile = () => (
     <>
             <div className="page-content page-container" id="page-content">
                 <div className="padding">
@@ -54,7 +54,11 @@ const ProfilePage = () => (
                                                 </div>
                                                 <div className="col-sm-6">
                                                     <p className="m-b-10 f-w-600">Age</p>
-                                                    <h6 className="text-muted f-w-400">24</h6>
+                                                    <h6 className="text-muted f-w-400">34</h6>
+                                                </div>
+                                                <div className="col-sm-6">
+                                                    <p className="m-b-10 f-w-600">School</p>
+                                                    <h6 className="text-muted f-w-400">BCIT</h6>
                                                 </div>
                                             </div>
 
@@ -70,4 +74,4 @@ const ProfilePage = () => (
     </>
 );
 
-export default ProfilePage;
+export default AdminProfile;

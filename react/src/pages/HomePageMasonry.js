@@ -15,6 +15,11 @@ import BarChartIcon from '@mui/icons-material/BarChart';
 import LayersIcon from '@mui/icons-material/Layers';
 import Sidebar from "../components/SideBar";
 import {Link} from "react-router-dom";
+import Masonry from '@mui/lab/Masonry';
+import People from "../components/People";
+import Groups from "../components/Groups";
+import NewSurvey from "../components/NewSurvey";
+import SurveyResults from "../components/SurveyResults";
 
 function ListItemTextWhite({primary}) {
     return (
@@ -78,7 +83,38 @@ export const mainListItems = (
 
 const mdTheme = createTheme();
 
-function HomePage({page, title}) {
+
+const heights = (
+    <>
+        <Paper elevation={12} sx={{p: 2, display: 'flex', flexDirection: 'column'}}>
+            <People/>
+        </Paper>
+
+        <Paper elevation={12} sx={{p: 2, display: 'flex', flexDirection: 'column'}}>
+            <Groups/>
+        </Paper>
+
+        <Paper elevation={12} sx={{p: 2, display: 'flex', flexDirection: 'column'}}>
+            <NewSurvey/>
+        </Paper>
+
+        <Paper elevation={12} sx={{p: 2, display: 'flex', flexDirection: 'column'}}>
+            <SurveyResults/>
+        </Paper>
+
+    </>
+);
+
+
+const Item = styled(Paper)(({ theme }) => ({
+    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+    ...theme.typography.body2,
+    padding: theme.spacing(0.5),
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
+}));
+
+function HomePageMasonry({page, title}) {
     return (
         <ThemeProvider theme={mdTheme}>
             <Box sx={{display: 'flex'}}>
@@ -98,8 +134,11 @@ function HomePage({page, title}) {
                 >
                     <Toolbar/>
                     <Container maxWidth="false" sx={{mt: 4, mb: 4}}>
-                        <Paper elevation={12} sx={{p: 2, display: 'flex', flexDirection: 'column'}}>
-                            {page}
+                        <Paper elevation={0} sx={{p: 2, display: 'flex', flexDirection: 'column'}}>
+                            {/*{page}*/}
+                            <Masonry columns={{ xs: 1, sm: 1, lg:2 }} spacing={5}>
+                                {heights}
+                            </Masonry>
                         </Paper>
                     </Container>
                     <Container className={"d-none d-sm-block"} style={{position: "fixed", bottom: 0}}><Footer/></Container>
@@ -109,4 +148,4 @@ function HomePage({page, title}) {
     );
 }
 
-export default HomePage;
+export default HomePageMasonry;

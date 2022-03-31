@@ -10,6 +10,7 @@ import PrivacyPage from './pages/PrivacyPage';
 import NotFoundPage from './pages/NotFoundPage';
 import ProfilePage from './pages/ProfilePage';
 import NewSurveyPage from './pages/NewSurveyPage';
+import NewGroupPage from './pages/NewGroupPage';
 import SettingsPage from './pages/SettingsPage';
 // Routing stuff
 import {
@@ -18,21 +19,31 @@ import {
 
 import SignupPage from "./pages/SignupPage";
 import LoginPage from "./pages/LoginPage";
-import CreateProfilePage from "./pages/EditProfilePage";
+import Groups from "./components/Groups";
+import EditProfilePage from "./pages/EditProfilePage";
+import People from "./components/People";
+import SurveyResults from "./components/SurveyResults";
+import SurveyPage from "./pages/SurveyPage";
+import HomePageMasonry from "./pages/HomePageMasonry";
 
 function App() {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/" element={<HomePage/>} exact/>
-                <Route path="/privacy" element={<PrivacyPage/>} exact/>
-                <Route path="/profilepage" element={<ProfilePage/>} exact/>
-                <Route path="/newsurvey" element={<NewSurveyPage/>} exact/>
+                <Route path="/" element={<HomePage page={<People/>}/>} exact/>
+                <Route path="/privacy" element={<HomePage page={<PrivacyPage/>} title ="Privacy"/>} exact/>
+                <Route path="/profile" element={<HomePage page={<ProfilePage/>} title ="Profile"/>} exact/>
+                <Route path="/newsurvey" element={<HomePage page={<NewSurveyPage/>} title ="New Survey"/>} exact/>
+                <Route path="/newgroup" element={<HomePage page={<NewGroupPage/>} title ="New Group"/>} exact/>
+                <Route path="/groups" element={<HomePage page={<Groups/>} title ="Groups"/>} exact/>
+                <Route path="/surveys" element={<HomePage page={<SurveyPage/>} title ="Survey Result"/>} exact/>
                 <Route path="/login" element={<LoginPage/>} exact/>
                 <Route path="/signup" element={<SignupPage/>} exact/>
-                <Route path="/editprofile" element={<CreateProfilePage/>} exact/>
-                <Route path="*" element={<NotFoundPage/>} exact/>
-                <Route path="/settings" element={<SettingsPage/>} exact/>
+                <Route path="/editprofile" element={<HomePage page={<EditProfilePage/>} title ="Edit Profile"/>} exact/>
+                <Route path="*"  element={<HomePage page={<NotFoundPage/>} title ="Page Not Found"/>} exact/>
+                <Route path="/settings" element={<HomePage page={<SettingsPage/>} title ="Settings"/>} exact/>
+                <Route path="/grid" element={<HomePageMasonry title ="Settings"/>} Grid/>
+
             </Routes>
         </BrowserRouter>
     );

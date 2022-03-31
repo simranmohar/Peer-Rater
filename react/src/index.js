@@ -1,14 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import './home.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import authService from "./services/auth";
 
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <App user={authService.getCurrentUser()}/>
   </React.StrictMode>,
   document.getElementById('root')
 );

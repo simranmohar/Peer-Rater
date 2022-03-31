@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {Button, Form} from "react-bootstrap";
 import AuthService from "../services/auth";
 import { useNavigate } from "react-router-dom";

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 
-class NewSurvey extends Component {
+class NewGroup extends Component {
     render() {
-        const surveyStyle = {
+        const groupStyle = {
             list: {
         
                 flexWrap: 'wrap'
@@ -57,17 +57,17 @@ class NewSurvey extends Component {
                 
                 <div className="container" id="main-container">
                     <React.Fragment>
-                        <h2>Creating New Survey:</h2>
-                        <input style={surveyStyle.input} type="text" id="input"/>
-                        <div style={surveyStyle.container}>
+                        <h2>Creating New Group:</h2>
+                        <input style={groupStyle.input} type="text" id="input"/>
+                        <div style={groupStyle.container}>
 
-                            <ul style={surveyStyle.list} id="list">
+                            <ul style={groupStyle.list} id="list">
                             </ul>
                         </div>
-                        <button style={surveyStyle.button} onClick={add_new} type="button" className="btn btn-primary">Add
+                        <button style={groupStyle.button} onClick={add_new} type="button" className="btn btn-primary">Add
                             New Category
                         </button>
-                        <button style={surveyStyle.button} onClick={submit_data} type="button"
+                        <button style={groupStyle.button} onClick={submit_data} type="button"
                                 className="btn btn-primary">Submit
                         </button>
                         <button type="button" onClick={clear_data} className="btn btn-danger">Clear</button>
@@ -83,4 +83,4 @@ class NewSurvey extends Component {
     }
 }
 
-export default NewSurvey;
+export default NewGroup;
