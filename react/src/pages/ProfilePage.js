@@ -30,58 +30,46 @@ const profileStyle = {
 
 }
 
-
 const ProfilePage = () => (
     <>
-        <div id="wrapper">
-            <SideBar/>
-            <div id="content-wrapper" className="d-flex flex-column">
-                <NavBar/>
-                <div className="container" id="main-container">
-                    <React.Fragment>
-                        <div className="page-content page-container" id="page-content">
-                            <div className="padding">
-                                <div className="row container d-flex justify-content-center">
-                                    <div className="col-xl-6 col-md-12">
-                                        <div className="card user-card-full">
-                                            <div className="row m-l-0 m-r-0">
-                                                <div className="col-sm-4 bg-c-lite-green user-profile">
-                                                    <div style={profileStyle.profile}>
+            <div className="page-content page-container" id="page-content">
+                <div className="padding">
+                    <div className="row container d-flex justify-content-center">
+                        <div className="col-xl-6 col-md-12">
+                            <div className="card user-card-full">
+                                <div className="row m-l-0 m-r-0">
+                                    <div className="col-sm-4 bg-c-lite-green user-profile">
+                                        <div style={profileStyle.profile}>
 
-                                                        <img style={profileStyle.images}
-                                                             src={require('../img/blank-profile-picture.png')} alt={"placeholder profile picture"}/>
+                                            <img style={profileStyle.images}
+                                                 src={require('../img/blank-profile-picture.png')} alt={"placeholder profile picture"}/>
 
-                                                        <h6>John Doe</h6>
-                                                    </div>
+                                            <h6>John Doe</h6>
+                                        </div>
+                                    </div>
+                                    <div style={profileStyle.card} className="col-sm-8">
+                                        <div className="card-block">
+                                            <h6 className="m-b-20 p-b-5 b-b-default f-w-600">Information</h6>
+                                            <div className="row">
+                                                <div className="col-sm-6">
+                                                    <p className="m-b-10 f-w-600">Email</p>
+                                                    <h6 className="text-muted f-w-400">jdoe@gmail.com</h6>
                                                 </div>
-                                                <div style={profileStyle.card} className="col-sm-8">
-                                                    <div className="card-block">
-                                                        <h6 className="m-b-20 p-b-5 b-b-default f-w-600">Information</h6>
-                                                        <div className="row">
-                                                            <div className="col-sm-6">
-                                                                <p className="m-b-10 f-w-600">Email</p>
-                                                                <h6 className="text-muted f-w-400">jdoe@gmail.com</h6>
-                                                            </div>
-                                                            <div className="col-sm-6">
-                                                                <p className="m-b-10 f-w-600">Age</p>
-                                                                <h6 className="text-muted f-w-400">24</h6>
-                                                            </div>
-                                                        </div>
-
-
-                                                    </div>
+                                                <div className="col-sm-6">
+                                                    <p className="m-b-10 f-w-600">Age</p>
+                                                    <h6 className="text-muted f-w-400">24</h6>
                                                 </div>
                                             </div>
+
+
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </React.Fragment>
+                    </div>
                 </div>
-                <Footer/>
             </div>
-        </div>
     </>
 );
 

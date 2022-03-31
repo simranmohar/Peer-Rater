@@ -99,4 +99,70 @@ class PeerGroupController extends Controller
             'message' => 'Successfully deleted peer group!'
         ]);
     }
+
+    /**
+     * attach a exsiting user to a peer group.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function attach(Request $request, PeerGroup $peerGroup)
+    {
+        $request->validate([
+            'user_id' => 'required'
+        ]);
+        $request_user_id = $request->input('user_id');
+        $user = User::where('id', $request_user_id)->first();
+        if (empty($user)) {
+            return response()->json([
+                'message' => 'Error, User not exsits!',
+            ]);
+        } else {
+            if ($peerGroup->users()->get()->contains($user->id)) {
+                return response()->json([
+                    'message' => 'Error, User has already added to this peer group',
+                    'peerGroup' => $peerGroup->users()->get()
+                ]);
+            } else {
+                $peerGroup->users()->attach($user);
+                return response()->json([
+                    'message' => 'Success, User is added to peer group',
+                    'peerGroup' => $peerGroup->users()->get()
+                ]);
+            } 
+        }
+    }
+
+    /**
+     * detach a exsiting user to a peer group.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function detach(Request $request, PeerGroup $peerGroup)
+    {
+        $request->validate([
+            'user_id' => 'required'
+        ]);
+        $request_user_id = $request->input('user_id');
+        $user = User::where('id', $request_user_id)->first();
+        if (empty($user)) {
+            return response()->json([
+                'message' => 'User not exsits!',
+            ]);
+        } else {
+             if ($peerGroup->users()->get()->contains($user->id)) {
+                $peerGroup->users()->detach($user);
+                return response()->json([
+                    'message' => 'Success, User is detached from peer group',
+                    'peerGroup' => $peerGroup->users()->get()
+                ]);
+            } else {
+                return response()->json([
+                    'message' => 'Error, User does not exsit in peer group',
+                    'peerGroup' => $peerGroup->users()->get()
+                ]);
+            }
+        }
+    }
 }

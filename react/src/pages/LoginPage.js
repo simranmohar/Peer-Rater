@@ -29,12 +29,11 @@ const LoginPage = () => (
                                     <hr/>
                                     <div className="text-center mb-2">
 
-                                        <a className="sign-up-link"><Link to="/forgotpassword">Forgot Password?</Link></a>
+                                        <Link to="/forgotpassword" className="sign-up-link">Forgot Password?</Link>
                                     </div>
                                     <div className="text-center">
                                         <p className="text-muted dont-have-account-message">Don't have an
-                                            account? <a
-                                                className="sign-up-link"><Link to="/signup">Sign up</Link></a></p>
+                                            account? <Link to="/signup" className="sign-up-link">Sign up</Link></p>
                                     </div>
                                 </div>
                             </div>

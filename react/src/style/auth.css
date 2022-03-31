@@ -1,14 +1,3 @@
-body {
-  height: 100%;
-    width: 100%;
-    overflow-y:hidden;
-    overflow-x:hidden;
-}
-
-#root {
-    height: 100vh;
-}
-
 .login-button {
     border-radius: 10rem;
     padding: .75rem 1rem;
@@ -44,6 +33,15 @@ body {
 .bg-image-createProfile {
     background: url("../img/background3.png") center;
     background-size: cover;
+}
+
+.failure-message {
+    font-family: 'Roboto', serif;
+    font-style: normal;
+    font-size: 15px;
+    /* identical to box height, or 31px */
+    color: #dc3545;
+    text-align: left;
 }
 
 
@@ -157,4 +155,3 @@ body {
     line-height: 140%;
     color: #7B809A;
 }
-
