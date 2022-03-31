@@ -172,7 +172,7 @@ function HomePage({page, title})  {
                         <Paper elevation={12} sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
                             {page}
                         </Paper>
-                        <Container><Footer/></Container>
+                        <Container style={{position: "fixed", bottom: 0}}><Footer/></Container>
                     </Container>
                 </Box>
             </Box>
