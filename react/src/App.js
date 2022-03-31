@@ -22,6 +22,8 @@ import LoginPage from "./pages/LoginPage";
 import Groups from "./components/Groups";
 import EditProfilePage from "./pages/EditProfilePage";
 import People from "./components/People";
+import SurveyResults from "./components/SurveyResults";
+import SurveyPage from "./pages/SurveyPage";
 
 function App() {
     return (
@@ -33,6 +35,7 @@ function App() {
                 <Route path="/newsurvey" element={<HomePage page={<NewSurveyPage/>} title ="New Survey"/>} exact/>
                 <Route path="/newgroup" element={<HomePage page={<NewGroupPage/>} title ="New Group"/>} exact/>
                 <Route path="/groups" element={<HomePage page={<Groups/>} title ="Groups"/>} exact/>
+                <Route path="/surveys" element={<HomePage page={<SurveyPage/>} title ="Survey Result"/>} exact/>
                 <Route path="/login" element={<LoginPage/>} exact/>
                 <Route path="/signup" element={<SignupPage/>} exact/>
                 <Route path="/editprofile" element={<HomePage page={<EditProfilePage/>} title ="Edit Profile"/>} exact/>

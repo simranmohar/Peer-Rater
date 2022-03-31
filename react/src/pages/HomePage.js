@@ -73,7 +73,7 @@ export const mainListItems = (
             </ListItemIcon>
             <ListItemTextWhite primary = "Groups"/>
         </ListItemButton>
-        <ListItemButton component={Link} to="/newsurvey">
+        <ListItemButton component={Link} to="/surveys">
             <ListItemIcon>
                 <PeopleIcon />
             </ListItemIcon>
