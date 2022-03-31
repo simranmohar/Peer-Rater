@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {Button, Form} from "react-bootstrap";
 
 class NewSurvey extends Component {
+
     render() {
 
         const surveyStyle = {
@@ -19,9 +20,9 @@ class NewSurvey extends Component {
                 margin: '10px'
             },
             input: {
-                width: '100%',
+                width: '50%',
                 margin: '2px'
-            }
+            },
         }
 
         //Some helper functions for page functionality
@@ -41,26 +42,47 @@ class NewSurvey extends Component {
             //must be connected to database
             document.getElementById("input").value = "";
             document.getElementById("list").innerHTML = "";
-
-
+            document.getElementById("name").value = "";
         }
 
         function clear_data() {
             document.getElementById("input").value = "";
             document.getElementById("list").innerHTML = "";
+            document.getElementById("name").value = "";
         }
+
+        function populate(id){
+            // var name = document.getElementById(id).innerHTML;
+            // document.getElementById("dropdownMenuLink").innerHTML = name;
+            console.log(id)
+
+        }
+        
 
 
      
         return (
             <div id="wrapper">
            
-            <div id="content-wrapper" className="d-flex flex-column">
-                
-                <div className="container" id="main-container">
-                    <React.Fragment>
-                        <h2>Creating New Survey:</h2>
+                        <div id="content-wrapper" className="d-flex flex-column">
+                            
+                            <div className="container" id="main-container">
+                                <React.Fragment>
+                                    <h2>Creating New Survey:</h2>
+                                    <div class="dropdown show">
+                        <a class="btn btn-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Peer Groups 
+                        </a>
+
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        <a class="dropdown-item" href="#" id="COMP-3717" onClick={() => populate(this.id)}>COMP 3717</a>
+                        <a class="dropdown-item" href="#" id="COMP-3760" onClick={() => populate(this.id)}>COMP 3760</a>
+                        <a class="dropdown-item" href="#" id="COMP-3522" onClick={() => populate(this.id)}>COMP 3522</a>
+                        </div>
+                        </div>
+                        <input style={surveyStyle.input} type="text" id="name"/> <br/>
                         <input style={surveyStyle.input} type="text" id="input"/>
+        
                         <div style={surveyStyle.container}>
 
                             <ul style={surveyStyle.list} id="list">

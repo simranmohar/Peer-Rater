@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import {Button, Form} from "react-bootstrap";
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
 
 class Survey extends Component {
 
@@ -20,11 +22,14 @@ class Survey extends Component {
 
         },
         button:{
-            width: "75%"
+            width: "50%"
         }
 
     }
         return (
+            <React.Fragment>
+            <CardContent>
+            
             <div style={surveyStyle.main}>
                 <h1>Milestone 1</h1>
                 <ul style={surveyStyle.list}>
@@ -53,7 +58,7 @@ class Survey extends Component {
                
                <div> 
                <label style={surveyStyle.radio} class="radio-inline">
-                     Category 1
+                     Category 2
                </label>
 
                 <input name = "drone" style={surveyStyle.radio} type="radio"></input>
@@ -73,7 +78,7 @@ class Survey extends Component {
                
                <div> 
                <label style={surveyStyle.radio} class="radio-inline">
-                     Category 1
+                     Category 3
                </label>
 
                 <input name = "drone" style={surveyStyle.radio} type="radio"></input>
@@ -93,6 +98,9 @@ class Survey extends Component {
                     Submit
             </Button>
             </div>
+            </CardContent>
+            </React.Fragment>
+
             
         );
     }
