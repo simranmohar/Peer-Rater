@@ -15,7 +15,7 @@ import ProfilePicture from "../img/avatars/avatar1.png"
 import {Link} from "react-router-dom";
 
 export default function NavbarMenu() {
-    let currentUserName = authService.getCurrentUser();
+    let currentUserName = authService.getCurrentUserFull().name;
     if (!currentUserName){
         currentUserName = "Username"
     }

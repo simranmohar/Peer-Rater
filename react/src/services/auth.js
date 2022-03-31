@@ -50,6 +50,10 @@ const setCurrentUser = () => {
 
 
 const getCurrentUser = () => {
+    return JSON.parse(localStorage.getItem("user"));
+}
+
+const getCurrentUserFull = () => {
     return JSON.parse(localStorage.getItem("currentUser"));
 }
 const authService = {
@@ -57,7 +61,8 @@ const authService = {
     login,
     logout,
     setCurrentUser,
-    getCurrentUser
+    getCurrentUser,
+    getCurrentUserFull
 };
 
 export default authService;
