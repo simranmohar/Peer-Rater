@@ -15,9 +15,11 @@ import ProfilePicture from "../img/avatars/avatar1.png"
 import {Link} from "react-router-dom";
 
 export default function NavbarMenu() {
-    let currentUserName = authService.getCurrentUserFull().name;
+    let currentUserName = authService.getCurrentUserFull()
     if (!currentUserName){
         currentUserName = "Username"
+    }else{
+        currentUserName = currentUserName.name
     }
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
