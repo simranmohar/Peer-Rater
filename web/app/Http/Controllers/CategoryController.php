@@ -71,7 +71,12 @@ class CategoryController extends Controller
            'description' => 'nullable'
         ]);
 
-        $category->update(['description' => $request->input('description')]);
+        $category->update($request->all());
+        
+        if ($request->input('description')) {
+            $category->description = $request->input('description');
+            $category->save();
+        } 
 
         return response()->json([
             'message' => 'Great success! Category updated',
@@ -90,7 +95,7 @@ class CategoryController extends Controller
         $category->delete();
 
         return response()->json([
-            'message' => 'Successfully deleted peer group!'
+            'message' => 'Successfully deleted category!'
         ]);
     }
 }
