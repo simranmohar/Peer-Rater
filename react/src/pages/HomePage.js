@@ -14,60 +14,71 @@ import PeopleIcon from '@mui/icons-material/People';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import LayersIcon from '@mui/icons-material/Layers';
 import Sidebar from "../components/SideBar";
-import {Link} from "react-router-dom";
+import {Link, Outlet} from "react-router-dom";
 
 function ListItemTextWhite({primary}) {
     return (
-        <ListItemText primary={primary} style={{color: "white"}}/>
+        <ListItemText primary={primary}
+            style={
+                {color: "white"}
+            }/>
     )
 }
 
 export const mainListItems = (
     <React.Fragment>
-        <ListItemButton component={Link} to="/">
+        <ListItemButton component={Link}
+            to="/">
             <ListItemIcon>
                 <DashboardIcon/>
             </ListItemIcon>
             <ListItemTextWhite primary="Home"/>
         </ListItemButton>
 
-        <ListItemButton component={Link} to="/groups">
+        <ListItemButton component={Link}
+            to="/groups">
             <ListItemIcon>
                 <ShoppingCartIcon/>
             </ListItemIcon>
             <ListItemTextWhite primary="Groups"/>
         </ListItemButton>
-        <ListItemButton component={Link} to="/surveys">
+        <ListItemButton component={Link}
+            to="/surveys">
             <ListItemIcon>
                 <PeopleIcon/>
             </ListItemIcon>
             <ListItemTextWhite primary="Surveys"/>
         </ListItemButton>
-        <ListItemButton component={Link} to="/privacy">
+        <ListItemButton component={Link}
+            to="/privacy">
             <ListItemIcon>
                 <BarChartIcon/>
             </ListItemIcon>
             <ListItemTextWhite primary="Privacy"/>
         </ListItemButton>
-        <ListItemButton component={Link} to="/editprofile">
+        <ListItemButton component={Link}
+            to="/editprofile">
             <ListItemIcon>
                 <LayersIcon/>
             </ListItemIcon>
             <ListItemTextWhite primary="Profile"/>
         </ListItemButton>
-        <ListItemButton component={Link} to="/newsurvey">
+        <ListItemButton component={Link}
+            to="/newsurvey">
             <ListItemIcon>
                 <LayersIcon/>
             </ListItemIcon>
             <ListItemTextWhite primary="New Survey"/>
         </ListItemButton>
-        <ListItemButton component={Link} to="/settings">
+        <ListItemButton component={Link}
+            to="/settings">
             <ListItemIcon>
                 <LayersIcon/>
             </ListItemIcon>
             <ListItemTextWhite primary="Settings"/>
         </ListItemButton>
-        <ListItemButton component={Link} to="/404">
+        <ListItemButton component={Link}
+            to="/404">
             <ListItemIcon>
                 <LayersIcon/>
             </ListItemIcon>
@@ -78,31 +89,45 @@ export const mainListItems = (
 
 const mdTheme = createTheme();
 
-function HomePage({page, title}) {
+function HomePage({title}) {
     return (
         <ThemeProvider theme={mdTheme}>
-            <Box sx={{display: 'flex'}}>
+            <Box sx={
+                {display: 'flex'}
+            }>
                 <CssBaseline/>
                 <Sidebar/>
-                <Box
-                    component="main"
-                    sx={{
-                        backgroundColor: (theme) =>
-                            theme.palette.mode === 'light'
-                                ? theme.palette.grey[100]
-                                : theme.palette.grey[900],
-                        flexGrow: 1,
-                        height: '100vh',
-                        overflow: 'auto',
-                    }}
-                >
+                <Box component="main"
+                    sx={
+                        {
+                            backgroundColor: (theme) => theme.palette.mode === 'light' ? theme.palette.grey[100] : theme.palette.grey[900],
+                            flexGrow: 1,
+                            height: '100vh',
+                            overflow: 'auto'
+                        }
+                }>
                     <Toolbar/>
-                    <Container maxWidth="false" sx={{mt: 4, mb: 4}}>
-                        <Paper elevation={12} sx={{p: 2, display: 'flex', flexDirection: 'column'}}>
-                            {page}
+                    <Container maxWidth="false"
+                        sx={
+                            {
+                                mt: 4,
+                                mb: 4
+                            }
+                    }>
+                        <Paper elevation={12}
+                            sx={
+                                {
+                                    p: 2,
+                                    display: 'flex',
+                                    flexDirection: 'column'
+                                }
+                        }>
+                            <Outlet/> 
+                       
                         </Paper>
                     </Container>
-                    <Container className={"d-none d-sm-block"} style={{position: "fixed", bottom: 0}}><Footer/></Container>
+
+                    <Footer/>
                 </Box>
             </Box>
         </ThemeProvider>

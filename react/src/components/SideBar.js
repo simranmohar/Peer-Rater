@@ -15,7 +15,6 @@ import MuiDrawer from "@mui/material/Drawer";
 import MenuIcon from "@mui/icons-material/Menu";
 import Typography from "@mui/material/Typography";
 import MuiAppBar from "@mui/material/AppBar";
-import UnauthorizedRedirect from "./UnauthorizedRedirect";
 import NavbarMenu from "./NavbarMenu";
 import ActiveLastBreadcrumb from "./ActiveLastBreadcrumb";
 
@@ -74,8 +73,7 @@ function Sidebar() {
     return (
         <>
             <AppBar position="absolute" open={open}>
-                {/*Used to redirect the user if not logged in*/}
-                {/*<UnauthorizedRedirect/>*/}
+
                 <Toolbar
                     sx={{
                         pr: '24px', // keep right padding when drawer closed
