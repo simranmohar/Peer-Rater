@@ -29,28 +29,15 @@ class SurveyController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'peer_group_id' => 'required',
-            'questions' => 'required',
-            'survey_id' => 'required'
+            'peer_group_id' => 'required'
         ]);
-
+        $categories = Category::with('survey')->where('peer_group_id', $request->input('peer_group_id'))->get();
         $survey = new Survey;
-        $survey->peer_group_id = $request['peer_group_id'];
-        // $survey_id = $survey->id;
-        $categories = array();
+        $survey->peer_group_id = $request->input('peer_group_id');
+        
         $survey->save();
-        forEach($request['questions'] as $description) {
-            $category = new Category;
-            $category->survey_id = $survey->id;
-            $category->peer_group_id = $request['peer_group_id'];
-            $category->description = $description;
-            array_push($categories, $category);
-        }
-        // $survey = Survey::find($survey_id);
-        $survey->categories()->saveMany($categories);
-        // $survey->save();
-        unset($categories);
-
+        // $survey->categories()->saveMany($categories);
+        /* Above commented out for now */
         return response()->json([
             'message' => 'Great success! New survey created',
             'survey' => $survey
