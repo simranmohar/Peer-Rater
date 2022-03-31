@@ -24,6 +24,7 @@ import EditProfilePage from "./pages/EditProfilePage";
 import People from "./components/People";
 import SurveyResults from "./components/SurveyResults";
 import SurveyPage from "./pages/SurveyPage";
+import HomePageMasonry from "./pages/HomePageMasonry";
 
 function App() {
     return (
@@ -41,6 +42,8 @@ function App() {
                 <Route path="/editprofile" element={<HomePage page={<EditProfilePage/>} title ="Edit Profile"/>} exact/>
                 <Route path="*"  element={<HomePage page={<NotFoundPage/>} title ="Page Not Found"/>} exact/>
                 <Route path="/settings" element={<HomePage page={<SettingsPage/>} title ="Settings"/>} exact/>
+                <Route path="/grid" element={<HomePageMasonry title ="Settings"/>} Grid/>
+
             </Routes>
         </BrowserRouter>
     );
