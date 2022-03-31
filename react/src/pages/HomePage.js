@@ -128,7 +128,7 @@ export const mainListItems = (
             </ListItemIcon>
             <ListItemTextWhite primary = "New Survey"/>
         </ListItemButton>
-        <ListItemButton component={Link} to="/settings">
+        <ListItemButton component={Link} to="/newgroup">
             <ListItemIcon>
                 <LayersIcon />
             </ListItemIcon>
