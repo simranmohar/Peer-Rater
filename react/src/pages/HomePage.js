@@ -2,10 +2,10 @@
 // import Box from '@mui/material/Box';
 // import Paper from '@mui/material/Paper';
 // import Grid from '@mui/material/Grid';
-// import Footer from "../components/Footer";
+import Footer from "../components/Footer";
 // import SideBar from "../components/SideBar";
 // import NavBar from "../components/NavBar";
-// import ActiveLastBreadcrumb from "../components/ActiveLastBreadcrumb";
+import ActiveLastBreadcrumb from "../components/ActiveLastBreadcrumb";
 // import {Container, Stack} from "@mui/material";
 // import Typography from "@mui/material/Typography";
 //
@@ -97,13 +97,14 @@ export const mainListItems = (
             </ListItemIcon>
             <ListItemTextWhite primary = "Home"/>
         </ListItemButton>
+
         <ListItemButton>
             <ListItemIcon>
                 <ShoppingCartIcon />
             </ListItemIcon>
             <ListItemTextWhite primary = "Groups"/>
         </ListItemButton>
-        <ListItemButton>
+        <ListItemButton href='/newsurvey'>
             <ListItemIcon>
                 <PeopleIcon />
             </ListItemIcon>
@@ -144,7 +145,7 @@ export const mainListItems = (
 
 const mdTheme = createTheme();
 
-function DashboardContent() {
+function HomePage({page, title})  {
 
     return (
         <ThemeProvider theme={mdTheme}>
@@ -164,27 +165,14 @@ function DashboardContent() {
                     }}
                 >
                     <Toolbar />
+                    <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
+                    <ActiveLastBreadcrumb/>
+                    </Paper>
                     <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-                        <Grid container spacing={3}>
-                            {/* Chart */}
-                            <Grid item xs={12} md={8} lg={9}>
-
-
-                            </Grid>
-                            {/* Recent Deposits */}
-                            <Grid item xs={12} md={4} lg={3}>
-                                <Paper>
-
-                                </Paper>
-                            </Grid>
-                            {/* Recent Orders */}
-                            <Grid item xs={12}>
-                                <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-
-                                </Paper>
-                            </Grid>
-                        </Grid>
-                        <Copyright sx={{ pt: 4 }} />
+                        <Paper elevation={12} sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
+                            {page}
+                        </Paper>
+                        <Container><Footer/></Container>
                     </Container>
                 </Box>
             </Box>
@@ -192,6 +180,4 @@ function DashboardContent() {
     );
 }
 
-export default function Dashboard() {
-    return <DashboardContent />;
-}
+export default HomePage;
