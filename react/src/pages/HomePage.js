@@ -1,93 +1,197 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import Paper from '@mui/material/Paper';
-import Grid from '@mui/material/Grid';
-import Footer from "../components/Footer";
-import SideBar from "../components/SideBar";
-import NavBar from "../components/NavBar";
-import ActiveLastBreadcrumb from "../components/ActiveLastBreadcrumb";
-import {Container, Stack} from "@mui/material";
-import Typography from "@mui/material/Typography";
+// import * as React from 'react';
+// import Box from '@mui/material/Box';
+// import Paper from '@mui/material/Paper';
+// import Grid from '@mui/material/Grid';
+// import Footer from "../components/Footer";
+// import SideBar from "../components/SideBar";
+// import NavBar from "../components/NavBar";
+// import ActiveLastBreadcrumb from "../components/ActiveLastBreadcrumb";
+// import {Container, Stack} from "@mui/material";
+// import Typography from "@mui/material/Typography";
+//
+// function HomePage({page, title}) {
+//     return (
+//         <>
+//             <Box sx={{flex: 1}} >
+//                 <Grid container spacing={0} >
+//                     <Grid item xs="2" zeroMinWidth>
+//                         <Box item style={{minHeight: '100vh', overflow: "hidden"}}><SideBar/></Box>
+//                     </Grid>
+//                     <Grid item zeroMinWidth style={{width: "82vw"}}>
+//                         <Stack>
+//                             <NavBar/>
+//                             <Container maxWidth="false">
+//                                 <ActiveLastBreadcrumb/>
+//                                 <Typography variant="h4" sx={{mt: 1}}>{title}</Typography>
+//                             <Paper elevation={12} sx={{mt: 1, padding: 3, marginBottom: "20px"}}>{page}</Paper>
+//                             <Container><Footer/></Container>
+//                             </Container>
+//                         </Stack>
+//                     </Grid>
+//                 </Grid>
+//             </Box>
+//         </>
+//     );
+// }
+//
+//
+// export default HomePage;
 
-function HomePage({page, title}) {
+
+import * as React from 'react';
+import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+import MuiDrawer from '@mui/material/Drawer';
+import Box from '@mui/material/Box';
+import MuiAppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import List from '@mui/material/List';
+import Typography from '@mui/material/Typography';
+import Divider from '@mui/material/Divider';
+import IconButton from '@mui/material/IconButton';
+import Badge from '@mui/material/Badge';
+import Container from '@mui/material/Container';
+import Grid from '@mui/material/Grid';
+import Paper from '@mui/material/Paper';
+import Link from '@mui/material/Link';
+import MenuIcon from '@mui/icons-material/Menu';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import NotificationsIcon from '@mui/icons-material/Notifications';
+import {ListItemButton, ListItemIcon} from "@mui/material";
+import ListItemText from '@mui/material/ListItemText';
+import ListSubheader from '@mui/material/ListSubheader';
+import DashboardIcon from '@mui/icons-material/Dashboard';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import PeopleIcon from '@mui/icons-material/People';
+import BarChartIcon from '@mui/icons-material/BarChart';
+import LayersIcon from '@mui/icons-material/Layers';
+import AssignmentIcon from '@mui/icons-material/Assignment';
+import Sidebar from "../components/SideBar";
+
+
+function Copyright(props) {
     return (
-        <>
-            <Box sx={{flex: 1}} >
-                <Grid container spacing={0} >
-                    <Grid item xs="2" zeroMinWidth>
-                        <Box item style={{minHeight: '100vh', overflow: "hidden"}}><SideBar/></Box>
-                    </Grid>
-                    <Grid item zeroMinWidth style={{width: "82vw"}}>
-                        <Stack>
-                            <NavBar/>
-                            <Container maxWidth="false">
-                                <ActiveLastBreadcrumb/>
-                                <Typography variant="h4" sx={{mt: 1}}>{title}</Typography>
-                            <Paper elevation={12} sx={{mt: 1, padding: 3, marginBottom: "20px"}}>{page}</Paper>
-                            <Container><Footer/></Container>
-                            </Container>
-                        </Stack>
-                    </Grid>
-                </Grid>
-            </Box>
-        </>
+        <Typography variant="body2" color="text.secondary" align="center" {...props}>
+            {'Copyright © '}
+            <Link color="inherit" href="https://mui.com/">
+                Your Website
+            </Link>{' '}
+            {new Date().getFullYear()}
+            {'.'}
+        </Typography>
     );
 }
 
 
-export default HomePage;
-//
-// const HomePage = ({page, title}) => (
-//     <>
-//         <div className="container-fluid">
-//             ...
-//         </div>
-//         <div id="wrapper">
-//             <SideBar />
-//             <div id="content-wrapper" className="d-flex flex-column">
-//                 <NavBar />
-//                 <div className="container" id="main-container">
-//
-//                 <React.Fragment>
-//         <div className="">
-//             <AiFillHome />
-//             <h1 className="display-4">Home</h1>
-//         </div>
-//                     {page}
-//         {/*<div class="container">*/}
-//         {/*    <div class="row">*/}
-//         {/*        <div class="col-sm-3">*/}
-//         {/*            <div class="card">*/}
-//         {/*                <img src={require('../img/blank-profile-picture.png')} />*/}
-//         {/*                <h4><b>COMP 3975</b></h4>*/}
-//         {/*                <h4><b>John Doe</b></h4>*/}
-//         {/*                <p>Architect & Engineer</p>*/}
-//         {/*            </div>*/}
-//         {/*        </div>*/}
-//         {/*        <div class="col-sm-3">*/}
-//         {/*            <div class="card">*/}
-//         {/*                <img src={require('../img/blank-profile-picture.png')} />*/}
-//         {/*                <h4><b>COMP 3717</b></h4>*/}
-//         {/*                <h4><b>John Doe2</b></h4>*/}
-//         {/*                <p>Architect & Engineer</p>*/}
-//         {/*            </div>*/}
-//         {/*        </div>*/}
-//         {/*        <div class="col-sm-3">*/}
-//         {/*            <div class="card">*/}
-//         {/*                <img src={require('../img/blank-profile-picture.png')} />*/}
-//         {/*                <h4><b>COMP 3522</b></h4>*/}
-//         {/*                <h4><b>John Doe3</b></h4>*/}
-//         {/*                <p>Architect & Engineer</p>*/}
-//         {/*            </div>*/}
-//         {/*        </div>*/}
-//         {/*    </div>*/}
-//         {/*</div>*/}
-//     </React.Fragment>
-//                 </div>
-//                 <Footer />
-//             </div>
-//         </div>
-//     </>
-// );
-//
-// export default HomePage;
+function ListItemTextWhite ({primary}) {
+    return (
+        <ListItemText primary={primary} style={{color: "white"}}/>
+)
+}
+
+export const mainListItems = (
+    <React.Fragment>
+        <ListItemButton>
+            <ListItemIcon>
+                <DashboardIcon />
+            </ListItemIcon>
+            <ListItemTextWhite primary = "Home"/>
+        </ListItemButton>
+        <ListItemButton>
+            <ListItemIcon>
+                <ShoppingCartIcon />
+            </ListItemIcon>
+            <ListItemTextWhite primary = "Groups"/>
+        </ListItemButton>
+        <ListItemButton>
+            <ListItemIcon>
+                <PeopleIcon />
+            </ListItemIcon>
+            <ListItemTextWhite primary = "Surveys"/>
+        </ListItemButton>
+        <ListItemButton>
+            <ListItemIcon>
+                <BarChartIcon />
+            </ListItemIcon>
+            <ListItemTextWhite primary = "Privacy"/>
+        </ListItemButton>
+        <ListItemButton>
+            <ListItemIcon>
+                <LayersIcon />
+            </ListItemIcon>
+            <ListItemTextWhite primary = "Profile"/>
+        </ListItemButton>
+        <ListItemButton>
+            <ListItemIcon>
+                <LayersIcon />
+            </ListItemIcon>
+            <ListItemTextWhite primary = "New Survey"/>
+        </ListItemButton>
+        <ListItemButton>
+            <ListItemIcon>
+                <LayersIcon />
+            </ListItemIcon>
+            <ListItemTextWhite primary = "Settings"/>
+        </ListItemButton>
+        <ListItemButton>
+            <ListItemIcon>
+                <LayersIcon />
+            </ListItemIcon>
+            <ListItemTextWhite primary = "404"/>
+        </ListItemButton>
+    </React.Fragment>
+);
+
+const mdTheme = createTheme();
+
+function DashboardContent() {
+
+    return (
+        <ThemeProvider theme={mdTheme}>
+            <Box sx={{ display: 'flex' }}>
+                <CssBaseline />
+               <Sidebar/>
+                <Box
+                    component="main"
+                    sx={{
+                        backgroundColor: (theme) =>
+                            theme.palette.mode === 'light'
+                                ? theme.palette.grey[100]
+                                : theme.palette.grey[900],
+                        flexGrow: 1,
+                        height: '100vh',
+                        overflow: 'auto',
+                    }}
+                >
+                    <Toolbar />
+                    <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+                        <Grid container spacing={3}>
+                            {/* Chart */}
+                            <Grid item xs={12} md={8} lg={9}>
+
+
+                            </Grid>
+                            {/* Recent Deposits */}
+                            <Grid item xs={12} md={4} lg={3}>
+                                <Paper>
+
+                                </Paper>
+                            </Grid>
+                            {/* Recent Orders */}
+                            <Grid item xs={12}>
+                                <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
+
+                                </Paper>
+                            </Grid>
+                        </Grid>
+                        <Copyright sx={{ pt: 4 }} />
+                    </Container>
+                </Box>
+            </Box>
+        </ThemeProvider>
+    );
+}
+
+export default function Dashboard() {
+    return <DashboardContent />;
+}
