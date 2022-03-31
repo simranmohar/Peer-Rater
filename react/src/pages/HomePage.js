@@ -132,6 +132,12 @@ export const mainListItems = (
             <ListItemIcon>
                 <LayersIcon />
             </ListItemIcon>
+            <ListItemTextWhite primary = "New Group"/>
+        </ListItemButton>
+        <ListItemButton>
+            <ListItemIcon>
+                <LayersIcon />
+            </ListItemIcon>
             <ListItemTextWhite primary = "Settings"/>
         </ListItemButton>
         <ListItemButton>
