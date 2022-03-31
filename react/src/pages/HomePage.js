@@ -134,7 +134,7 @@ export const mainListItems = (
             </ListItemIcon>
             <ListItemTextWhite primary = "Settings"/>
         </ListItemButton>
-        <ListItemButton>
+        <ListItemButton component={Link} to="/404">
             <ListItemIcon>
                 <LayersIcon />
             </ListItemIcon>
