@@ -53,7 +53,6 @@ import Badge from '@mui/material/Badge';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-import Link from '@mui/material/Link';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
@@ -67,6 +66,7 @@ import BarChartIcon from '@mui/icons-material/BarChart';
 import LayersIcon from '@mui/icons-material/Layers';
 import AssignmentIcon from '@mui/icons-material/Assignment';
 import Sidebar from "../components/SideBar";
+import {Link} from "react-router-dom";
 
 
 function Copyright(props) {
@@ -104,7 +104,7 @@ export const mainListItems = (
             </ListItemIcon>
             <ListItemTextWhite primary = "Groups"/>
         </ListItemButton>
-        <ListItemButton href='/newsurvey'>
+        <ListItemButton component={Link} to="/newsurvey">
             <ListItemIcon>
                 <PeopleIcon />
             </ListItemIcon>
