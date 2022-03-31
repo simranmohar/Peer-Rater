@@ -50,12 +50,12 @@ class CategoryController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\PeerGroup  $peerGroup
+     * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function show(PeerGroup $peerGroup)
+    public function show(Category $category)
     {
-        return $peerGroup;
+        return $category;
     }
 
     /**
@@ -71,7 +71,7 @@ class CategoryController extends Controller
            'description' => 'nullable'
         ]);
 
-        $category->update($request->all());
+        $category->update(['description' => $request->input('description')]);
 
         return response()->json([
             'message' => 'Great success! Category updated',
