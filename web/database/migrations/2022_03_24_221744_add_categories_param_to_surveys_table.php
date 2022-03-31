@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('surveys', function (Blueprint $table) {
             $table->id();
             $table->foreignId('peer_group_id')->constrained()->cascadeOnDelete();
-            $table->json('categories');
+            $table->json('categories')->nullable();
             $table->timestamps();
         });
     }
