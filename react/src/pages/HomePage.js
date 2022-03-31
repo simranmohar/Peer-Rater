@@ -92,50 +92,50 @@ function ListItemTextWhite ({primary}) {
 export const mainListItems = (
     <React.Fragment>
         <ListItemButton component={Link} to="/">
-            <ListItemIcon style={{color: "white"}}>
+            <ListItemIcon>
                 <DashboardIcon />
             </ListItemIcon>
             <ListItemTextWhite primary = "Home"/>
         </ListItemButton>
 
         <ListItemButton component={Link} to="/groups">
-            <ListItemIcon style={{color: "white"}}>
+            <ListItemIcon>
                 <ShoppingCartIcon />
             </ListItemIcon>
             <ListItemTextWhite primary = "Groups"/>
         </ListItemButton>
         <ListItemButton component={Link} to="/newsurvey">
-            <ListItemIcon style={{color: "white"}}>
+            <ListItemIcon>
                 <PeopleIcon />
             </ListItemIcon>
             <ListItemTextWhite primary = "Surveys"/>
         </ListItemButton>
         <ListItemButton component={Link} to="/privacy">
-            <ListItemIcon style={{color: "white"}}>
+            <ListItemIcon>
                 <BarChartIcon />
             </ListItemIcon>
             <ListItemTextWhite primary = "Privacy"/>
         </ListItemButton>
         <ListItemButton component={Link} to="/editprofile">
-            <ListItemIcon style={{color: "white"}}>
+            <ListItemIcon>
                 <LayersIcon />
             </ListItemIcon>
             <ListItemTextWhite primary = "Profile"/>
         </ListItemButton>
         <ListItemButton component={Link} to="/newsurvey">
-            <ListItemIcon style={{color: "white"}}>
+            <ListItemIcon>
                 <LayersIcon />
             </ListItemIcon>
             <ListItemTextWhite primary = "New Survey"/>
         </ListItemButton>
         <ListItemButton component={Link} to="/settings">
-            <ListItemIcon style={{color: "white"}}>
+            <ListItemIcon>
                 <LayersIcon />
             </ListItemIcon>
             <ListItemTextWhite primary = "Settings"/>
         </ListItemButton>
         <ListItemButton>
-            <ListItemIcon style={{color: "white"}}>
+            <ListItemIcon>
                 <LayersIcon />
             </ListItemIcon>
             <ListItemTextWhite primary = "404"/>

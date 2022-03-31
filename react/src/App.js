@@ -10,6 +10,7 @@ import PrivacyPage from './pages/PrivacyPage';
 import NotFoundPage from './pages/NotFoundPage';
 import ProfilePage from './pages/ProfilePage';
 import NewSurveyPage from './pages/NewSurveyPage';
+import NewGroupPage from './pages/NewGroupPage';
 import SettingsPage from './pages/SettingsPage';
 // Routing stuff
 import {
@@ -30,6 +31,7 @@ function App() {
                 <Route path="/privacy" element={<HomePage page={<PrivacyPage/>} title ="Privacy"/>} exact/>
                 <Route path="/profile" element={<HomePage page={<ProfilePage/>} title ="Profile"/>} exact/>
                 <Route path="/newsurvey" element={<HomePage page={<NewSurveyPage/>} title ="New Survey"/>} exact/>
+                <Route path="/newgroup" element={<HomePage page={<NewGroupPage/>} title ="New Group"/>} exact/>
                 <Route path="/groups" element={<HomePage page={<Groups/>} title ="Groups"/>} exact/>
                 <Route path="/login" element={<LoginPage/>} exact/>
                 <Route path="/signup" element={<SignupPage/>} exact/>
