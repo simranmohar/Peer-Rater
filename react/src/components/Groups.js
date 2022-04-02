@@ -8,6 +8,7 @@ import avatar1 from '../img/avatars/avatar1.png'
 import avatar2 from '../img/avatars/avatar2.png'
 import avatar3 from '../img/avatars/avatar3.png'
 import avatar4 from '../img/avatars/avatar4.png'
+import Paper from "@mui/material/Paper";
 
 function createData(group, participants, finalEvaluation) {
     return {group, participants, finalEvaluation };
@@ -141,7 +142,8 @@ export default function Groups() {
     };
 
     return (
-        <Root sx={{ width: '100%', overflow: 'hidden' }}>
+        <Root sx={{ width: '100%'}}>
+            <Paper elevation={12} sx={{p: 2, display: 'flex', flexDirection: 'column'}}>
             <table aria-label="custom pagination table">
                 <thead>
                 <tr>
@@ -214,6 +216,7 @@ export default function Groups() {
                 </tr>
                 </tfoot>
             </table>
+            </Paper>
         </Root>
     );
 }

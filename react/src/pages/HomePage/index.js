@@ -114,17 +114,7 @@ function HomePage({title}) {
                                 mb: 4
                             }
                     }>
-                        <Paper elevation={12}
-                            sx={
-                                {
-                                    p: 2,
-                                    display: 'flex',
-                                    flexDirection: 'column'
-                                }
-                        }>
-                            <Outlet/> 
-                       
-                        </Paper>
+                        <Outlet/>
                     </Container>
 
                     <Footer/>
