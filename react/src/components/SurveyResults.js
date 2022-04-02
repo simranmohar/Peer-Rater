@@ -13,7 +13,7 @@ function SurveyCard(survey){
     const [surveys, setNewSurveys] = useState('')
     useEffect(() => {
         const fetchData = async () => {
-            const result = await fetch(`http://praterlaravel.azurewebsites.net/api/peer-groups/${survey.id}`);
+            const result = await fetch(`http://praterlaravel.azurewebsites.net/api/peer-groups/${survey.peer_group_id}`);
             const body = await result.json();
             setNewSurveys(body);
         }
