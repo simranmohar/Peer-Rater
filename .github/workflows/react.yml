@@ -9,7 +9,7 @@ on:
       - '*'
 defaults:
   run:
-    working-directory: ./react
+    working-directory: ./
 env:
   NODE_VERSION: '17'                # set this to the node version to use
   CI: false
@@ -29,7 +29,7 @@ jobs:
       run: |
         # Build and test the project, then
         # deploy to Azure Web App.
-        # cd react
+        cd react
         npm install
         npm run build
       working-directory: ./react
