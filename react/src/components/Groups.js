@@ -8,11 +8,12 @@ import avatar1 from '../img/avatars/avatar1.png'
 import avatar2 from '../img/avatars/avatar2.png'
 import avatar3 from '../img/avatars/avatar3.png'
 import avatar4 from '../img/avatars/avatar4.png'
-import Paper from "@mui/material/Paper";
+import NewGroup from "./NewGroup";
 
 function createData(group, participants, finalEvaluation) {
     return {group, participants, finalEvaluation };
 }
+
 
 const rows = [
     createData('COMP 3975', 17, 83.8),
@@ -143,6 +144,7 @@ export default function Groups() {
 
     return (
         <Root sx={{ width: '100%'}}>
+            <NewGroup/>
             <table aria-label="custom pagination table">
                 <thead>
                 <tr>

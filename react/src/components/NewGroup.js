@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import api from "../services/api";
 
 class NewGroup extends Component {
     render() {
@@ -22,62 +23,61 @@ class NewGroup extends Component {
             }
         }
 
-        //Some helper functions for page functionality
-        function add_new() {
-            var ul = document.getElementById("list");
-            var li = document.createElement("li");
-            var input = document.getElementById("input").value;
-            if (input !== "") {
-                li.appendChild(document.createTextNode(input));
-                ul.appendChild(li);
-            }
-
-            document.getElementById("input").value = "";
-        }
+        // //Some helper functions for page functionality
+        // function add_new() {
+        //     var ul = document.getElementById("list");
+        //     var li = document.createElement("li");
+        //     var input = document.getElementById("input").value;
+        //     if (input !== "") {
+        //         li.appendChild(document.createTextNode(input));
+        //         ul.appendChild(li);
+        //     }
+        //
+        //     document.getElementById("input").value = "";
+        // }
 
         function submit_data() {
+            const user = JSON.parse(localStorage.getItem("user"));
+            api.addPeerGroup(document.getElementById("input").value).then(r => {
+                console.log(r)
+            })
             //must be connected to database
             document.getElementById("input").value = "";
-            document.getElementById("list").innerHTML = "";
-
+            // document.getElementById("list").innerHTML = "";
 
         }
 
-        function clear_data() {
-            document.getElementById("input").value = "";
-            document.getElementById("list").innerHTML = "";
-        }
+        // function clear_data() {
+        //     document.getElementById("input").value = "";
+        //     document.getElementById("list").innerHTML = "";
+        // }
 
 
-     
         return (
-            <div id="wrapper">
-           
-            <div id="content-wrapper" className="d-flex flex-column">
-                
-                <div className="container" id="main-container">
+            // <div id="wrapper">
+            // <div id="content-wrapper" className="d-flex flex-column">
+            //     <div className="container" id="main-container">
                     <React.Fragment>
-                        <h2>Creating New Group:</h2>
+                        <h2>Add New Peer Group</h2>
+                        <div className="d-flex">
                         <input style={groupStyle.input} type="text" id="input"/>
-                        <div style={groupStyle.container}>
-
-                            <ul style={groupStyle.list} id="list">
-                            </ul>
-                        </div>
-                        <button style={groupStyle.button} onClick={add_new} type="button" className="btn btn-primary">Add
-                            New Category
-                        </button>
+                        {/*<div style={groupStyle.container}>*/}
+                        {/*    <ul style={groupStyle.list} id="list">*/}
+                        {/*    </ul>*/}
+                        {/*</div>*/}
+                        {/*<button style={groupStyle.button} onClick={add_new} type="button" className="btn btn-primary">Add*/}
+                        {/*    New Category*/}
+                        {/*</button>*/}
                         <button style={groupStyle.button} onClick={submit_data} type="button"
                                 className="btn btn-primary">Submit
                         </button>
-                        <button type="button" onClick={clear_data} className="btn btn-danger">Clear</button>
+                        {/*<button type="button" onClick={clear_data} className="btn btn-danger">Clear</button>*/}
+                        </div>
                     </React.Fragment>
+                // </div>
+            // </div>
+        // </div>
 
-                </div>
-               
-            </div>
-        </div>
-        
         
         );
     }
