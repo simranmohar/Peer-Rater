@@ -37,7 +37,6 @@ class NewGroup extends Component {
         // }
 
         function submit_data() {
-            const user = JSON.parse(localStorage.getItem("user"));
             api.addPeerGroup(document.getElementById("input").value).then(r => {
                 console.log(r)
             })

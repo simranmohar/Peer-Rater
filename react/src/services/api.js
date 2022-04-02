@@ -1,13 +1,23 @@
 import axios from "axios";
 import React from "react";
 
-async function addPeerGroup(_description) {
-    try {
-        return await axios.post('/peer-groups', {description: _description});
-    } catch (error) {
-        return error
+
+
+const addPeerGroup = (_description) => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (user) {
+        return axios.post('/peer-groups', {description: _description}).then((response) => {
+            if (response.data) {
+                localStorage.setItem("currentUser", JSON.stringify(response.data));
+            }
+        }).catch((e) => {
+            console.log("Failed to add peer group" + e)
+            return e;
+        })
     }
-}
+};
+
+
 
 async function getPeerGroups() {
 
