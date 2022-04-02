@@ -5,14 +5,25 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import {useEffect, useState} from "react";
 
 
-function card(survey){
+function SurveyCard(survey){
+    survey = survey.survey
+    const [surveys, setNewSurveys] = useState('')
+    useEffect(() => {
+        const fetchData = async () => {
+            const result = await fetch(`http://praterlaravel.azurewebsites.net/api/peer-groups/${survey.id}`);
+            const body = await result.json();
+            setNewSurveys(body);
+        }
+        fetchData();
+    }, []);
     return (
         <React.Fragment>
             <CardContent>
                 <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                    BEHIND THE CURTAIN
+                    {surveys.description}
                 </Typography>
                 <Typography variant="h5" component="div">
                     95%
@@ -34,7 +45,7 @@ function card(survey){
 export default function SurveyResults({survey})  {
     return (
         <Box sx={{ minWidth: 275 }}>
-            <Card variant="outlined">{card(survey={survey})}</Card>
+            <Card variant="outlined">{SurveyCard(survey={survey})}</Card>
         </Box>
     );
 }
