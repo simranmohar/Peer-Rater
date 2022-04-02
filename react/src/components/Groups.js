@@ -143,7 +143,6 @@ export default function Groups() {
 
     return (
         <Root sx={{ width: '100%'}}>
-            <Paper elevation={12} sx={{p: 2, display: 'flex', flexDirection: 'column'}}>
             <table aria-label="custom pagination table">
                 <thead>
                 <tr>
@@ -216,7 +215,6 @@ export default function Groups() {
                 </tr>
                 </tfoot>
             </table>
-            </Paper>
         </Root>
     );
 }
