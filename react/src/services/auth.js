@@ -2,7 +2,7 @@ import axios from "axios";
 import React from "react";
 import authHeader from "./authheader";
 
-const API_URL = "http://127.0.0.1:8000/api";
+const API_URL = "http://praterlaravel.azurewebsites.net/api";
 
 const signup = (email, password, name) => {
     return axios.post(API_URL + "/register", {email, password, name}).then((response) => {
