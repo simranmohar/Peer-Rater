@@ -17,12 +17,11 @@ import {useEffect} from "react";
 
 
 export default function NavbarMenu() {
-    let currentUserName = authService.getCurrentUserFull()
-    if (!currentUserName) {
-        currentUserName = ""
-    } else {
-        currentUserName = currentUserName.name
-    }
+    const [username, setUsername] = React.useState("");
+
+    useEffect(() => {
+        setUsername(authService.getCurrentUserFull().name)
+    },[])
 
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
@@ -33,7 +32,7 @@ export default function NavbarMenu() {
         setAnchorEl(null);
     };
 
-    const handleLogout = e => {
+    const handleLogout = () => {
         authService.logout()
         window.location.href = '/login'
     }
@@ -44,7 +43,7 @@ export default function NavbarMenu() {
             <Box sx={{display: 'flex', alignItems: 'center', textAlign: 'center'}}>
 
                 <Typography className={"d-none d-sm-block"}
-                            sx={{textTransform: "capitalize", marginRight: 1}}>{currentUserName}</Typography>
+                            sx={{textTransform: "capitalize", marginRight: 1}}>{username}</Typography>
                 <Divider className={"d-none d-sm-block"} orientation="vertical"
                          style={{color: "black", height: "32px", width: "1px"}}/>
                 <Tooltip title="Account settings">
@@ -56,7 +55,7 @@ export default function NavbarMenu() {
                         aria-haspopup="true"
                         aria-expanded={open ? 'true' : undefined}
                     >
-                        <Avatar alt={currentUserName} sx={{width: 42, height: 42}} src={ProfilePicture}/>
+                        <Avatar alt={username} sx={{width: 42, height: 42}} src={ProfilePicture}/>
                     </IconButton>
                 </Tooltip>
             </Box>
