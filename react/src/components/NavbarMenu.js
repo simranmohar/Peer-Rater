@@ -33,8 +33,9 @@ export default function NavbarMenu() {
     };
 
     const handleLogout = () => {
-        authService.logout()
-        window.location.href = '/login'
+        authService.logout().then(r => {
+            window.location.href = '/login'
+        });
     }
 
 

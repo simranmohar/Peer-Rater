@@ -1,41 +1,41 @@
 import axios from "axios";
 import React from "react";
-
-const API_URL = "http://praterlaravel.azurewebsites.net/api";
+import {AxiosResponse} from "axios";
 
 const signup = (email, password, name) => {
-    return axios.post(API_URL + "/register", {email, password, name}).then((response) => {
+    return axios.post("/register", {email, password, name}).then((response:AxiosResponse) => {
         if (response.data.access_token) {
             localStorage.setItem("user", JSON.stringify(response.data));
+            axios.defaults.headers.common["authorization"] = `Bearer ${response.data.access_token}`;
         }
         return response.data;
     });
 };
 
 const login = (email, password) => {
-    return axios.post(API_URL + "/login", {email, password}).then((response) => {
+    return axios.post("/login", {email, password}).then((response:AxiosResponse) => {
         if (response.data.access_token) {
             localStorage.setItem("user", JSON.stringify(response.data));
+            axios.defaults.headers.common["authorization"] = `Bearer ${response.data.access_token}`;
         }
         return response.data;
     });
 };
 
 const logout = () => {
-    localStorage.removeItem("user");
-    localStorage.removeItem("currentUser");
+    return axios.post("/logout", null).then((response:AxiosResponse) => {
+        localStorage.removeItem("user");
+        localStorage.removeItem("currentUser");
+        return response.data;
+    });
+
 
 };
 
 const setCurrentUser = () => {
     const user = JSON.parse(localStorage.getItem("user"));
     if (user) {
-        const config = {
-            headers: {
-                Authorization: "Bearer " + user.access_token
-            }
-        }
-        return axios.get(API_URL + "/me", config).then((response) => {
+        return axios.get("/me").then((response) => {
             if (response.data) {
                  localStorage.setItem("currentUser", JSON.stringify(response.data));
             }

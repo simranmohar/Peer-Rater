@@ -29,6 +29,7 @@ import UnauthorizedRedirect from "./components/UnauthorizedRedirect";
 import auth from "./services/auth";
 import SignupPage from "./pages/Auth/SignupPage";
 import LoginPage from "./pages/Auth/LoginPage";
+import axios from "axios";
 
 
 const Page = ({
@@ -40,8 +41,15 @@ const Page = ({
     useEffect(() => (document.title = title));
     // is not private, or is private and current user is present, otherwise redirect.
     let isAllowed = !props.isPrivate || (props.isPrivate && auth.getCurrentUser());
-    
-    return isAllowed ? children : <UnauthorizedRedirect/>;
+
+    if (isAllowed){
+        if (auth.getCurrentUser()){
+            axios.defaults.headers.common["authorization"] = `Bearer ${auth.getCurrentUser().access_token}`;
+        }
+        return children
+    }else {
+       return <UnauthorizedRedirect/>;
+    }
 };
 
 function App() {
@@ -62,13 +70,13 @@ function App() {
                     exact/>
 
                 <Route path="/"
-                    element={<HomePage/>}
+                    element={<Page title="Home" isPrivate><HomePage/></Page>}
                     exact>
 
                     <Route path="/" index
                         element={
                             <Page
-                        title="Home"><Group img="https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2944&q=80"
+                        title="Home" ><Group img="https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2944&q=80"
                         title="COMP 3975" description="Web Scripting Course"/></Page>
                         }/>
                     <Route path="/profile"
