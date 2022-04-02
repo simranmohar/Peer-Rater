@@ -28,7 +28,6 @@ const LoginPage = () => (
                                     <LoginForm/>
                                     <hr/>
                                     <div className="text-center mb-2">
-
                                         <Link to="/forgotpassword" className="sign-up-link">Forgot Password?</Link>
                                     </div>
                                     <div className="text-center">

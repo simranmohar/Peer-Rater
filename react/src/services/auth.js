@@ -1,6 +1,5 @@
 import axios from "axios";
 import React from "react";
-import authHeader from "./authheader";
 
 const API_URL = "http://praterlaravel.azurewebsites.net/api";
 
