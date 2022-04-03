@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import api from "../services/api";
 import Groups from "./Groups";
+import Container from "@mui/material/Container";
+import Paper from "@mui/material/Paper";
 // import { PostPeerGroup } from '../../src/services/modules/index.js'
 
 function NewGroup ({newGroupAdded}) {
     const groupStyle = {
         list: {
-
             flexWrap: 'wrap'
         },
 
@@ -58,8 +59,11 @@ function NewGroup ({newGroupAdded}) {
         // <div id="content-wrapper" className="d-flex flex-column">
         //     <div className="container" id="main-container">
         <React.Fragment>
-            <h2>Add New Peer Group</h2>
-            <div className="d-flex">
+            <h2>Add New Peer Group: </h2>
+
+            <Paper elevation={12} style={{width: "100%", marginBottom: 10, paddingBottom: 10, paddingTop:10}}>
+
+            <div className="d-inline-flex container-fluid">
                 <input style={groupStyle.input} type="text" id="input"/>
                 {/*<div style={groupStyle.container}>*/}
                 {/*    <ul style={groupStyle.list} id="list">*/}
@@ -68,11 +72,12 @@ function NewGroup ({newGroupAdded}) {
                 {/*<button style={groupStyle.button} onClick={add_new} type="button" className="btn btn-primary">Add*/}
                 {/*    New Category*/}
                 {/*</button>*/}
-                <button style={groupStyle.button} onClick={submit_data} type="button"
-                        className="btn btn-primary">Submit
+                <button onClick={submit_data} type="button"
+                        className="btn btn-primary d-inline-flex">Submit
                 </button>
                 {/*<button type="button" onClick={clear_data} className="btn btn-danger">Clear</button>*/}
             </div>
+</Paper>
         </React.Fragment>
         // </div>
         // </div>
