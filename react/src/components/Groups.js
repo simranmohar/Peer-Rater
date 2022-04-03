@@ -11,6 +11,8 @@ import avatar4 from '../img/avatars/avatar4.png'
 import NewGroup from "./NewGroup";
 import {useEffect, useState} from "react";
 import Paper from "@mui/material/Paper";
+import {Link} from "react-router-dom";
+import SurveyPage from "../pages/SurveyPage";
 
 
 
@@ -167,6 +169,7 @@ export default function Groups() {
                 <tr>
                     <th>Group</th>
                     <th>Participants</th>
+                    <th>Surveys</th>
                     <th>Final Evaluation</th>
                 </tr>
                 </thead>
@@ -197,9 +200,13 @@ export default function Groups() {
                                 }
                             />
                         </td>
+                        <td style={{width: "200px", textAlign: "left"}}>
+                            <SurveyPage group={row}/>
+                        </td>
                         <td align="left" style={{width: "200px", textAlign: "left"}}>
                             {100}
                         </td>
+
                     </tr>
                 ))}
 

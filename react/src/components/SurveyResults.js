@@ -10,33 +10,21 @@ import {useEffect, useState} from "react";
 
 function SurveyCard(survey){
     survey = survey.survey
-    const [surveys, setNewSurveys] = useState('')
-    // useEffect(() => {
-    //     const fetchData = async () => {
-    //         const result = await fetch(`http://praterlaravel.azurewebsites.net/api/peer-groups/${survey.peer_group_id}`);
-    //         const body = await result.json();
-    //         setNewSurveys(body);
-    //     }
-    //     fetchData();
-    // }, []);
     return (
         <React.Fragment>
             <CardContent>
-                <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                    {surveys.description}
+                <Typography sx={{ mb: 1.5 }} color="text.secondary">
+                    SURVEY
                 </Typography>
                 <Typography variant="h5" component="div">
                     95%
-                </Typography>
-                <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                    SCORE
                 </Typography>
                 <Typography variant="body2">
                     2/5 responses completed
                 </Typography>
             </CardContent>
             <CardActions>
-                <Button size="small">COMPLAIN</Button>
+                <Button size="small">COMPLETE</Button>
             </CardActions>
         </React.Fragment>
     );
@@ -44,7 +32,7 @@ function SurveyCard(survey){
 
 export default function SurveyResults({survey})  {
     return (
-        <Box sx={{ minWidth: 275 }}>
+        <Box sx={{ maxWidth: 150 }}>
             <Card variant="outlined">{SurveyCard(survey={survey})}</Card>
         </Box>
     );
