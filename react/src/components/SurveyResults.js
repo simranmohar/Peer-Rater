@@ -11,14 +11,14 @@ import {useEffect, useState} from "react";
 function SurveyCard(survey){
     survey = survey.survey
     const [surveys, setNewSurveys] = useState('')
-    useEffect(() => {
-        const fetchData = async () => {
-            const result = await fetch(`http://praterlaravel.azurewebsites.net/api/peer-groups/${survey.peer_group_id}`);
-            const body = await result.json();
-            setNewSurveys(body);
-        }
-        fetchData();
-    }, []);
+    // useEffect(() => {
+    //     const fetchData = async () => {
+    //         const result = await fetch(`http://praterlaravel.azurewebsites.net/api/peer-groups/${survey.peer_group_id}`);
+    //         const body = await result.json();
+    //         setNewSurveys(body);
+    //     }
+    //     fetchData();
+    // }, []);
     return (
         <React.Fragment>
             <CardContent>
