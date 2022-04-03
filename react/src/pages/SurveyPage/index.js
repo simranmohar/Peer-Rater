@@ -22,8 +22,8 @@ function SurveyPage({group}) {
         let others = Object.values(surveys)
         return (<>
                     <List style={flexContainer}>
-                            {others.map((groups) => (
-                            <SurveyResults survey={groups}/>
+                            {others.map((groups, key) => (
+                            <SurveyResults key={key} survey={groups}/>
                             ))}
                     </List>
             </>
