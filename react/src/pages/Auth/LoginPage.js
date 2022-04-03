@@ -4,7 +4,7 @@ import LoginForm from "../../components/LoginForm";
 import {Link} from "react-router-dom";
 
 const LoginPage = () => (
-    <div className="container-flex h-100">
+    <div className="container-flex h-100" style={{overflow:"hidden"}}>
         <div className="row justify-content-center h-100">
             <div className="col-lg-12 col-md-9 h-100">
                 <div className="o-hidden border-0 shadow-lg h-100">
