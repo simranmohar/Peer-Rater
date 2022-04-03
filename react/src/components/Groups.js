@@ -116,8 +116,16 @@ const CustomTablePagination = styled(TablePaginationUnstyled)(
 export default function Groups() {
     const [rows, setNewRows] = useState('')
     useEffect(() => {
+        const user = JSON.parse(localStorage.getItem("user"));
+        var bearer = 'Bearer ' + user.access_token;
         const fetchData = async () => {
-            const result = await fetch(`http://praterlaravel.azurewebsites.net/api/peer-groups/`);
+            const result = await fetch(`http://praterlaravel.azurewebsites.net/api/peer-groups/`, {
+                method: 'get',
+                headers: {
+                    'Authorization': bearer,
+                    'Content-Type': 'application/json'
+                }
+        });
             const body = await result.json();
             setNewRows(body);
         }
