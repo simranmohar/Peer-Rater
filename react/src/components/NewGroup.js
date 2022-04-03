@@ -4,6 +4,8 @@ import Groups from "./Groups";
 import Container from "@mui/material/Container";
 import Paper from "@mui/material/Paper";
 import {ToggleButton, ToggleButtonGroup} from "@mui/lab";
+import {TextField} from "@mui/material";
+import Button from "@mui/material/Button";
 // import { PostPeerGroup } from '../../src/services/modules/index.js'
 
 function NewGroup ({newGroupAdded}) {
@@ -68,10 +70,11 @@ function NewGroup ({newGroupAdded}) {
             <Paper elevation={7} style={{width: "100%", marginBottom: 10, paddingBottom: 10, paddingTop:10}}>
 
             <div className="d-inline-flex container-fluid">
-                <input style={groupStyle.input} type="text" id="input"/>
-                <button onClick={submit_data} type="button"
-                        className="btn btn-primary d-inline-flex">Submit
-                </button>
+                <TextField  style={groupStyle.input}  id="input" label={submit === "create" ? "Group Name":"#Group ID"} />
+                <Button onClick={submit_data} variant="contained" color="primary">
+                    Submit
+                </Button>
+
             </div>
 </Paper>
         </React.Fragment>
