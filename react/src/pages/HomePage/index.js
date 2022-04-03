@@ -57,7 +57,7 @@ export const mainListItems = (
             <ListItemTextWhite primary="Privacy"/>
         </ListItemButton>
         <ListItemButton component={Link}
-            to="/editprofile">
+            to="/profile">
             <ListItemIcon>
                 <LayersIcon/>
             </ListItemIcon>
