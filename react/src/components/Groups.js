@@ -141,6 +141,11 @@ export default function Groups() {
             setNewRows(body);
         }
         fetchData();
+        return () => {
+            // Clean up the subscription
+            setUpdateNeeded(false);
+        };
+
     }, [updateNeeded]);
 
     let row = Object.values(rows);
