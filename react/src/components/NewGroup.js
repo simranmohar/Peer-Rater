@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { PostPeerGroup } from '../../src/services/modules/index.js'
 
 class NewGroup extends Component {
     render() {
@@ -37,10 +38,13 @@ class NewGroup extends Component {
 
         function submit_data() {
             //must be connected to database
-            document.getElementById("input").value = "";
-            document.getElementById("list").innerHTML = "";
-
-
+            // document.getElementById("input").value = "";
+            // document.getElementById("list").innerHTML = "";
+            const name = document.getElementById("input").value
+            console.log(name)
+            // create new peer group here
+            PostPeerGroup(name)
+            document.getElementById("input").value = ""
         }
 
         function clear_data() {
