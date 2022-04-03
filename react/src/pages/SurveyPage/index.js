@@ -18,7 +18,7 @@ function SurveyPage({group}) {
                         setNewSurveys(body);
                 }
                 fetchData();
-        }, []);
+        }, [group]);
         let others = Object.values(surveys)
         return (<>
                     <List style={flexContainer}>
