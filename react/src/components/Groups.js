@@ -133,7 +133,7 @@ export default function Groups() {
     }, []);
 
     let row = Object.values(rows);
-
+    console.log(row);
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
@@ -181,7 +181,7 @@ export default function Groups() {
                             <CardHeader
 
                                 avatar={
-                                    <AvatarGroup total={row.user_id}>
+                                    <AvatarGroup total={row.users.length}>
                                         <Avatar alt="Default" src={avatar1} />
                                         <Avatar alt="Default" src={avatar2} />
                                         <Avatar alt="Default" src={avatar3} />
