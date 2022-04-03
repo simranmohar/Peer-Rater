@@ -200,7 +200,7 @@ export default function Groups() {
                                         {row.users.map(function(name){
                                             return(
                                             <Tooltip title={name.name}>
-                                                <Avatar alt="Default" src={avatar2} />
+                                                <Avatar alt={name.name} src="nothing"/>
                                             </Tooltip>)
                                         })}
                                     </AvatarGroup>
