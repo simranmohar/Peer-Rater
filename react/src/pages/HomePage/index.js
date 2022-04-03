@@ -34,7 +34,6 @@ export const mainListItems = (
             </ListItemIcon>
             <ListItemTextWhite primary="Home"/>
         </ListItemButton>
-
         <ListItemButton component={Link}
             to="/groups">
             <ListItemIcon>
@@ -49,13 +48,13 @@ export const mainListItems = (
             </ListItemIcon>
             <ListItemTextWhite primary="Surveys"/>
         </ListItemButton>
-        <ListItemButton component={Link}
+        {/* <ListItemButton component={Link}
             to="/privacy">
             <ListItemIcon>
                 <BarChartIcon/>
             </ListItemIcon>
             <ListItemTextWhite primary="Privacy"/>
-        </ListItemButton>
+        </ListItemButton> */}
         <ListItemButton component={Link}
             to="/profile">
             <ListItemIcon>
@@ -70,20 +69,13 @@ export const mainListItems = (
             </ListItemIcon>
             <ListItemTextWhite primary="New Survey"/>
         </ListItemButton>
-        <ListItemButton component={Link}
+        {/* <ListItemButton component={Link}
             to="/settings">
             <ListItemIcon>
                 <LayersIcon/>
             </ListItemIcon>
             <ListItemTextWhite primary="Settings"/>
-        </ListItemButton>
-        <ListItemButton component={Link}
-            to="/404">
-            <ListItemIcon>
-                <LayersIcon/>
-            </ListItemIcon>
-            <ListItemTextWhite primary="404"/>
-        </ListItemButton>
+        </ListItemButton> */}
     </React.Fragment>
 );
 

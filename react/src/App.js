@@ -113,7 +113,7 @@ function App() {
                         }
                         title="Surveys"
                         exact/>
-                    <Route path="*"
+                    <Route path="/*"
                         element={
                             <Page
                         title="404"><NotFoundPage/></Page>
