@@ -16,9 +16,26 @@ const cardStyle = {
         transition: 'transform 200ms ease-in'
     },
     image: {
-        height: '12rem',
-        width: '12rem',
+        height: '18rem',
+        width: '18rem',
         objectFit: 'cover',
+    },
+    title: {
+        padding: '1rem',
+    },
+    description: {
+        padding: '0 1rem',
+    },
+    button: {
+        padding: '1rem',
+        fontFamily: 'inherit',
+        fontWeight: 'bold',
+        fontSize: '1rem',
+        margin: '1rem',
+        border: '2px solid $clr-primary',
+        background: 'transparent',
+        color: '#DC143C',
+        // transition: background 200ms ease-in, color 200ms ease-in;
     }
 
 }
@@ -64,10 +81,10 @@ function Group(props) {
                     <div className="card__body">
                         <img style={cardStyle.image} src={props.img} />
                         {/* {fetchedData.data[0].description ? <h2 className="card__title">{fetchedData.data[0].description}</h2>: null} */}
-                        <h3 className="card__title">Milestone 1</h3>
-                        <p className="card__description">{props.description}</p>
+                        <h3 className="card__title" style={cardStyle.title}>{props.description}</h3>
+                        <p className="card__description" style={cardStyle.description}>Milestone 1</p>
                     </div>
-                    <button className="card__btn" onClick={getNewSurvey}>View Ratings</button>
+                    <button className="card__btn" style={cardStyle.button} onClick={getNewSurvey}>View Ratings</button>
                 </div>
             </div>
             {/* {groups.map((group, key) => {
