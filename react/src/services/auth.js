@@ -2,6 +2,7 @@ import axios from "axios";
 import React from "react";
 import {AxiosResponse} from "axios";
 
+
 const signup = (email, password, name) => {
     return axios.post("/register", {email, password, name}).then((response:AxiosResponse) => {
         if (response.data.access_token) {
@@ -32,6 +33,7 @@ const logout = () => {
 
 };
 
+
 const setCurrentUser = () => {
     const user = JSON.parse(localStorage.getItem("user"));
     if (user) {
@@ -50,6 +52,26 @@ const getCurrentUser = () => {
     return JSON.parse(localStorage.getItem("user"));
 }
 
+const verifyCurrentUser = () => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (user) {
+         axios.get('/me', null).then((response) => {
+            if (response.data.name) {
+                localStorage.setItem("currentUser", JSON.stringify(response.data));
+                console.log("added currentuser to local storage")
+                return true;
+            }else {
+                console.log("Failed to get user. Please re-login")
+                localStorage.removeItem("currentUser");
+                localStorage.removeItem("user");
+                return true
+            }
+        });
+    }else {
+        return false;
+    }
+}
+
 const getCurrentUserFull = () => {
     return JSON.parse(localStorage.getItem("currentUser"));
 }
@@ -59,7 +81,8 @@ const authService = {
     logout,
     setCurrentUser,
     getCurrentUser,
-    getCurrentUserFull
+    getCurrentUserFull,
+    verifyCurrentUser
 };
 
 export default authService;

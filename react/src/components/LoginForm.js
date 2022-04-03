@@ -30,10 +30,13 @@ const LoginForm = () => {
                     (response) => {
                         // check for token and user already exists with 200
                         //   console.log("Sign up successfully", response);
-                        AuthService.setCurrentUser().then(() => {
-                            setTimeout(() => navigate("/"), 300);
-                        })
-
+                        const verify = AuthService.verifyCurrentUser();
+                        console.log(!!!verify)
+                        if (!!!verify){
+                            setPasswordNotFoundMessage("");
+                            navigate("/");
+                            window.location.reload();
+                        }
                     },
                     (error) => {
                         console.log(error);

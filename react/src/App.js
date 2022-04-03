@@ -30,6 +30,7 @@ import auth from "./services/auth";
 import SignupPage from "./pages/Auth/SignupPage";
 import LoginPage from "./pages/Auth/LoginPage";
 import axios from "axios";
+import authService from "./services/auth";
 
 
 const Page = ({
@@ -43,10 +44,12 @@ const Page = ({
     let isAllowed = !props.isPrivate || (props.isPrivate && auth.getCurrentUser());
 
     if (isAllowed){
-        if (auth.getCurrentUser()){
+        if (auth.getCurrentUser() && authService.verifyCurrentUser()){
             axios.defaults.headers.common["authorization"] = `Bearer ${auth.getCurrentUser().access_token}`;
+            return children
+        }else{
+            return children
         }
-        return children
     }else {
        return <UnauthorizedRedirect/>;
     }

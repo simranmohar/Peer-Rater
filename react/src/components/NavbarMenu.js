@@ -20,7 +20,8 @@ export default function NavbarMenu() {
     const [username, setUsername] = React.useState("");
 
     useEffect(() => {
-        setUsername(authService.getCurrentUserFull().name)
+        setTimeout(() => {  setUsername(authService.getCurrentUserFull().name); }, 1);
+
     },[])
 
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -34,7 +35,8 @@ export default function NavbarMenu() {
 
     const handleLogout = () => {
         authService.logout().then(r => {
-            window.location.href = '/login'
+            setTimeout(() => {  window.location.href = '/login' }, 1);
+
         });
     }
 

@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import authService from "./services/auth";
 
 import axios from "axios";
 axios.defaults.baseURL = 'https://praterlaravel.azurewebsites.net/api'
@@ -12,13 +11,16 @@ if (user && user.access_token){
     axios.defaults.headers.common["authorization"] = `Bearer ${user.access_token}`;
     axios.defaults.headers.common["Accept"] = 'application/json';
     axios.defaults.headers.common["Accept"] = "'Content-Type': 'application/json'"
+}else {
+    localStorage.removeItem("user");
+    localStorage.removeItem("currentUser");
 }
 
 export default axios;
 
 ReactDOM.render(
   <React.StrictMode>
-    <App user={authService.getCurrentUser()}/>
+    <App />
   </React.StrictMode>,
   document.getElementById('root')
 );
