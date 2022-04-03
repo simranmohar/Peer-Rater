@@ -204,7 +204,7 @@ export default function Groups() {
                         <TableCell>
                             <CardHeader
                                 avatar={
-                                    <Avatar sx={{backgroundColor: "#90caf9", color: "black"}}>{row.description.charAt(0).toUpperCase()}</Avatar>
+                                    <Avatar sx={{backgroundColor: "#90caf9", color: "black", fontSize: "90%"}}>{`#${row.id}`}</Avatar>
                                 }
                                 title={row.description}
                                 />
