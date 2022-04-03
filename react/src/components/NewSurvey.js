@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-class NewSurvey extends Component {
-    render() {
+function NewSurvey() {
+    
         const surveyStyle = {
             list: {
         
@@ -80,7 +80,7 @@ class NewSurvey extends Component {
         
         
         );
-    }
+   
 }
 
 export default NewSurvey;
