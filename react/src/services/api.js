@@ -32,7 +32,7 @@ async function getPeerGroups() {
 const addSurvey = (_peer_group_id) =>{
     const user = JSON.parse(localStorage.getItem("user"));
     if (user) {
-        return axios.post('/surveys', {peer_group_id: _peer_group_id}).then((response) => {
+        return axios.post('/peer-groups', {peer_group_id: _peer_group_id}, '/surveys').then((response) => {
             if (response.data) {
                 localStorage.setItem("currentUser", JSON.stringify(response.data));
             }
