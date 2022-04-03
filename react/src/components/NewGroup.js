@@ -1,9 +1,9 @@
-import React, {Component, useState} from 'react';
+import React, {Component, useEffect, useState} from 'react';
 import api from "../services/api";
 import Groups from "./Groups";
 import Container from "@mui/material/Container";
 import Paper from "@mui/material/Paper";
-import {ToggleButton, ToggleButtonGroup} from "@mui/lab";
+import {LoadingButton, ToggleButton, ToggleButtonGroup} from "@mui/lab";
 import {TextField} from "@mui/material";
 import Button from "@mui/material/Button";
 // import { PostPeerGroup } from '../../src/services/modules/index.js'
@@ -35,17 +35,46 @@ function NewGroup ({newGroupAdded}) {
         }
     };
 
-    function submit_data() {
+    // VALIDATION AND LOADING
+
+    const [loading, setLoading] = useState(false);
+    const [submitButtonState, setSubmitButtonState] = useState(true);
+    const [inputValue, setInputValue] = useState("")
+
+    const updateLoading = bool => {
+        setLoading(bool);
+    };
+
+    function ValidateInput(event) {
+        let inputText= event.target.value;
+        if (inputText.length === 0){
+            setSubmitButtonState(true);
+        }else {
+            setSubmitButtonState(false);
+        }
+    }
+
+    // VALIDATION END
+
+    function submit_data(loadingCallBack) {
+        loadingCallBack(true)
+
         let input = document.getElementById("input").value;
+        setInputValue(input)
+
         if (submit === "join") {
             api.getMe().then(u => {
                 api.joinPeerGroup(input, u).then(r => {
                     newGroupAdded();
+                    loadingCallBack(false)
+                    setSubmitButtonState(true)
                 })
             })
         } else {
             api.addPeerGroup(input).then(r => {
                 newGroupAdded();
+                loadingCallBack(false)
+                setSubmitButtonState(true)
             })
         }
 
@@ -70,10 +99,19 @@ function NewGroup ({newGroupAdded}) {
             <Paper elevation={7} style={{width: "100%", marginBottom: 10, paddingBottom: 10, paddingTop:10}}>
 
             <div className="d-inline-flex container-fluid">
-                <TextField  style={groupStyle.input}  id="input" label={submit === "create" ? "Group Name":"#Group ID"} />
-                <Button onClick={submit_data} variant="contained" color="primary">
+                <TextField  style={groupStyle.input}  id="input" label={submit === "create" ? "Group Name":"#Group ID"} onChange={ValidateInput.bind(this)}/>
+                <LoadingButton
+                    onClick={() => {
+                        submit_data(updateLoading)
+                    }}
+                    variant="contained"
+                    color="primary"
+                    loading={loading}
+                    disabled={submitButtonState}
+                    id="loadingButtonSubmit"
+                >
                     Submit
-                </Button>
+                </LoadingButton>
 
             </div>
 </Paper>
