@@ -40,22 +40,22 @@ function Group(props) {
     console.log(groups.length)
 
     const [group, setNewGroup] = useState('')
-    const getNewSurvey = () =>{
-        axios.get('http://praterlaravel.azurewebsites.net/api/peer-groups')
-        .then(res => {
-            console.log(res.data)
-            res.data.forEach((data) => console.log(data.description));
-            console.log(res.data[0].id)
-            api.addSurvey(res.data[0].id).then(r => {
-                console.log(r)
-            })
-            // setNewGroup(res.data[0].description)
-            // console.log(res.data.description)
-        }).catch(err => {
-            console.log(err)
-        })
+    // const getNewSurvey = () =>{
+    //     axios.get('http://praterlaravel.azurewebsites.net/api/peer-groups')
+    //     .then(res => {
+    //         console.log(res.data)
+    //         res.data.forEach((data) => console.log(data.description));
+    //         console.log(res.data[0].id)
+    //         api.addSurvey(res.data[0].id).then(r => {
+    //             console.log(r)
+    //         })
+    //         // setNewGroup(res.data[0].description)
+    //         // console.log(res.data.description)
+    //     }).catch(err => {
+    //         console.log(err)
+    //     })
 
-    }
+    // }
     return (
         <div>
             {/* {fetchedData.data ? <h2>{fetchedData.data[0].description}</h2> : null} */}
@@ -63,11 +63,11 @@ function Group(props) {
                 <div style={cardStyle.card_v1}>
                     <div className="card__body">
                         <img style={cardStyle.image} src={props.img} />
-                        {fetchedData.data ? <h2 className="card__title">{fetchedData.data[0].description}</h2>: null}
+                        {/* {fetchedData.data[0].description ? <h2 className="card__title">{fetchedData.data[0].description}</h2>: null} */}
                         <h3 className="card__title">Milestone 1</h3>
                         <p className="card__description">{props.description}</p>
                     </div>
-                    <button className="card__btn" onClick={getNewSurvey}>View Ratings</button>
+                    {/* <button className="card__btn" onClick={getNewSurvey}>View Ratings</button> */}
                 </div>
             </div>
             {/* {groups.map((group, key) => {
