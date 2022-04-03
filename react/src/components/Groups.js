@@ -219,7 +219,7 @@ export default function Groups() {
 
                 {emptyRows > 0 && (
                     <tr style={{ height: 41 * emptyRows }}>
-                        <td colSpan={3} />
+                        <td colSpan={4} />
                     </tr>
                 )}
                 </tbody>
