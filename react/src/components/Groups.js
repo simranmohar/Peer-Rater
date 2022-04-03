@@ -114,7 +114,14 @@ const CustomTablePagination = styled(TablePaginationUnstyled)(
 );
 
 export default function Groups() {
+
     const [rows, setNewRows] = useState('')
+    const [updateNeeded, setUpdateNeeded] = useState(false)
+
+    function UpdateNeeded() {
+        setUpdateNeeded(true);
+    }
+
     useEffect(() => {
         const user = JSON.parse(localStorage.getItem("user"));
         var bearer = 'Bearer ' + user.access_token;
@@ -130,7 +137,7 @@ export default function Groups() {
             setNewRows(body);
         }
         fetchData();
-    }, []);
+    }, [updateNeeded]);
 
     let row = Object.values(rows);
     console.log(row);
@@ -152,7 +159,7 @@ export default function Groups() {
 
     return (
         <Root sx={{ width: '100%'}}>
-            <NewGroup/>
+            <NewGroup newGroupAdded={UpdateNeeded}/>
             <table aria-label="custom pagination table">
                 <thead>
                 <tr>
@@ -165,8 +172,8 @@ export default function Groups() {
                 {(rowsPerPage > 0
                         ? row.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                         : row
-                ).map((row) => (
-                    <tr key={row.group}>
+                ).map((row, index) => (
+                    <tr key={index}>
                         <td>
                             <CardHeader
                                 avatar={
@@ -179,7 +186,6 @@ export default function Groups() {
                         <td align="left" style={{width: "200px", textAlign: "left"}}>
 
                             <CardHeader
-
                                 avatar={
                                     <AvatarGroup total={row.users.length}>
                                         <Avatar alt="Default" src={avatar1} />
