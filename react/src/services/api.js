@@ -18,6 +18,27 @@ const addPeerGroup = (_description) => {
 };
 
 
+const joinPeerGroup = async (group_id, u) => {
+    return axios.post(`/peer-groups/${group_id}/attach`, {user_id: u.id}).then((response) => {
+    }).catch((e) => {
+        console.log("Failed to join peer group" + e)
+        return e;
+    })
+}
+
+const getMe = async () => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    let bearer = 'Bearer ' + user.access_token;
+    const result = await fetch(`http://praterlaravel.azurewebsites.net/api/me`, {
+        method: 'get',
+        headers: {
+            'Authorization': bearer,
+            'Content-Type': 'application/json'
+        }
+    });
+    return result.json();
+}
+
 
 async function getPeerGroups() {
 
@@ -47,7 +68,9 @@ const addSurvey = (_peer_group_id) =>{
 const api = {
     addPeerGroup,
     getPeerGroups,
-    addSurvey
+    joinPeerGroup,
+    addSurvey,
+    getMe
 };
 
 export default api;
