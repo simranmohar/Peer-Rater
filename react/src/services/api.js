@@ -30,9 +30,10 @@ async function getPeerGroups() {
 }
 
 const addSurvey = (_peer_group_id) =>{
+    console.log("this is the id for peer group parameter", _peer_group_id)
     const user = JSON.parse(localStorage.getItem("user"));
     if (user) {
-        return axios.post('/peer-groups', {peer_group_id: _peer_group_id}, '/surveys').then((response) => {
+        return axios.post(`/peer-groups/${_peer_group_id}/surveys`).then((response) => {
             if (response.data) {
                 localStorage.setItem("currentUser", JSON.stringify(response.data));
             }
