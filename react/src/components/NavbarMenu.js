@@ -20,8 +20,7 @@ export default function NavbarMenu() {
     const [username, setUsername] = React.useState("");
 
     useEffect(() => {
-        setTimeout(() => {  setUsername(authService.getCurrentUserFull().name); }, 1);
-
+        setTimeout(() => {  setUsername(authService.getCurrentUserFull().name); }, 1000);
     },[])
 
     const [anchorEl, setAnchorEl] = React.useState(null);

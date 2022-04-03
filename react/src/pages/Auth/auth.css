@@ -155,3 +155,7 @@
     line-height: 140%;
     color: #7B809A;
 }
+
+#root{
+    height: 100vh;
+}
