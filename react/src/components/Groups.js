@@ -168,7 +168,7 @@ export default function Groups() {
     return (
         <Root sx={{ width: '100%'}}>
             <NewGroup newGroupAdded={UpdateNeeded}/>
-            <Paper elevation={7} style={{marginTop:20, padding: 15}}>
+
             <table aria-label="custom pagination table">
                 <thead>
                 <tr>
@@ -200,7 +200,7 @@ export default function Groups() {
                                         {row.users.map(function(name){
                                             return(
                                             <Tooltip title={name.name}>
-                                                <Avatar alt={name.name} src="nothing"/>
+                                                <Avatar>{name.name.charAt(0).toUpperCase()}</Avatar>
                                             </Tooltip>)
                                         })}
                                     </AvatarGroup>
@@ -246,7 +246,7 @@ export default function Groups() {
                 </tr>
                 </tfoot>
             </table>
-            </Paper>
+
         </Root>
     );
 }
