@@ -3,7 +3,17 @@ import { styled } from '@mui/system';
 import TablePaginationUnstyled from '@mui/base/TablePaginationUnstyled';
 import Avatar from '@mui/material/Avatar';
 import AvatarGroup from '@mui/material/AvatarGroup';
-import {CardHeader, Tooltip} from "@mui/material";
+import {
+    CardHeader,
+    Table,
+    TableBody,
+    TableCell,
+    TableContainer,
+    TableHead,
+    TablePagination,
+    TableRow,
+    Tooltip
+} from "@mui/material";
 import avatar1 from '../img/avatars/avatar1.png'
 import avatar2 from '../img/avatars/avatar2.png'
 import avatar3 from '../img/avatars/avatar3.png'
@@ -14,6 +24,7 @@ import Paper from "@mui/material/Paper";
 import {Link} from "react-router-dom";
 import SurveyPage from "../pages/SurveyPage";
 import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
 
 
 
@@ -37,23 +48,23 @@ const grey = {
 
 const Root = styled('div')(
     ({ theme }) => `
-  table {
-    font-family: Roboto, sans-serif;
-    font-size: 0.875rem;
-    border-collapse: collapse;
-    width: 100%;
-  }
-
-  td,
-  th {
-    border: 1px solid ${grey[800]};
-    text-align: left;
-    padding: 6px;
-  }
-
-  th {
-    background-color: ${grey[400]};
-  }
+  // table {
+  //   font-family: Roboto, sans-serif;
+  //   font-size: 0.875rem;
+  //   border-collapse: collapse;
+  //   width: 100%;
+  // }
+  //
+  // td,
+  // th {
+  //   border: 1px solid ${grey[800]};
+  //   text-align: left;
+  //   padding: 6px;
+  // }
+  //
+  // th {
+  //   background-color: ${grey[400]};
+  // }
   `,
 );
 
@@ -154,14 +165,14 @@ export default function Groups() {
 
     // Avoid a layout jump when reaching the last page with empty rows.
     const emptyRows =
-        page > 0 ? Math.max(0, (1 + page) * rowsPerPage - row.length) : 0;
+        page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
     };
 
     const handleChangeRowsPerPage = (event) => {
-        setRowsPerPage(parseInt(event.target.value, event.value));
+        setRowsPerPage(parseInt(event.target.value, 10));
         setPage(0);
     };
 
@@ -169,22 +180,25 @@ export default function Groups() {
         <Root sx={{ width: '100%'}}>
             <NewGroup newGroupAdded={UpdateNeeded}/>
 
-            <table aria-label="custom pagination table">
-                <thead>
-                <tr>
-                    <th>Group</th>
-                    <th>Participants</th>
-                    <th>Surveys</th>
-                    <th>Final Evaluation</th>
-                </tr>
-                </thead>
-                <tbody>
+            <Box sx={{ width: '100%' }}>
+                <Paper sx={{ width: '100%', mb: 2 }}>
+            <TableContainer>
+                <Table aria-label="custom pagination table">
+                <TableHead sx={{fontWeight: 'bold'}}>
+                <TableRow>
+                    <TableCell>Group</TableCell>
+                    <TableCell>Participants</TableCell>
+                    <TableCell>Surveys</TableCell>
+                    <TableCell>Final Evaluation</TableCell>
+                </TableRow>
+                </TableHead>
+                <TableBody>
                 {(rowsPerPage > 0
                         ? row.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                         : row
                 ).map((row, index) => (
-                    <tr key={index}>
-                        <td style={{ width: 120 }} align="right">
+                    <TableRow key={index}>
+                        <TableCell>
                             <CardHeader
                                 avatar={
                                     <Avatar alt={row.group} src={avatar4}/>
@@ -192,8 +206,8 @@ export default function Groups() {
                                 title={row.description}
                                 />
 
-                        </td>
-                        <td style={{ width: 120 }} align="right">
+                        </TableCell>
+                        <TableCell>
                             <CardHeader
                                 avatar={
                                     <AvatarGroup total={row.users.length}>
@@ -206,46 +220,38 @@ export default function Groups() {
                                     </AvatarGroup>
                                 }
                             />
-                        </td>
-                        <td style={{width: "200px", textAlign: "left"}}>
+                        </TableCell>
+                        <TableCell>
                             <SurveyPage group={row}/>
-                        </td>
-                        <td align="left" style={{width: "200px", textAlign: "left"}}>
+                        </TableCell>
+                        <TableCell>
                             {100}
-                        </td>
+                        </TableCell>
 
-                    </tr>
+                    </TableRow>
                 ))}
 
-                {emptyRows > 0 && (
-                    <tr style={{ height: 41 * emptyRows }}>
-                        <td colSpan={4} />
-                    </tr>
-                )}
-                </tbody>
-                <tfoot>
-                <tr>
-                    <CustomTablePagination
-                        rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
-                        colSpan={3}
+                    {emptyRows > 0 && (
+                        <TableRow style={{ height: 53 * emptyRows }}>
+                            <TableCell colSpan={6} />
+                        </TableRow>
+                    )}
+                </TableBody>
+                </Table>
+            </TableContainer>
+
+                    <TablePagination
+                        rowsPerPageOptions={[5, 10, 25]}
+                        component="div"
                         count={rows.length}
                         rowsPerPage={rowsPerPage}
                         page={page}
-                        componentsProps={{
-                            select: {
-                                'aria-label': 'rows per page',
-                            },
-                            actions: {
-                                showFirstButton: true,
-                                showLastButton: true,
-                            },
-                        }}
                         onPageChange={handleChangePage}
                         onRowsPerPageChange={handleChangeRowsPerPage}
                     />
-                </tr>
-                </tfoot>
-            </table>
+
+                </Paper>
+            </Box>
 
         </Root>
     );
