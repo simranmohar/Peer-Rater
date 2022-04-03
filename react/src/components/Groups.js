@@ -3,7 +3,7 @@ import { styled } from '@mui/system';
 import TablePaginationUnstyled from '@mui/base/TablePaginationUnstyled';
 import Avatar from '@mui/material/Avatar';
 import AvatarGroup from '@mui/material/AvatarGroup';
-import {CardHeader} from "@mui/material";
+import {CardHeader, Tooltip} from "@mui/material";
 import avatar1 from '../img/avatars/avatar1.png'
 import avatar2 from '../img/avatars/avatar2.png'
 import avatar3 from '../img/avatars/avatar3.png'
@@ -13,6 +13,7 @@ import {useEffect, useState} from "react";
 import Paper from "@mui/material/Paper";
 import {Link} from "react-router-dom";
 import SurveyPage from "../pages/SurveyPage";
+import Typography from "@mui/material/Typography";
 
 
 
@@ -191,10 +192,12 @@ export default function Groups() {
                             <CardHeader
                                 avatar={
                                     <AvatarGroup total={row.users.length}>
-                                        <Avatar alt="Default" src={avatar1} />
-                                        <Avatar alt="Default" src={avatar2} />
-                                        <Avatar alt="Default" src={avatar3} />
-                                        <Avatar alt="Default" src={avatar4} />
+                                        {row.users.map(function(name){
+                                            return(
+                                            <Tooltip title={name.name}>
+                                                <Avatar alt="Default" src={avatar2} />
+                                            </Tooltip>)
+                                        })}
                                     </AvatarGroup>
                                 }
                             />
