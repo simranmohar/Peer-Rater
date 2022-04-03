@@ -17,7 +17,6 @@ import {BrowserRouter, Route, Routes} from "react-router-dom";
 
 
 import Groups from "./components/Groups";
-import EditProfilePage from "./pages/EditProfilePage";
 import People from "./components/People";
 import Group from "./components/Group";
 import SurveyResults from "./components/SurveyResults";
@@ -88,12 +87,6 @@ function App() {
                         isPrivate><ProfilePage/></Page>
                         }
                         exact/>
-                    <Route path="/profile"
-                        element={
-                            <Page title="Profile"
-                        isPrivate><ProfilePage/></Page>
-                        }
-                        exact/>
                     <Route path="/newsurvey"
                         element={
                             <Page
@@ -119,14 +112,6 @@ function App() {
                         isPrivate><SurveyPage/></Page>
                         }
                         title="Surveys"
-                        exact/>
-
-                    <Route path="/editprofile"
-                        element={
-                            <Page
-                        title="Edit Profile"
-                        isPrivate><EditProfilePage/></Page>
-                        }
                         exact/>
                     <Route path="*"
                         element={
