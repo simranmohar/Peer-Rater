@@ -75,7 +75,7 @@ function Group(props) {
         // }).catch(err => {
         //     console.log(err)
         // })
-        // api.addSurvey(props)
+        api.addSurvey(props)
         
 
     }
@@ -89,6 +89,7 @@ function Group(props) {
                         {/* {fetchedData.data[0].description ? <h2 className="card__title">{fetchedData.data[0].description}</h2>: null} */}
                         <h3 className="card__title" style={cardStyle.title}>{props.description}</h3>
                         <p className="card__description" style={cardStyle.description}>Milestone 1</p>
+                        <p>Peer group id: {props.id_value}</p>
                     </div>
                     <button className="card__btn" tyle={cardStyle.button} onClick={getNewSurvey(props.id_value)}><Link to={`/newsurvey`}>
                 New Survey</Link></button>

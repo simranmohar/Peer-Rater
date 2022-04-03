@@ -37,7 +37,7 @@ const addSurvey = (_peer_group_id) =>{
                 localStorage.setItem("currentUser", JSON.stringify(response.data));
             }
         }).catch((e) => {
-            console.log("Failed to add peer group" + e)
+            console.log("Failed to add survey " + e)
             return e;
         })
     }
