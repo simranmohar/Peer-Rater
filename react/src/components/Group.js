@@ -59,7 +59,7 @@ function Group(props) {
     return (
         <div>
             {/* {fetchedData.data ? <h2>{fetchedData.data[0].description}</h2> : null} */}
-            <div class="row">
+            <div className="row">
                 <div style={cardStyle.card_v1}>
                     <div className="card__body">
                         <img style={cardStyle.image} src={props.img} />
