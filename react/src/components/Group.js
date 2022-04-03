@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import * as React from "react";
 import api from "../services/api";
+import { Link } from 'react-router-dom';
 
 // "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
 
@@ -71,6 +72,7 @@ function Group(props) {
         }).catch(err => {
             console.log(err)
         })
+        
 
     }
     return (
@@ -84,7 +86,8 @@ function Group(props) {
                         <h3 className="card__title" style={cardStyle.title}>{props.description}</h3>
                         <p className="card__description" style={cardStyle.description}>Milestone 1</p>
                     </div>
-                    <button className="card__btn" style={cardStyle.button} onClick={getNewSurvey}>View Ratings</button>
+                    <button className="card__btn" tyle={cardStyle.button} onClick={getNewSurvey}><Link to={`/newsurvey`}>
+                New Survey</Link></button>
                 </div>
             </div>
             {/* {groups.map((group, key) => {
