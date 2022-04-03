@@ -8,6 +8,7 @@ function SurveyPage({group}) {
         display: 'flex',
         flexDirection: 'row',
         padding: 0,
+        flexWrap: 'wrap',
     };
         const [surveys, setNewSurveys] = useState('')
         useEffect(() => {
