@@ -161,7 +161,7 @@ export default function Groups() {
     return (
         <Root sx={{ width: '100%'}}>
             <NewGroup newGroupAdded={UpdateNeeded}/>
-            <Paper elevation={12} style={{marginTop:20}}>
+            <Paper elevation={7} style={{marginTop:20, padding: 15}}>
             <table aria-label="custom pagination table">
                 <thead>
                 <tr>

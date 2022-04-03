@@ -61,7 +61,7 @@ function NewGroup ({newGroupAdded}) {
         <React.Fragment>
             <h2>Add New Peer Group: </h2>
 
-            <Paper elevation={12} style={{width: "100%", marginBottom: 10, paddingBottom: 10, paddingTop:10}}>
+            <Paper elevation={7} style={{width: "100%", marginBottom: 10, paddingBottom: 10, paddingTop:10}}>
 
             <div className="d-inline-flex container-fluid">
                 <input style={groupStyle.input} type="text" id="input"/>
