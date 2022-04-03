@@ -4,14 +4,26 @@ import {AxiosResponse} from "axios";
 
 
 const signup = (email, password, name, isInstructor) => {
-    return axios.post("/register", {email, password, name, isInstructor}).then((response:AxiosResponse) => {
-        if (response.data.access_token) {
-            localStorage.setItem("user", JSON.stringify(response.data));
-            axios.defaults.headers.common["authorization"] = `Bearer ${response.data.access_token}`;
-            console.log(response.data)
-        }
-        return response.data;
-    });
+    if (isInstructor === 0){
+        return axios.post("/register", {email, password, name}).then((response:AxiosResponse) => {
+            if (response.data.access_token) {
+                localStorage.setItem("user", JSON.stringify(response.data));
+                axios.defaults.headers.common["authorization"] = `Bearer ${response.data.access_token}`;
+                console.log(response.data)
+            }
+            return response.data;
+        });
+    }else {
+        return axios.post("/register", {email, password, name, isInstructor}).then((response:AxiosResponse) => {
+            if (response.data.access_token) {
+                localStorage.setItem("user", JSON.stringify(response.data));
+                axios.defaults.headers.common["authorization"] = `Bearer ${response.data.access_token}`;
+                console.log(response.data)
+            }
+            return response.data;
+        });
+    }
+
 };
 
 const login = (email, password) => {

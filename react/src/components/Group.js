@@ -53,36 +53,37 @@ const cardStyle = {
 }
 
 function Group(props) {
-    const [fetchedData, setFetchedData] = useState([]);
+    // const [fetchedData, setFetchedData] = useState([]);
 
-    React.useEffect(() => {
-        const getData = async () => {
-            const data = await axios.get('http://praterlaravel.azurewebsites.net/api/peer-groups');
-            setFetchedData(data);
-        };
-        getData();
-    }, []);
+    // React.useEffect(() => {
+    //     const getData = async () => {
+    //         const data = await axios.get('http://praterlaravel.azurewebsites.net/api/peer-groups');
+    //         setFetchedData(data);
+    //     };
+    //     getData();
+    // }, []);
 
-    console.log("data: ", fetchedData);
+    // console.log("data: ", fetchedData);
 
-    var groups = fetchedData;
-    console.log(groups.length)
+    // var groups = fetchedData;
+    // console.log(groups.length)
 
     const [group, setNewGroup] = useState('')
-    const getNewSurvey = () =>{
-        axios.get('http://praterlaravel.azurewebsites.net/api/peer-groups')
-        .then(res => {
-            console.log(res.data)
-            res.data.forEach((data) => console.log(data.description));
-            console.log(res.data[0].id)
-            api.addSurvey(res.data[0].id).then(r => {
-                console.log(r)
-            })
-            // setNewGroup(res.data[0].description)
-            // console.log(res.data.description)
-        }).catch(err => {
-            console.log(err)
-        })
+    const getNewSurvey = (props) =>{
+        // axios.get('http://praterlaravel.azurewebsites.net/api/peer-groups')
+        // .then(res => {
+        //     console.log(res.data)
+        //     res.data.forEach((data) => console.log(data.description));
+        //     console.log(res.data[0].id)
+        //     api.addSurvey(res.data[0].id).then(r => {
+        //         console.log(r)
+        //     })
+        //     // setNewGroup(res.data[0].description)
+        //     // console.log(res.data.description)
+        // }).catch(err => {
+        //     console.log(err)
+        // })
+        api.addSurvey(props)
         
 
     }
@@ -96,8 +97,9 @@ function Group(props) {
                         {/* {fetchedData.data[0].description ? <h2 className="card__title">{fetchedData.data[0].description}</h2>: null} */}
                         <h3 className="card__title" style={cardStyle.title}>{props.description}</h3>
                         <p className="card__description" style={cardStyle.description}>Milestone 1</p>
+                        <p>Peer group id: {props.id_value}</p>
                     </div>
-                    <button className="card__btn" tyle={cardStyle.button} onClick={getNewSurvey}><Link to={`/newsurvey`}>
+                    <button className="card__btn" tyle={cardStyle.button} onClick={() => getNewSurvey(props.id_value)}><Link to={`/newsurvey`}>
                 New Survey</Link></button>
                 </div>
             </div>

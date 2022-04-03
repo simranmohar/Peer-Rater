@@ -3,17 +3,19 @@ import { styled } from '@mui/system';
 import TablePaginationUnstyled from '@mui/base/TablePaginationUnstyled';
 import Avatar from '@mui/material/Avatar';
 import AvatarGroup from '@mui/material/AvatarGroup';
-import {CardHeader} from "@mui/material";
+import {CardHeader, Tooltip} from "@mui/material";
 import avatar1 from '../img/avatars/avatar1.png'
 import avatar2 from '../img/avatars/avatar2.png'
 import avatar3 from '../img/avatars/avatar3.png'
 import avatar4 from '../img/avatars/avatar4.png'
 import NewGroup from "./NewGroup";
 import {useEffect, useState} from "react";
+import Paper from "@mui/material/Paper";
+import {Link} from "react-router-dom";
+import SurveyPage from "../pages/SurveyPage";
+import Typography from "@mui/material/Typography";
 
-function createData(group, participants, finalEvaluation) {
-    return {group, participants, finalEvaluation };
-}
+
 
 const blue = {
     200: '#A5D8FF',
@@ -36,20 +38,21 @@ const grey = {
 const Root = styled('div')(
     ({ theme }) => `
   table {
-    font-family: "Roboto","Helvetica","Arial",sans-serif;
-    font-size: 1.0rem;
+    font-family: Roboto, sans-serif;
+    font-size: 0.875rem;
+    border-collapse: collapse;
     width: 100%;
   }
 
   td,
   th {
+    border: 1px solid ${grey[800]};
     text-align: left;
-    padding-left: 10px;
+    padding: 6px;
   }
 
   th {
-    background-color: ${theme.palette.mode === 'dark' ? grey[900] : grey[100]};
-    height: 40px
+    background-color: ${grey[400]};
   }
   `,
 );
@@ -75,14 +78,14 @@ const CustomTablePagination = styled(TablePaginationUnstyled)(
   }
   & .MuiTablePaginationUnstyled-select {
     padding: 2px;
-    border: 1px solid ${theme.palette.mode === 'dark' ? grey[800] : grey[200]};
+    border: 1px solid ${grey[800]};
     border-radius: 50px;
     background-color: transparent;
     &:hover {
-      background-color: ${theme.palette.mode === 'dark' ? grey[800] : grey[50]};
+      background-color: ${grey[200]};
     }
     &:focus {
-      outline: 1px solid ${theme.palette.mode === 'dark' ? blue[400] : blue[200]};
+      outline: 1px solid ${blue[800]};
     }
   }
   & .MuiTablePaginationUnstyled-displayedRows {
@@ -94,7 +97,7 @@ const CustomTablePagination = styled(TablePaginationUnstyled)(
   }
   & .MuiTablePaginationUnstyled-actions {
     padding: 2px;
-    border: 1px solid ${theme.palette.mode === 'dark' ? grey[800] : grey[200]};
+    border: 1px solid ${grey[800]};
     border-radius: 50px;
     text-align: center;
   }
@@ -104,14 +107,15 @@ const CustomTablePagination = styled(TablePaginationUnstyled)(
     border-radius: 2px;
     background-color: transparent;
     &:hover {
-      background-color: ${theme.palette.mode === 'dark' ? grey[800] : grey[50]};
+      background-color: ${grey[50]};
     }
     &:focus {
-      outline: 1px solid ${theme.palette.mode === 'dark' ? blue[400] : blue[200]};
+      outline: 1px solid ${blue[200]};
     }
   }
   `,
 );
+
 
 export default function Groups() {
 
@@ -140,7 +144,6 @@ export default function Groups() {
     }, [updateNeeded]);
 
     let row = Object.values(rows);
-    console.log(row);
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
@@ -153,18 +156,20 @@ export default function Groups() {
     };
 
     const handleChangeRowsPerPage = (event) => {
-        setRowsPerPage(parseInt(event.target.value, 10));
+        setRowsPerPage(parseInt(event.target.value, event.value));
         setPage(0);
     };
 
     return (
         <Root sx={{ width: '100%'}}>
             <NewGroup newGroupAdded={UpdateNeeded}/>
+            <Paper elevation={7} style={{marginTop:20, padding: 15}}>
             <table aria-label="custom pagination table">
                 <thead>
                 <tr>
                     <th>Group</th>
                     <th>Participants</th>
+                    <th>Surveys</th>
                     <th>Final Evaluation</th>
                 </tr>
                 </thead>
@@ -174,7 +179,7 @@ export default function Groups() {
                         : row
                 ).map((row, index) => (
                     <tr key={index}>
-                        <td>
+                        <td style={{ width: 120 }} align="right">
                             <CardHeader
                                 avatar={
                                     <Avatar alt={row.group} src={avatar4}/>
@@ -183,22 +188,27 @@ export default function Groups() {
                                 />
 
                         </td>
-                        <td align="left" style={{width: "200px", textAlign: "left"}}>
-
+                        <td style={{ width: 120 }} align="right">
                             <CardHeader
                                 avatar={
                                     <AvatarGroup total={row.users.length}>
-                                        <Avatar alt="Default" src={avatar1} />
-                                        <Avatar alt="Default" src={avatar2} />
-                                        <Avatar alt="Default" src={avatar3} />
-                                        <Avatar alt="Default" src={avatar4} />
+                                        {row.users.map(function(name){
+                                            return(
+                                            <Tooltip title={name.name}>
+                                                <Avatar alt="Default" src={avatar2} />
+                                            </Tooltip>)
+                                        })}
                                     </AvatarGroup>
                                 }
                             />
                         </td>
+                        <td style={{width: "200px", textAlign: "left"}}>
+                            <SurveyPage group={row}/>
+                        </td>
                         <td align="left" style={{width: "200px", textAlign: "left"}}>
                             {100}
                         </td>
+
                     </tr>
                 ))}
 
@@ -231,6 +241,7 @@ export default function Groups() {
                 </tr>
                 </tfoot>
             </table>
+            </Paper>
         </Root>
     );
 }

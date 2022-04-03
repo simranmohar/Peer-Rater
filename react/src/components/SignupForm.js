@@ -49,12 +49,13 @@ const SignupForm = () => {
             setErrors(newErrors)
         } else {
             try {
-                let instructorBool = 0;
-                if (checked){
-                    instructorBool = 1;
-                }else {
+                let instructorBool;
+                if (!!!checked){
                     instructorBool = 0;
+                }else {
+                    instructorBool = 1;
                 }
+
                 await AuthService.signup(email, password, name, instructorBool).then(
                     (response) => {
                         // check for token and user already exists with 200

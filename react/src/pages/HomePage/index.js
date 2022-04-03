@@ -12,6 +12,8 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import PeopleIcon from '@mui/icons-material/People';
 import BarChartIcon from '@mui/icons-material/BarChart';
+import GroupIcon from '@mui/icons-material/Group';
+import CreateIcon from '@mui/icons-material/Create';
 import LayersIcon from '@mui/icons-material/Layers';
 import Sidebar from "../../components/SideBar";
 import {Link, Outlet} from "react-router-dom";
@@ -38,51 +40,16 @@ export const mainListItems = (
         <ListItemButton component={Link}
             to="/groups">
             <ListItemIcon>
-                <ShoppingCartIcon/>
+                <GroupIcon/>
             </ListItemIcon>
             <ListItemTextWhite primary="Groups"/>
         </ListItemButton>
         <ListItemButton component={Link}
-            to="/surveys">
-            <ListItemIcon>
-                <PeopleIcon/>
-            </ListItemIcon>
-            <ListItemTextWhite primary="Surveys"/>
-        </ListItemButton>
-        <ListItemButton component={Link}
-            to="/privacy">
-            <ListItemIcon>
-                <BarChartIcon/>
-            </ListItemIcon>
-            <ListItemTextWhite primary="Privacy"/>
-        </ListItemButton>
-        <ListItemButton component={Link}
-            to="/editprofile">
-            <ListItemIcon>
-                <LayersIcon/>
-            </ListItemIcon>
-            <ListItemTextWhite primary="Profile"/>
-        </ListItemButton>
-        <ListItemButton component={Link}
             to="/newsurvey">
             <ListItemIcon>
-                <LayersIcon/>
+                <CreateIcon/>
             </ListItemIcon>
             <ListItemTextWhite primary="New Survey"/>
-        </ListItemButton>
-        <ListItemButton component={Link}
-            to="/settings">
-            <ListItemIcon>
-                <LayersIcon/>
-            </ListItemIcon>
-            <ListItemTextWhite primary="Settings"/>
-        </ListItemButton>
-        <ListItemButton component={Link}
-            to="/404">
-            <ListItemIcon>
-                <LayersIcon/>
-            </ListItemIcon>
-            <ListItemTextWhite primary="404"/>
         </ListItemButton>
     </React.Fragment>
 );
