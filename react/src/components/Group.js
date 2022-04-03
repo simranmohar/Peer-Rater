@@ -33,14 +33,22 @@ const cardStyle = {
         fontWeight: 'bold',
         fontSize: '1rem',
         margin: '1rem',
-        border: '2px solid $clr-primary',
+        border: '2px solid #DC143C',
         background: 'transparent',
-        color: '#DC143C',
-        // transition: background 200ms ease-in, color 200ms ease-in;
+        color: 'Tomato',
+        transition: 'background 200ms ease-in, color 200ms ease-in',
+    },
+    hover: {
+        transform: 'scale(1.02)',
+    },
+    
+    hover: {
+        background: '$clr-primary',
+        color: 'white',
     },
     parent: { 
         width: '300px',
-       }
+    }
 
 }
 
