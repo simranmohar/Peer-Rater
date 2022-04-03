@@ -9,23 +9,11 @@ import avatar2 from '../img/avatars/avatar2.png'
 import avatar3 from '../img/avatars/avatar3.png'
 import avatar4 from '../img/avatars/avatar4.png'
 import NewGroup from "./NewGroup";
+import {useEffect, useState} from "react";
 
 function createData(group, participants, finalEvaluation) {
     return {group, participants, finalEvaluation };
 }
-
-
-const rows = [
-    createData('COMP 3975', 17, 83.8),
-    createData('COMP 3717', 5, "PENDING"),
-    createData('COMP 2510', 4, 88.6),
-    createData('COMP 3522', 3, 94.3),
-    createData('COMP 3910', 4, 89.0),
-    createData('Behind The Curtain', 3, 98),
-    createData('Titan', 4, "PENDING"),
-    createData('Peer Rater', 3, "PENDING"),
-    createData('Vanilla', 3, 99),
-];
 
 const blue = {
     200: '#A5D8FF',
@@ -126,12 +114,32 @@ const CustomTablePagination = styled(TablePaginationUnstyled)(
 );
 
 export default function Groups() {
+    const [rows, setNewRows] = useState('')
+    useEffect(() => {
+        const user = JSON.parse(localStorage.getItem("user"));
+        var bearer = 'Bearer ' + user.access_token;
+        const fetchData = async () => {
+            const result = await fetch(`http://praterlaravel.azurewebsites.net/api/peer-groups/`, {
+                method: 'get',
+                headers: {
+                    'Authorization': bearer,
+                    'Content-Type': 'application/json'
+                }
+        });
+            const body = await result.json();
+            setNewRows(body);
+        }
+        fetchData();
+    }, []);
+
+    let row = Object.values(rows);
+
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
     // Avoid a layout jump when reaching the last page with empty rows.
     const emptyRows =
-        page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+        page > 0 ? Math.max(0, (1 + page) * rowsPerPage - row.length) : 0;
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
@@ -155,8 +163,8 @@ export default function Groups() {
                 </thead>
                 <tbody>
                 {(rowsPerPage > 0
-                        ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                        : rows
+                        ? row.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                        : row
                 ).map((row) => (
                     <tr key={row.group}>
                         <td>
@@ -164,7 +172,7 @@ export default function Groups() {
                                 avatar={
                                     <Avatar alt={row.group} src={avatar4}/>
                                 }
-                                title={row.group}
+                                title={row.description}
                                 />
 
                         </td>
@@ -173,7 +181,7 @@ export default function Groups() {
                             <CardHeader
 
                                 avatar={
-                                    <AvatarGroup total={row.participants}>
+                                    <AvatarGroup total={row.user_id}>
                                         <Avatar alt="Default" src={avatar1} />
                                         <Avatar alt="Default" src={avatar2} />
                                         <Avatar alt="Default" src={avatar3} />
@@ -183,7 +191,7 @@ export default function Groups() {
                             />
                         </td>
                         <td align="left" style={{width: "200px", textAlign: "left"}}>
-                            {row.finalEvaluation}
+                            {100}
                         </td>
                     </tr>
                 ))}

@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import * as React from "react";
+import api from "../services/api";
 
 // "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
 
@@ -38,6 +39,23 @@ function Group(props) {
     var groups = fetchedData;
     console.log(groups.length)
 
+    const [group, setNewGroup] = useState('')
+    const getNewSurvey = () =>{
+        axios.get('http://praterlaravel.azurewebsites.net/api/peer-groups')
+        .then(res => {
+            console.log(res.data)
+            res.data.forEach((data) => console.log(data.description));
+            console.log(res.data[0].id)
+            api.addSurvey(res.data[0].id).then(r => {
+                console.log(r)
+            })
+            // setNewGroup(res.data[0].description)
+            // console.log(res.data.description)
+        }).catch(err => {
+            console.log(err)
+        })
+
+    }
     return (
         <div>
             {/* {fetchedData.data ? <h2>{fetchedData.data[0].description}</h2> : null} */}
@@ -49,7 +67,7 @@ function Group(props) {
                         <h3 className="card__title">Milestone 1</h3>
                         <p className="card__description">{props.description}</p>
                     </div>
-                    <button className="card__btn">View Ratings</button>
+                    <button className="card__btn" onClick={getNewSurvey}>View Ratings</button>
                 </div>
             </div>
             {/* {groups.map((group, key) => {
