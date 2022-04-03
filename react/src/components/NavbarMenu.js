@@ -18,9 +18,17 @@ import {useEffect} from "react";
 
 export default function NavbarMenu() {
     const [username, setUsername] = React.useState("");
+    const [isInstructor, setIsInstructor] = React.useState("");
 
     useEffect(() => {
         setTimeout(() => {  setUsername(authService.getCurrentUserFull().name); }, 1000);
+        setTimeout(() => {
+            if (authService.getCurrentUserFull().isInstructor == 1){
+                setIsInstructor(" (Instructor) ");
+            }else {
+                setIsInstructor(" (Student) ");
+            }
+        }, 1000);
     },[])
 
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -45,7 +53,7 @@ export default function NavbarMenu() {
             <Box sx={{display: 'flex', alignItems: 'center', textAlign: 'center'}}>
 
                 <Typography className={"d-none d-sm-block"}
-                            sx={{textTransform: "capitalize", marginRight: 1}}>{username}</Typography>
+                            sx={{textTransform: "capitalize", marginRight: 1}}>{username + `${isInstructor}`}</Typography>
                 <Divider className={"d-none d-sm-block"} orientation="vertical"
                          style={{color: "black", height: "32px", width: "1px"}}/>
                 <Tooltip title="Account settings">
