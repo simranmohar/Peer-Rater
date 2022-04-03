@@ -25,6 +25,8 @@ import {Link} from "react-router-dom";
 import SurveyPage from "../pages/SurveyPage";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
+import {Add, ExitToApp} from "@mui/icons-material";
+import Button from "@mui/material/Button";
 
 
 
@@ -190,13 +192,14 @@ export default function Groups() {
                     <TableCell>Participants</TableCell>
                     <TableCell>Surveys</TableCell>
                     <TableCell>Final Evaluation</TableCell>
+                    <TableCell>Options</TableCell>
                 </TableRow>
                 </TableHead>
                 <TableBody>
                 {(rowsPerPage > 0
                         ? row.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                         : row
-                ).map((row, index) => (
+                ).map((row, index, key) => (
                     <TableRow key={index}>
                         <TableCell>
                             <CardHeader
@@ -226,6 +229,14 @@ export default function Groups() {
                         </TableCell>
                         <TableCell>
                             {100}
+                        </TableCell>
+                        <TableCell>
+                            <Tooltip title="Add Survey">
+                                <Button><Add/></Button>
+                            </Tooltip>
+                            <Tooltip title="Exit Group">
+                                <Button color="error"><ExitToApp/></Button>
+                            </Tooltip>
                         </TableCell>
 
                     </TableRow>
