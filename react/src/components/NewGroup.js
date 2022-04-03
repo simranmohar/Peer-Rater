@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import api from "../services/api";
+// import { PostPeerGroup } from '../../src/services/modules/index.js'
 
 class NewGroup extends Component {
     render() {
@@ -42,8 +43,6 @@ class NewGroup extends Component {
             })
             //must be connected to database
             document.getElementById("input").value = "";
-            // document.getElementById("list").innerHTML = "";
-
         }
 
         // function clear_data() {
