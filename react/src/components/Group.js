@@ -37,7 +37,10 @@ const cardStyle = {
         background: 'transparent',
         color: '#DC143C',
         // transition: background 200ms ease-in, color 200ms ease-in;
-    }
+    },
+    parent: { 
+        width: '300px',
+       }
 
 }
 
@@ -76,7 +79,7 @@ function Group(props) {
 
     }
     return (
-        <div>
+        <div id="test" style={cardStyle.parent}>
             {/* {fetchedData.data ? <h2>{fetchedData.data[0].description}</h2> : null} */}
             <div className="row">
                 <div style={cardStyle.card_v1}>
