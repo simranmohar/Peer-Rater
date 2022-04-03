@@ -39,7 +39,6 @@ function NewGroup ({newGroupAdded}) {
 
     const [loading, setLoading] = useState(false);
     const [submitButtonState, setSubmitButtonState] = useState(true);
-    const [inputValue, setInputValue] = useState("")
 
     const updateLoading = bool => {
         setLoading(bool);
@@ -60,8 +59,6 @@ function NewGroup ({newGroupAdded}) {
         loadingCallBack(true)
 
         let input = document.getElementById("input").value;
-        setInputValue(input)
-
         if (submit === "join") {
             api.getMe().then(u => {
                 api.joinPeerGroup(input, u).then(r => {
@@ -80,8 +77,6 @@ function NewGroup ({newGroupAdded}) {
 
         document.getElementById("input").value = "";
     }
-
-
 
     return (
         <React.Fragment>
