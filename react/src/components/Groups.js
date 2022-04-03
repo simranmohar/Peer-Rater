@@ -27,6 +27,7 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import {Add, ExitToApp} from "@mui/icons-material";
 import Button from "@mui/material/Button";
+import api from '../services/api';
 
 
 
@@ -178,6 +179,10 @@ export default function Groups() {
         setPage(0);
     };
 
+    const getNewSurvey = (props) =>{
+      api.addSurvey(props)
+  }
+
     return (
         <Root sx={{ width: '100%'}}>
             <NewGroup newGroupAdded={UpdateNeeded}/>
@@ -232,7 +237,9 @@ export default function Groups() {
                         </TableCell>
                         <TableCell>
                             <Tooltip title="Add Survey">
-                                <Button><Add/></Button>
+                                <Button><Add onClick={() => getNewSurvey(row.id)}/>
+                                <Link to={`/newsurvey`}>New Survey</Link></Button>
+
                             </Tooltip>
                             <Tooltip title="Exit Group">
                                 <Button color="error"><ExitToApp/></Button>
