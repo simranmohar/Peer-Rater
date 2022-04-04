@@ -51,9 +51,9 @@ const cardStyle = {
 }
 
 function Group(props) {
-    const getNewSurvey = (props) =>{
-        api.addSurvey(props)
-    }
+    // const getNewSurvey = (props) =>{
+    //     api.addSurvey(props)
+    // }
     return (
         <div id="test" style={cardStyle.parent}>
             <div className="row">
@@ -64,12 +64,14 @@ function Group(props) {
                         <p className="card__description" style={cardStyle.description}>Milestone 1</p>
                         <p>Peer group id: {props.id_value}</p>
                     </div>
-                    <button className="card__btn" tyle={cardStyle.button} onClick={() => getNewSurvey(props.id_value)}><Link to={`/newsurvey`}>
+                    <button className="card__btn" tyle={cardStyle.button}><Link to={`/newsurvey`} state={{ peer_group_id: props.id_value}}>
                 New Survey</Link></button>
                 </div>
             </div>
         </div>
     );
 }
+// onClick={() => getNewSurvey(props.id_value)}
+
 
 export default Group;

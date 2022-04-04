@@ -1,6 +1,16 @@
 import React from 'react';
+import { useLocation } from 'react-router-dom'
+import api from '../services/api';
+import { useState, useEffect } from 'react';
 
 function NewSurvey() {
+
+        const location = useLocation()
+        const { peer_group_id} = location.state
+
+        console.log("this is our bundle info", {peer_group_id})
+        console.log("try to extract peer group id", peer_group_id)
+    
     
         const surveyStyle = {
             list: {
@@ -48,6 +58,25 @@ function NewSurvey() {
             document.getElementById("list").innerHTML = "";
         }
 
+        
+        const [survey_id, set_survey_id] = useState({});
+
+        // useEffect(() => {
+        //     console.log("how many times was this called")
+        //     let api_survey_id = api.addSurvey(peer_group_id)
+        //     set_survey_id(api_survey_id)
+        // }, []);
+
+        const getNewSurvey = async () =>{
+            console.log("how many times was this called")
+            let api_survey_id = await api.addSurvey(peer_group_id)
+            console.log("this is our api survey id inside get New Survey", api_survey_id)
+            set_survey_id(api_survey_id)
+            let variable_list = document.getElementById("list")
+        }
+        
+        console.log("this is our survey id", survey_id)
+
 
      
         return (
@@ -67,7 +96,7 @@ function NewSurvey() {
                         <button style={surveyStyle.button} onClick={add_new} type="button" className="btn btn-primary">Add
                             New Category
                         </button>
-                        <button style={surveyStyle.button} onClick={submit_data} type="button"
+                        <button style={surveyStyle.button} onClick={() => getNewSurvey()} type="button"
                                 className="btn btn-primary">Submit
                         </button>
                         <button type="button" onClick={clear_data} className="btn btn-danger">Clear</button>
