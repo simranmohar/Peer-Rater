@@ -2,7 +2,15 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import Rating from '@mui/material/Rating';
 import Typography from '@mui/material/Typography';
-function Survey(){ const [value, setValue] = React.useState(2);
+
+
+function Survey(props){ 
+    const [value, setValue] = React.useState(0);
+
+    function postRating(newValue) {
+        document.getElementById("input").value = "";
+        document.getElementById("list").innerHTML = "";
+    }
 
     return (
       <Box
@@ -10,12 +18,12 @@ function Survey(){ const [value, setValue] = React.useState(2);
           '& > legend': { mt: 2 },
         }}
       >
-        <Typography component="legend">Question 1</Typography>
+        <Typography component="legend">{props.description}</Typography>
         <Rating
           name="simple-controlled"
           value={value}
           onChange={(event, newValue) => {
-            setValue(newValue);
+            postRating(newValue);
           }}
         />
       </Box>

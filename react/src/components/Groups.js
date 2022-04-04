@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { styled } from '@mui/system';
+import {styled} from '@mui/system';
 import TablePaginationUnstyled from '@mui/base/TablePaginationUnstyled';
 import Avatar from '@mui/material/Avatar';
 import AvatarGroup from '@mui/material/AvatarGroup';
@@ -31,7 +31,6 @@ import api from '../services/api';
 import auth from "../services/auth";
 
 
-
 const blue = {
     200: '#A5D8FF',
     400: '#3399FF',
@@ -51,7 +50,7 @@ const grey = {
 };
 
 const Root = styled('div')(
-    ({ theme }) => `
+    ({theme}) => `
   // table {
   //   font-family: Roboto, sans-serif;
   //   font-size: 0.875rem;
@@ -73,7 +72,7 @@ const Root = styled('div')(
 );
 
 const CustomTablePagination = styled(TablePaginationUnstyled)(
-    ({ theme }) => `
+    ({theme}) => `
   & .MuiTablePaginationUnstyled-spacer {
     display: none;
   }
@@ -138,7 +137,7 @@ export default function Groups() {
     const [updateNeeded, setUpdateNeeded] = useState(false)
 
     function handleClick(item) {
-        api.exitPeerGroup(item.id, auth.getCurrentUserFull().id).then(()=>{
+        api.exitPeerGroup(item.id, auth.getCurrentUserFull().id).then(() => {
             setExitUpdateNeeded(true)
         })
     }
@@ -187,15 +186,15 @@ export default function Groups() {
         setPage(0);
     };
 
-    const getNewSurvey = (props) =>{
+    const getNewSurvey = (props) => {
         api.addSurvey(props)
     }
 
     return (
-        <Root sx={{ width: '100%'}}>
+        <Root sx={{width: '100%'}}>
             <NewGroup newGroupAdded={UpdateNeeded}/>
-            <Box sx={{ width: '100%' }}>
-                <Paper sx={{ width: '100%', mb: 2 }}>
+            <Box sx={{width: '100%'}}>
+                <Paper sx={{width: '100%', mb: 2}}>
                     <TableContainer>
                         <Table aria-label="custom pagination table">
                             <TableHead sx={{fontWeight: 'bold'}}>
@@ -211,11 +210,15 @@ export default function Groups() {
                                         ? row.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                                         : row
                                 ).map((row, index) => (
-                                    <TableRow>
+                                    <TableRow key={"TableRow"}>
                                         <TableCell>
                                             <CardHeader
                                                 avatar={
-                                                    <Avatar sx={{backgroundColor: "#90caf9", color: "black", fontSize: "90%"}}>{`#${row.id}`}</Avatar>
+                                                    <Avatar sx={{
+                                                        backgroundColor: "#90caf9",
+                                                        color: "black",
+                                                        fontSize: "90%"
+                                                    }} key={"avatar" + index}>{`#${row.id}`}</Avatar>
                                                 }
                                                 title={row.description}
                                             />
@@ -224,11 +227,12 @@ export default function Groups() {
                                         <TableCell>
                                             <CardHeader
                                                 avatar={
-                                                    <AvatarGroup total={row.users.length}>
-                                                        {row.users.map(function(name){
-                                                            return(
-                                                                <Tooltip title={name.name} key={index}>
-                                                                    <Avatar key={index}>{name.name.charAt(0).toUpperCase()}</Avatar>
+                                                    <AvatarGroup total={row.users.length} key={"AvatarGroup"}>
+                                                        {row.users.map(function (name, indexInner) {
+                                                            return (
+                                                                <Tooltip title={name.name} key={index + "avatar" + indexInner}>
+                                                                    <Avatar
+                                                                        key={index+"avatar"}>{name.name.charAt(0).toUpperCase()}</Avatar>
                                                                 </Tooltip>)
                                                         })}
                                                     </AvatarGroup>
@@ -240,11 +244,13 @@ export default function Groups() {
                                         </TableCell>
                                         <TableCell style={{width: "15em", minWidth: "15em"}}>
                                             <Tooltip title="Add Survey" key="AddSurveyToolTip">
-                                                <Button onClick={() => getNewSurvey(row.id)}><Add />
+                                                <Button onClick={() => getNewSurvey(row.id)}><Add/>
                                                 </Button>
                                             </Tooltip>
                                             <Tooltip title="Exit Group" key="ExitGroupToolTip">
-                                                <Button color="error" onClick={()=>{handleClick(row)}}><ExitToApp/></Button>
+                                                <Button color="error" onClick={() => {
+                                                    handleClick(row)
+                                                }}><ExitToApp/></Button>
                                             </Tooltip>
                                         </TableCell>
 
@@ -252,8 +258,8 @@ export default function Groups() {
                                 ))}
 
                                 {emptyRows > 0 && (
-                                    <TableRow style={{ height: 53 * emptyRows }}>
-                                        <TableCell colSpan={6} />
+                                    <TableRow style={{height: 53 * emptyRows}}>
+                                        <TableCell colSpan={6}/>
                                     </TableRow>
                                 )}
                             </TableBody>

@@ -74,8 +74,9 @@ function NewSurvey() {
             for(var i = 0; i < children.length; i++){
                 console.log(children[i].innerHTML)
                 api.addCategory(survey_id, peer_group_id, children[i].innerHTML)
-                list.innerHTML = ""
+                
             }
+            list.innerHTML = ""
         
         }
         
