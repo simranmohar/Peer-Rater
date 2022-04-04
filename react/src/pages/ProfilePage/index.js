@@ -1,5 +1,6 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import Auth from "../../services/auth";
+import authService from "../../services/auth";
 
 const profileStyle = {
     main: {
@@ -28,44 +29,51 @@ const profileStyle = {
 
 }
 const BLANK_PROFILE = require('./img/blank-profile-picture.png');
-const user = Auth.getCurrentUserFull();
-const ProfilePage = () => (
-    <>
-            <div className="page-content page-container" id="page-content">
-                <div className="padding">
-                    <div className="row container d-flex justify-content-center">
-                        <div className="col-xl-6 col-md-12">
-                            <div className="card user-card-full">
-                                <div className="row m-l-0 m-r-0">
-                                    <div className="col-sm-4 bg-c-lite-green user-profile">
-                                        <div style={profileStyle.profile}>
 
-                                            <img style={profileStyle.images}
-                                                 src={BLANK_PROFILE} alt={"placeholder profile picture"}/>
+function ProfilePage() {
+    const [currentUser, setCurrentUser] = React.useState({});
 
-                                            <h6>{user.name}</h6>
+    useEffect(() => {
+        setTimeout(() => {  setCurrentUser(authService.getCurrentUserFull()); }, 1000);
+    },[])
+
+    return(
+        <div className="page-content page-container" id="page-content">
+        <div className="padding">
+            <div className="row container d-flex justify-content-center">
+                <div className="col-xl-6 col-md-12">
+                    <div className="card user-card-full">
+                        <div className="row m-l-0 m-r-0">
+                            <div className="col-sm-4 bg-c-lite-green user-profile">
+                                <div style={profileStyle.profile}>
+
+                                    <img style={profileStyle.images}
+                                         src={BLANK_PROFILE} alt={"placeholder profile picture"}/>
+
+                                    <h6>{currentUser.name}</h6>
+                                </div>
+                            </div>
+                            <div style={profileStyle.card} className="col-sm-8">
+                                <div className="card-block">
+                                    <h6 className="m-b-20 p-b-5 b-b-default f-w-600">Information</h6>
+                                    <div className="row">
+                                        <div className="col-sm-6">
+                                            <p className="m-b-10 f-w-600">Email</p>
+                                            <h6 className="text-muted f-w-400">{currentUser.email}</h6>
                                         </div>
                                     </div>
-                                    <div style={profileStyle.card} className="col-sm-8">
-                                        <div className="card-block">
-                                            <h6 className="m-b-20 p-b-5 b-b-default f-w-600">Information</h6>
-                                            <div className="row">
-                                                <div className="col-sm-6">
-                                                    <p className="m-b-10 f-w-600">Email</p>
-                                                    <h6 className="text-muted f-w-400">{user.email}</h6>
-                                                </div>
-                                            </div>
 
 
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-    </>
-);
+        </div>
+    </div>
+    )
+}
+
 
 export default ProfilePage;
