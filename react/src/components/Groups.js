@@ -211,7 +211,7 @@ export default function Groups() {
                                         : row
                                 ).map((row, index) => (
                                     <TableRow key={index}>
-                                        <TableCell>
+                                        <TableCell style={{width: "15em", minWidth: "15em"}}>
                                             <CardHeader
                                                 avatar={
                                                     <Avatar sx={{
@@ -224,7 +224,7 @@ export default function Groups() {
                                             />
 
                                         </TableCell>
-                                        <TableCell>
+                                        <TableCell style={{width: "15em", minWidth: "15em"}}>
                                             <CardHeader
                                                 avatar={
                                                     <AvatarGroup total={row.users.length} key={"AvatarGroup"}>
