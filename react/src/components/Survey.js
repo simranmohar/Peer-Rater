@@ -8,8 +8,7 @@ function Survey(props){
     const [value, setValue] = React.useState(0);
 
     function postRating(newValue) {
-        document.getElementById("input").value = "";
-        document.getElementById("list").innerHTML = "";
+      setValue(newValue);
     }
 
     return (
