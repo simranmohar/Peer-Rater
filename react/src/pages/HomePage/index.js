@@ -45,16 +45,9 @@ export const mainListItems = (
             <ListItemTextWhite primary="Groups"/>
         </ListItemButton>
         <ListItemButton component={Link}
-            to="/newsurvey">
-            <ListItemIcon>
-                <CreateIcon/>
-            </ListItemIcon>
-            <ListItemTextWhite primary="New Survey"/>
-        </ListItemButton>
-        <ListItemButton component={Link}
             to="/completesurvey">
             <ListItemIcon>
-                <DashboardIcon/>
+            <CreateIcon/>
             </ListItemIcon>
             <ListItemTextWhite primary="Complete Survey"/>
         </ListItemButton>
