@@ -6,6 +6,7 @@ import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import {useEffect, useState} from "react";
+import { Link } from 'react-router-dom';
 
 
 function SurveyCard(survey){
@@ -24,7 +25,8 @@ function SurveyCard(survey){
                 </Typography>
             </CardContent>
             <CardActions>
-                <Button size="small">COMPLETE</Button>
+                <Button size="small"><Link to={`/listuserpage`}>
+                COMPLETE</Link></Button>
             </CardActions>
         </React.Fragment>
     );

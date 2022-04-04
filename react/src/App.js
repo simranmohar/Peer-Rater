@@ -33,6 +33,7 @@ import LoginPage from "./pages/Auth/LoginPage";
 import axios from "axios";
 import authService from "./services/auth";
 import CompleteSurveyPage from "./pages/CompleteSurveyPage";
+import ListUserPage from "./pages/ListUserPage";
 
 
 const Page = ({
@@ -87,6 +88,9 @@ function App() {
                         }/>
                     <Route path="/completesurvey"
                         element={<Page title="CompleteSurvey" isPrivate><CompleteSurveyPage/></Page>}
+                        exact></Route>
+                    <Route path="/listuserpage"
+                        element={<Page title="ListUserPage" isPrivate><ListUserPage/></Page>}
                         exact></Route>
                     <Route path="/profile"
                         element={
