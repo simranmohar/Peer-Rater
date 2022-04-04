@@ -239,7 +239,7 @@ export default function Groups() {
                                                 }
                                             />
                                         </TableCell>
-                                        <TableCell>
+                                        <TableCell sx={{overflowX: "auto", maxWidth:"30em"}}>
                                             <SurveyPage group={row}/>
                                         </TableCell>
                                         <TableCell style={{width: "15em", minWidth: "15em"}}>
