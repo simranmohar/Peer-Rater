@@ -237,9 +237,8 @@ export default function Groups() {
                         </TableCell>
                         <TableCell>
                             <Tooltip title="Add Survey">
-                                <Button><Add onClick={() => getNewSurvey(row.id)}/>
-                                <Link to={`/newsurvey`}>New Survey</Link></Button>
-
+                                <Button onClick={() => getNewSurvey(row.id)}><Add />
+                                </Button>
                             </Tooltip>
                             <Tooltip title="Exit Group">
                                 <Button color="error"><ExitToApp/></Button>
