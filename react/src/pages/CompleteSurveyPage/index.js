@@ -47,7 +47,7 @@ function CompleteSurveyPage () {
             <Survey/>
             <List style={flexContainer}>
                             {othersFiltered.map((groups, key) => (
-                            <Survey key={key} description={groups.description}/>
+                            <Survey key={key} description={groups.description} peerGroupId={groups.peer_group_id} surveyId={groups.survey_id} categoryId={groups.id}/>
                             ))}
                     </List>
                     <Button>Submit</Button>
