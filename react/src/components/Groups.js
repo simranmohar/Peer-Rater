@@ -210,7 +210,7 @@ export default function Groups() {
                                         ? row.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                                         : row
                                 ).map((row, index) => (
-                                    <TableRow key={"TableRow"}>
+                                    <TableRow key={index}>
                                         <TableCell>
                                             <CardHeader
                                                 avatar={
