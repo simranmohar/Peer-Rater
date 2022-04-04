@@ -1,4 +1,5 @@
 import React from 'react';
+import Auth from "../../services/auth";
 
 const profileStyle = {
     main: {
@@ -27,6 +28,7 @@ const profileStyle = {
 
 }
 const BLANK_PROFILE = require('./img/blank-profile-picture.png');
+const user = Auth.getCurrentUserFull();
 const ProfilePage = () => (
     <>
             <div className="page-content page-container" id="page-content">
@@ -41,7 +43,7 @@ const ProfilePage = () => (
                                             <img style={profileStyle.images}
                                                  src={BLANK_PROFILE} alt={"placeholder profile picture"}/>
 
-                                            <h6>John Doe</h6>
+                                            <h6>{user.name}</h6>
                                         </div>
                                     </div>
                                     <div style={profileStyle.card} className="col-sm-8">
@@ -50,11 +52,7 @@ const ProfilePage = () => (
                                             <div className="row">
                                                 <div className="col-sm-6">
                                                     <p className="m-b-10 f-w-600">Email</p>
-                                                    <h6 className="text-muted f-w-400">jdoe@gmail.com</h6>
-                                                </div>
-                                                <div className="col-sm-6">
-                                                    <p className="m-b-10 f-w-600">Age</p>
-                                                    <h6 className="text-muted f-w-400">24</h6>
+                                                    <h6 className="text-muted f-w-400">{user.email}</h6>
                                                 </div>
                                             </div>
 

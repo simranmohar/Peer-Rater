@@ -6,6 +6,7 @@ import Paper from "@mui/material/Paper";
 import {LoadingButton, ToggleButton, ToggleButtonGroup} from "@mui/lab";
 import {TextField} from "@mui/material";
 import Button from "@mui/material/Button";
+import Auth from "../services/auth";
 // import { PostPeerGroup } from '../../src/services/modules/index.js'
 
 function NewGroup ({newGroupAdded}) {
@@ -60,12 +61,10 @@ function NewGroup ({newGroupAdded}) {
 
         let input = document.getElementById("input").value;
         if (submit === "join") {
-            api.getMe().then(u => {
-                api.joinPeerGroup(input, u).then(r => {
-                    newGroupAdded();
-                    loadingCallBack(false)
-                    setSubmitButtonState(true)
-                })
+            api.joinPeerGroup(input, Auth.getCurrentUserFull()).then(r => {
+                newGroupAdded();
+                loadingCallBack(false)
+                setSubmitButtonState(true)
             })
         } else {
             api.addPeerGroup(input).then(r => {
