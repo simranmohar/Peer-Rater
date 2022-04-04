@@ -7,9 +7,6 @@ const addPeerGroup = (_description) => {
     const user = JSON.parse(localStorage.getItem("user"));
     if (user) {
         return axios.post('/peer-groups', {description: _description}).then((response) => {
-            if (response.data) {
-                localStorage.setItem("currentUser", JSON.stringify(response.data));
-            }
         }).catch((e) => {
             console.log("Failed to add peer group" + e)
             return e;
@@ -54,9 +51,6 @@ const addSurvey = (_peer_group_id) =>{
     const user = JSON.parse(localStorage.getItem("user"));
     if (user) {
         return axios.post(`/peer-groups/${_peer_group_id}/surveys`).then((response) => {
-            if (response.data) {
-                localStorage.setItem("currentUser", JSON.stringify(response.data));
-            }
             return response.data.survey.id;
         }).catch((e) => {
             console.log("Failed to add survey " + e)
@@ -69,9 +63,6 @@ const addCategory = (_survey_id, _peer_group_id, _description) =>{
     const user = JSON.parse(localStorage.getItem("user"));
     if (user) {
         return axios.post(`/categories/`, {survey_id: _survey_id, peer_group_id: _peer_group_id, description: _description}).then((response) => {
-            if (response.data) {
-                localStorage.setItem("currentUser", JSON.stringify(response.data));
-            }
             return response.data.survey.id;
         }).catch((e) => {
             console.log("Failed to add survey " + e)

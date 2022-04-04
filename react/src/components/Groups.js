@@ -202,7 +202,6 @@ export default function Groups() {
                                     <TableCell>Group</TableCell>
                                     <TableCell>Participants</TableCell>
                                     <TableCell>Surveys</TableCell>
-                                    <TableCell>Final Evaluation</TableCell>
                                     <TableCell>Options</TableCell>
                                 </TableRow>
                             </TableHead>
@@ -211,8 +210,8 @@ export default function Groups() {
                                         ? row.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                                         : row
                                 ).map((row, index) => (
-                                    <TableRow key={"TableRow"}>
-                                        <TableCell>
+                                    <TableRow key={index}>
+                                        <TableCell style={{width: "15em", minWidth: "15em"}}>
                                             <CardHeader
                                                 avatar={
                                                     <Avatar sx={{
@@ -225,7 +224,7 @@ export default function Groups() {
                                             />
 
                                         </TableCell>
-                                        <TableCell>
+                                        <TableCell style={{width: "15em", minWidth: "15em"}}>
                                             <CardHeader
                                                 avatar={
                                                     <AvatarGroup total={row.users.length} key={"AvatarGroup"}>
@@ -243,10 +242,7 @@ export default function Groups() {
                                         <TableCell>
                                             <SurveyPage group={row}/>
                                         </TableCell>
-                                        <TableCell>
-                                            {100}
-                                        </TableCell>
-                                        <TableCell style={{minWidth: "15em"}}>
+                                        <TableCell style={{width: "15em", minWidth: "15em"}}>
                                             <Tooltip title="Add Survey" key="AddSurveyToolTip">
                                                 <Button onClick={() => getNewSurvey(row.id)}><Add/>
                                                 </Button>
