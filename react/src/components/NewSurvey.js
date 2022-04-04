@@ -45,14 +45,6 @@ function NewSurvey() {
             document.getElementById("input").value = "";
         }
 
-        function submit_data() {
-            //must be connected to database
-            document.getElementById("input").value = "";
-            document.getElementById("list").innerHTML = "";
-
-
-        }
-
         function clear_data() {
             document.getElementById("input").value = "";
             document.getElementById("list").innerHTML = "";
@@ -73,6 +65,18 @@ function NewSurvey() {
             console.log("this is our api survey id inside get New Survey", api_survey_id)
             set_survey_id(api_survey_id)
             let variable_list = document.getElementById("list")
+            add_categories(api_survey_id, peer_group_id)
+        }
+
+        function add_categories(survey_id, peer_group_id){
+            var list = document.getElementById("list")
+            var children = list.children;
+            for(var i = 0; i < children.length; i++){
+                console.log(children[i].innerHTML)
+                api.addCategory(survey_id, peer_group_id, children[i].innerHTML)
+                list.innerHTML = ""
+            }
+        
         }
         
         console.log("this is our survey id", survey_id)
