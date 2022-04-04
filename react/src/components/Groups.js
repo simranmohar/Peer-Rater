@@ -235,7 +235,7 @@ export default function Groups() {
                         <TableCell>
                             {100}
                         </TableCell>
-                        <TableCell>
+                        <TableCell style={{minWidth: "15em"}}>
                             <Tooltip title="Add Survey">
                                 <Button onClick={() => getNewSurvey(row.id)}><Add />
                                 </Button>
