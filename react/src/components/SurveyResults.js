@@ -25,8 +25,8 @@ function SurveyCard(survey){
                 </Typography>
             </CardContent>
             <CardActions>
-                <Button size="small"><Link to={`/listuserpage`}>
-                COMPLETE</Link></Button>
+                <Button component={Link} to="/listuserpage" size="small">
+                COMPLETE</Button>
             </CardActions>
         </React.Fragment>
     );
