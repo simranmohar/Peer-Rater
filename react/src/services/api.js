@@ -81,6 +81,14 @@ const addCategory = (_survey_id, _peer_group_id, _description) =>{
 
 }
 
+const exitPeerGroup = async (group_id, u) => {
+    return axios.post(`/peer-groups/${group_id}/detach`, {user_id: u}).then((response) => {
+    }).catch((e) => {
+        console.log("Failed to join peer group" + e)
+        return e;
+    })
+}
+
 
 
 
@@ -90,7 +98,8 @@ const api = {
     joinPeerGroup,
     addSurvey,
     getMe,
-    addCategory
+    addCategory,
+    exitPeerGroup
 };
 
 export default api;

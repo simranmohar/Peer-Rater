@@ -28,6 +28,7 @@ import Box from "@mui/material/Box";
 import {Add, ExitToApp} from "@mui/icons-material";
 import Button from "@mui/material/Button";
 import api from '../services/api';
+import auth from "../services/auth";
 
 
 
@@ -132,13 +133,20 @@ const CustomTablePagination = styled(TablePaginationUnstyled)(
 
 
 export default function Groups() {
-
+    const [exitUpdateNeeded, setExitUpdateNeeded] = React.useState(false);
     const [rows, setNewRows] = useState('')
     const [updateNeeded, setUpdateNeeded] = useState(false)
+
+    function handleClick(item) {
+        api.exitPeerGroup(item.id, auth.getCurrentUserFull().id).then(()=>{
+            setExitUpdateNeeded(true)
+        })
+    }
 
     function UpdateNeeded() {
         setUpdateNeeded(true);
     }
+
 
     useEffect(() => {
         const user = JSON.parse(localStorage.getItem("user"));
@@ -150,7 +158,7 @@ export default function Groups() {
                     'Authorization': bearer,
                     'Content-Type': 'application/json'
                 }
-        });
+            });
             const body = await result.json();
             setNewRows(body);
         }
@@ -158,9 +166,9 @@ export default function Groups() {
         return () => {
             // Clean up the subscription
             setUpdateNeeded(false);
+            setExitUpdateNeeded(false)
         };
-
-    }, [updateNeeded]);
+    }, [updateNeeded, exitUpdateNeeded]);
 
     let row = Object.values(rows);
     const [page, setPage] = React.useState(0);
@@ -180,83 +188,81 @@ export default function Groups() {
     };
 
     const getNewSurvey = (props) =>{
-      api.addSurvey(props)
-  }
+        api.addSurvey(props)
+    }
 
     return (
         <Root sx={{ width: '100%'}}>
             <NewGroup newGroupAdded={UpdateNeeded}/>
-
             <Box sx={{ width: '100%' }}>
                 <Paper sx={{ width: '100%', mb: 2 }}>
-            <TableContainer>
-                <Table aria-label="custom pagination table">
-                <TableHead sx={{fontWeight: 'bold'}}>
-                <TableRow>
-                    <TableCell>Group</TableCell>
-                    <TableCell>Participants</TableCell>
-                    <TableCell>Surveys</TableCell>
-                    <TableCell>Final Evaluation</TableCell>
-                    <TableCell>Options</TableCell>
-                </TableRow>
-                </TableHead>
-                <TableBody>
-                {(rowsPerPage > 0
-                        ? row.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                        : row
-                ).map((row, index, key) => (
-                    <TableRow key={index}>
-                        <TableCell>
-                            <CardHeader
-                                avatar={
-                                    <Avatar sx={{backgroundColor: "#90caf9", color: "black", fontSize: "90%"}}>{`#${row.id}`}</Avatar>
-                                }
-                                title={row.description}
-                                />
+                    <TableContainer>
+                        <Table aria-label="custom pagination table">
+                            <TableHead sx={{fontWeight: 'bold'}}>
+                                <TableRow>
+                                    <TableCell>Group</TableCell>
+                                    <TableCell>Participants</TableCell>
+                                    <TableCell>Surveys</TableCell>
+                                    <TableCell>Final Evaluation</TableCell>
+                                    <TableCell>Options</TableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {(rowsPerPage > 0
+                                        ? row.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                                        : row
+                                ).map((row, index) => (
+                                    <TableRow>
+                                        <TableCell>
+                                            <CardHeader
+                                                avatar={
+                                                    <Avatar sx={{backgroundColor: "#90caf9", color: "black", fontSize: "90%"}}>{`#${row.id}`}</Avatar>
+                                                }
+                                                title={row.description}
+                                            />
 
-                        </TableCell>
-                        <TableCell>
-                            <CardHeader
-                                avatar={
-                                    <AvatarGroup total={row.users.length}>
-                                        {row.users.map(function(name){
-                                            return(
-                                            <Tooltip title={name.name}>
-                                                <Avatar>{name.name.charAt(0).toUpperCase()}</Avatar>
-                                            </Tooltip>)
-                                        })}
-                                    </AvatarGroup>
-                                }
-                            />
-                        </TableCell>
-                        <TableCell>
-                            <SurveyPage group={row}/>
-                        </TableCell>
-                        <TableCell>
-                            {100}
-                        </TableCell>
-                        <TableCell style={{minWidth: "15em"}}>
-                            <Tooltip title="Add Survey">
-                                <Button onClick={() => getNewSurvey(row.id)}><Add />
-                                </Button>
-                            </Tooltip>
-                            <Tooltip title="Exit Group">
-                                <Button color="error"><ExitToApp/></Button>
-                            </Tooltip>
-                        </TableCell>
+                                        </TableCell>
+                                        <TableCell>
+                                            <CardHeader
+                                                avatar={
+                                                    <AvatarGroup total={row.users.length}>
+                                                        {row.users.map(function(name){
+                                                            return(
+                                                                <Tooltip title={name.name} key={index}>
+                                                                    <Avatar key={index}>{name.name.charAt(0).toUpperCase()}</Avatar>
+                                                                </Tooltip>)
+                                                        })}
+                                                    </AvatarGroup>
+                                                }
+                                            />
+                                        </TableCell>
+                                        <TableCell>
+                                            <SurveyPage group={row}/>
+                                        </TableCell>
+                                        <TableCell>
+                                            {100}
+                                        </TableCell>
+                                        <TableCell style={{minWidth: "15em"}}>
+                                            <Tooltip title="Add Survey" key="AddSurveyToolTip">
+                                                <Button onClick={() => getNewSurvey(row.id)}><Add />
+                                                </Button>
+                                            </Tooltip>
+                                            <Tooltip title="Exit Group" key="ExitGroupToolTip">
+                                                <Button color="error" onClick={()=>{handleClick(row)}}><ExitToApp/></Button>
+                                            </Tooltip>
+                                        </TableCell>
 
-                    </TableRow>
-                ))}
+                                    </TableRow>
+                                ))}
 
-                    {emptyRows > 0 && (
-                        <TableRow style={{ height: 53 * emptyRows }}>
-                            <TableCell colSpan={6} />
-                        </TableRow>
-                    )}
-                </TableBody>
-                </Table>
-            </TableContainer>
-
+                                {emptyRows > 0 && (
+                                    <TableRow style={{ height: 53 * emptyRows }}>
+                                        <TableCell colSpan={6} />
+                                    </TableRow>
+                                )}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
                     <TablePagination
                         rowsPerPageOptions={[5, 10, 25]}
                         component="div"
