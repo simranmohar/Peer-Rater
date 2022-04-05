@@ -5,10 +5,11 @@ import { List } from '@mui/material';
 import { Button } from 'react-bootstrap';
 import {useLocation} from "react-router-dom";
 import api from '../../services/api'
+import UserList from '../../components/userListComponent'
 
 
 
-function ListUserPage () {
+function ListUserPage ({}) {
     const location = useLocation()
     const { survey } = location.state
     
@@ -21,30 +22,30 @@ function ListUserPage () {
     useEffect(() => {
        const peer_group = async() => {
         let peers = await api.getGroupMember(peer_group_id)
-        set_peer_group(peers)
+        set_peer_group(peers.users)
     }
         peer_group();
 }, []);
 
-    console.log("peer groups: ",peer_group_object.users)
+    console.log("peer groups: ",peer_group_object)
 
     async function populate(){
-        const list = document.getElementById("members")
-        var li = document.createElement("li");
+        // const list = document.getElementById("members")
+        // var li = document.createElement("li");
 
         let users = await peer_group_object.users 
-        console.log(users.length)
-        if(users.length>0){
-            for(var i=0; i< users.length; i++){
-                console.log("user: ",peer_group_object.users[i])
-                li.appendChild(document.createTextNode(peer_group_object.users[i].name));
-                list.appendChild(li);
-            }
-        }
+        return users
+        // if(users.length>0){
+        //     for(var i=0; i< users.length; i++){
+        //         // console.log("user: ",peer_group_object.users[i])
+        //         // li.appendChild(document.createTextNode(peer_group_object.users[i].name));
+        //         // list.appendChild(li);
+        //     }
+        // }
 
     }
 
-    populate()
+    // populate()
 
     const flexContainer = {
         display: 'flex',
@@ -56,9 +57,7 @@ function ListUserPage () {
 
     return(
         <div>
-            <ul id="members">
-
-            </ul>
+            <UserList state={{users : populate()}} />
             
         </div>
     )
