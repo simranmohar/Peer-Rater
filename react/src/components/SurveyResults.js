@@ -7,11 +7,37 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import {useEffect, useState} from "react";
 import { Link } from 'react-router-dom';
+import auth from "../services/auth";
 
+function getPercentage(rating) {
+    let user = auth.getCurrentUserFull();
+    let ratingValue = 0;
+    let ratingCount = 0;
+    rating.forEach((value) => {
+        if (parseInt(value.recipient_id) === parseInt(user.id)) {
+            ratingValue += parseInt(value.rating);
+            ratingCount += 1;
+        }
+    })
+    if (ratingCount === 0) {
+        return 0;
+    }
+    return ratingValue / (ratingCount * 5) * 100;
+}
+
+function getCompletion(rating, category, size) {
+    if (rating.length === 0 || category.length === 0) {
+        return 0;
+    }
+    let calc = (rating.length / category.length) / size;
+    return Math.floor(calc);
+}
 
 function SurveyCard(survey, size){
     const [rate, setNewRate] = useState('')
     const [category, setNewCategory] = useState('')
+    const [percentage, setNewPercentage] = useState('')
+    const [completion, setNewCompletion] = useState('')
     useEffect(() => {
         const fetchData = async () => {
             const [ratingsResult, categoryResult] = await Promise.all([fetch(`http://praterlaravel.azurewebsites.net/api/peer-groups/${survey.peer_group_id}/surveys/${survey.id}/ratings`),fetch(`http://praterlaravel.azurewebsites.net/api/peer-groups/${survey.peer_group_id}/surveys/${survey.id}/categories`)]);
@@ -19,6 +45,8 @@ function SurveyCard(survey, size){
             const category = await categoryResult.json();
             setNewRate(rating);
             setNewCategory(category);
+            setNewPercentage(getPercentage(rating));
+            setNewCompletion(getCompletion(rating, category, size).toString());
         }
         fetchData();
     }, [survey]);
@@ -26,18 +54,17 @@ function SurveyCard(survey, size){
         <React.Fragment>
             <CardContent>
                 <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                    SURVEY
+                    SURVEY #{survey.id}
                 </Typography>
                 <Typography variant="h5" component="div">
-                    95%
+                    {percentage}%
                 </Typography>
                 <Typography variant="body2">
-                    {rate.length} ratings
-                    <br/>{category.length} categories
+                    {completion}/{size} completed
                 </Typography>
             </CardContent>
             <CardActions>
-                <Button component={Link} to="/listuserpage" size="small">
+                <Button component={Link} to="/listuserpage" state={{survey:survey}}size="small">
                 COMPLETE</Button>
             </CardActions>
         </React.Fragment>

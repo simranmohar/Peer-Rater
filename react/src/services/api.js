@@ -62,7 +62,7 @@ const addSurvey = (_peer_group_id) =>{
 const addCategory = (_survey_id, _peer_group_id, _description) =>{
     const user = JSON.parse(localStorage.getItem("user"));
     if (user) {
-        return axios.post(`/categories/`, {survey_id: _survey_id, peer_group_id: _peer_group_id, description: _description}).then((response) => {
+        return axios.post(`/peer-groups/${_peer_group_id}/surveys/${_survey_id}/categories/`, {description: _description}).then((response) => {
             return response.data.survey.id;
         }).catch((e) => {
             console.log("Failed to add survey " + e)
@@ -96,6 +96,18 @@ const exitPeerGroup = async (group_id, u) => {
     })
 }
 
+async function getGroupMember(_id) {
+
+    try {
+        return await axios.get(`/peer-groups/${_id}`, {}).then((response) => {
+            return response.data;
+        })
+    } catch (error) {
+        alert("ERROR: get peer groups + " + error)
+        return error
+    }
+}
+
 
 
 
@@ -107,7 +119,8 @@ const api = {
     getMe,
     addCategory,
     exitPeerGroup,
-    addRating
+    addRating,
+    getGroupMember
 };
 
 export default api;

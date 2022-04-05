@@ -186,10 +186,6 @@ export default function Groups() {
         setPage(0);
     };
 
-    const getNewSurvey = (props) => {
-        api.addSurvey(props)
-    }
-
     return (
         <Root sx={{width: '100%'}}>
             <NewGroup newGroupAdded={UpdateNeeded}/>
@@ -244,7 +240,8 @@ export default function Groups() {
                                         </TableCell>
                                         <TableCell style={{width: "15em", minWidth: "15em"}}>
                                             <Tooltip title="Add Survey" key="AddSurveyToolTip">
-                                                <Button onClick={() => getNewSurvey(row.id)}><Add/>
+                                                <Button>
+                                                <Link to={`/newsurvey`} state={{ peer_group_id: row.id}}><Add/></Link>
                                                 </Button>
                                             </Tooltip>
                                             <Tooltip title="Exit Group" key="ExitGroupToolTip">
