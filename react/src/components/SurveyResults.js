@@ -37,7 +37,7 @@ function SurveyCard(survey, size){
                 </Typography>
             </CardContent>
             <CardActions>
-                <Button component={Link} to="/listuserpage" size="small">
+                <Button component={Link} to="/listuserpage" state={{survey:survey}}size="small">
                 COMPLETE</Button>
             </CardActions>
         </React.Fragment>
