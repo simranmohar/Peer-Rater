@@ -24,6 +24,7 @@ import {Add, ExitToApp} from "@mui/icons-material";
 import Button from "@mui/material/Button";
 import api from '../services/api';
 import auth from "../services/auth";
+import {LoadingButton} from "@mui/lab";
 
 
 const blue = {
@@ -132,11 +133,12 @@ export default function Groups() {
     const [updateNeeded, setUpdateNeeded] = useState(false)
     const [loading, setLoading] = React.useState(true);
     const [barLoading, setBarLoading] = React.useState(true);
-    function handleClick(item) {
-        setBarLoading(true)
+    const [buttonLoading, setButtonLoading] = React.useState('');
+    function handleClick(item, button) {
+        setButtonLoading(button)
         api.exitPeerGroup(item.id, auth.getCurrentUserFull().id).then(() => {
             setExitUpdateNeeded(true)
-            setBarLoading(false)
+            setBarLoading(true);
         })
     }
 
@@ -161,6 +163,7 @@ export default function Groups() {
             setNewRows(body);
             setLoading(false);
             setBarLoading(false);
+            setButtonLoading('');
         }
         fetchData();
         return () => {
@@ -254,9 +257,9 @@ export default function Groups() {
                                                 </Button>
                                             </Tooltip>
                                             <Tooltip title="Exit Group" key="ExitGroupToolTip">
-                                                <Button color="error" onClick={() => {
-                                                    handleClick(row)
-                                                }}><ExitToApp/></Button>
+                                                <LoadingButton loading={buttonLoading === index+"button"} key={index+"button"} color="error" onClick={() => {
+                                                    handleClick(row, index+"button")
+                                                }}><ExitToApp/></LoadingButton>
                                             </Tooltip>
                                         </TableCell>
 
