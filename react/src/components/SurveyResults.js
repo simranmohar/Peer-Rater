@@ -13,7 +13,6 @@ function getPercentage(rating) {
     let user = auth.getCurrentUserFull();
     let ratingValue = 0;
     let ratingCount = 0;
-    console.log(user);
     rating.forEach((value) => {
         if (parseInt(value.recipient_id) === parseInt(user.id)) {
             ratingValue += parseInt(value.rating);
@@ -24,17 +23,14 @@ function getPercentage(rating) {
         return 0;
     }
     return ratingValue / (ratingCount * 5) * 100;
-
 }
 
 function getCompletion(rating, category) {
     if (rating.length === 0 || category.length === 0) {
         return 0;
     }
-    console.log(rating.length, category.length);
     let calc = rating.length / category.length;
     return Math.floor(calc).toString();
-
 }
 
 function SurveyCard(survey, size){
@@ -58,7 +54,7 @@ function SurveyCard(survey, size){
         <React.Fragment>
             <CardContent>
                 <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                    SURVEY
+                    SURVEY #{survey.id}
                 </Typography>
                 <Typography variant="h5" component="div">
                     {percentage}%
