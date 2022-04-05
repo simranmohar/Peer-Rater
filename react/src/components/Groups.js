@@ -4,7 +4,7 @@ import TablePaginationUnstyled from '@mui/base/TablePaginationUnstyled';
 import Avatar from '@mui/material/Avatar';
 import AvatarGroup from '@mui/material/AvatarGroup';
 import {
-    CardHeader,
+    CardHeader, Fade,
     Table,
     TableBody,
     TableCell,
@@ -135,7 +135,7 @@ export default function Groups() {
     const [exitUpdateNeeded, setExitUpdateNeeded] = React.useState(false);
     const [rows, setNewRows] = useState('')
     const [updateNeeded, setUpdateNeeded] = useState(false)
-
+    const [loading, setLoading] = React.useState(true);
     function handleClick(item) {
         api.exitPeerGroup(item.id, auth.getCurrentUserFull().id).then(() => {
             setExitUpdateNeeded(true)
@@ -160,6 +160,7 @@ export default function Groups() {
             });
             const body = await result.json();
             setNewRows(body);
+            setLoading(false);
         }
         fetchData();
         return () => {
@@ -201,6 +202,7 @@ export default function Groups() {
                                     <TableCell>Options</TableCell>
                                 </TableRow>
                             </TableHead>
+                            <Fade in={!loading}>
                             <TableBody>
                                 {(rowsPerPage > 0
                                         ? row.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
@@ -260,6 +262,7 @@ export default function Groups() {
                                     </TableRow>
                                 )}
                             </TableBody>
+                            </Fade>
                         </Table>
                     </TableContainer>
                     <TablePagination
