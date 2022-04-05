@@ -25,12 +25,12 @@ function getPercentage(rating) {
     return ratingValue / (ratingCount * 5) * 100;
 }
 
-function getCompletion(rating, category) {
+function getCompletion(rating, category, size) {
     if (rating.length === 0 || category.length === 0) {
         return 0;
     }
-    let calc = rating.length / category.length;
-    return Math.floor(calc).toString();
+    let calc = (rating.length / category.length) / size;
+    return Math.floor(calc);
 }
 
 function SurveyCard(survey, size){
@@ -46,7 +46,7 @@ function SurveyCard(survey, size){
             setNewRate(rating);
             setNewCategory(category);
             setNewPercentage(getPercentage(rating));
-            setNewCompletion(getCompletion(rating, category));
+            setNewCompletion(getCompletion(rating, category, size).toString());
         }
         fetchData();
     }, [survey]);
