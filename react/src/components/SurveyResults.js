@@ -9,8 +9,19 @@ import {useEffect, useState} from "react";
 import { Link } from 'react-router-dom';
 
 
-function SurveyCard(survey){
-    survey = survey.survey
+function SurveyCard(survey, size){
+    const [rate, setNewRate] = useState('')
+    const [category, setNewCategory] = useState('')
+    useEffect(() => {
+        const fetchData = async () => {
+            const [ratingsResult, categoryResult] = await Promise.all([fetch(`http://praterlaravel.azurewebsites.net/api/peer-groups/${survey.peer_group_id}/surveys/${survey.id}/ratings`),fetch(`http://praterlaravel.azurewebsites.net/api/peer-groups/${survey.peer_group_id}/surveys/${survey.id}/categories`)]);
+            const rating = await ratingsResult.json();
+            const category = await categoryResult.json();
+            setNewRate(rating);
+            setNewCategory(category);
+        }
+        fetchData();
+    }, [survey]);
     return (
         <React.Fragment>
             <CardContent>
@@ -21,7 +32,8 @@ function SurveyCard(survey){
                     95%
                 </Typography>
                 <Typography variant="body2">
-                    2/5 responses completed
+                    {rate.length} ratings
+                    <br/>{category.length} categories
                 </Typography>
             </CardContent>
             <CardActions>
@@ -32,10 +44,10 @@ function SurveyCard(survey){
     );
 }
 
-export default function SurveyResults({survey})  {
+export default function SurveyResults({survey, size})  {
     return (
         <Box sx={{ maxWidth: 150 }}>
-            <Card variant="outlined">{SurveyCard(survey={survey})}</Card>
+            <Card variant="outlined">{SurveyCard(survey, size)}</Card>
         </Box>
     );
 }

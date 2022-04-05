@@ -22,7 +22,7 @@ function SurveyPage({group}) {
         return (<>
                     <List style={flexContainer}>
                             {others.map((groups, key) => (
-                            <SurveyResults key={key} survey={groups}/>
+                            <SurveyResults key={key} survey={groups} size={group.users.length}/>
                             ))}
                     </List>
             </>
