@@ -19,12 +19,13 @@ import Masonry from '@mui/lab/Masonry';
 import People from "../../components/People";
 import Groups from "../../components/Groups";
 import NewSurvey from "../../components/NewSurvey";
+import GroupPage from "../../components/GroupPage";
 import SurveyPage from "../SurveyPage";
 
 const heights = (
     <>
         <Paper elevation={12} sx={{p: 2, display: 'flex', flexDirection: 'column'}}>
-            <People/>
+            <GroupPage/>
         </Paper>
 
         <Paper elevation={12} sx={{p: 2, display: 'flex', flexDirection: 'column'}}>

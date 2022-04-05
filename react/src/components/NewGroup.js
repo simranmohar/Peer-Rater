@@ -1,84 +1,120 @@
-import React, { Component } from 'react';
+import React, {Component, useEffect, useState} from 'react';
 import api from "../services/api";
+import Groups from "./Groups";
+import Container from "@mui/material/Container";
+import Paper from "@mui/material/Paper";
+import {LoadingButton } from "@mui/lab";
+import { ToggleButton } from '@mui/material';
+import { ToggleButtonGroup } from '@mui/material';
+import {TextField} from "@mui/material";
+import Button from "@mui/material/Button";
+import Auth from "../services/auth";
 // import { PostPeerGroup } from '../../src/services/modules/index.js'
 
-class NewGroup extends Component {
-    render() {
-        const groupStyle = {
-            list: {
-        
-                flexWrap: 'wrap'
-            },
-        
-            container: {
-                height: '200px',
-                overflow: 'scroll',
-                padding: '10px'
-            },
-            button: {
-                margin: '10px'
-            },
-            input: {
-                width: '100%',
-                margin: '2px'
-            }
+function NewGroup ({newGroupAdded}) {
+    const groupStyle = {
+        list: {
+            flexWrap: 'wrap'
+        },
+
+        container: {
+            height: '200px',
+            overflow: 'scroll',
+            padding: '10px'
+        },
+        button: {
+            margin: '10px'
+        },
+        input: {
+            width: '100%',
+            margin: '2px'
         }
-
-        // //Some helper functions for page functionality
-        // function add_new() {
-        //     var ul = document.getElementById("list");
-        //     var li = document.createElement("li");
-        //     var input = document.getElementById("input").value;
-        //     if (input !== "") {
-        //         li.appendChild(document.createTextNode(input));
-        //         ul.appendChild(li);
-        //     }
-        //
-        //     document.getElementById("input").value = "";
-        // }
-
-        function submit_data() {
-            api.addPeerGroup(document.getElementById("input").value).then(r => {
-                console.log(r)
-            })
-            //must be connected to database
-            document.getElementById("input").value = "";
-        }
-
-        // function clear_data() {
-        //     document.getElementById("input").value = "";
-        //     document.getElementById("list").innerHTML = "";
-        // }
-
-
-        return (
-            // <div id="wrapper">
-            // <div id="content-wrapper" className="d-flex flex-column">
-            //     <div className="container" id="main-container">
-                    <React.Fragment>
-                        <h2>Add New Peer Group</h2>
-                        <div className="d-flex">
-                        <input style={groupStyle.input} type="text" id="input"/>
-                        {/*<div style={groupStyle.container}>*/}
-                        {/*    <ul style={groupStyle.list} id="list">*/}
-                        {/*    </ul>*/}
-                        {/*</div>*/}
-                        {/*<button style={groupStyle.button} onClick={add_new} type="button" className="btn btn-primary">Add*/}
-                        {/*    New Category*/}
-                        {/*</button>*/}
-                        <button style={groupStyle.button} onClick={submit_data} type="button"
-                                className="btn btn-primary">Submit
-                        </button>
-                        {/*<button type="button" onClick={clear_data} className="btn btn-danger">Clear</button>*/}
-                        </div>
-                    </React.Fragment>
-                // </div>
-            // </div>
-        // </div>
-
-        
-        );
     }
+
+    const [submit, setNewSubmit] = useState('create')
+    const handleSubmit = (event, newSubmit) => {
+        if (newSubmit !== null) {
+            setNewSubmit(newSubmit);
+        }
+    };
+
+    // VALIDATION AND LOADING
+
+    const [loading, setLoading] = useState(false);
+    const [submitButtonState, setSubmitButtonState] = useState(true);
+
+    const updateLoading = bool => {
+        setLoading(bool);
+    };
+
+    function ValidateInput(event) {
+        let inputText= event.target.value;
+        if (inputText.length === 0){
+            setSubmitButtonState(true);
+        }else {
+            setSubmitButtonState(false);
+        }
+    }
+
+    // VALIDATION END
+
+    function submit_data(loadingCallBack) {
+        loadingCallBack(true)
+
+        let input = document.getElementById("input").value;
+        if (submit === "join") {
+            api.joinPeerGroup(input, Auth.getCurrentUserFull()).then(r => {
+                newGroupAdded();
+                loadingCallBack(false)
+                setSubmitButtonState(true)
+            })
+        } else {
+            api.addPeerGroup(input).then(r => {
+                newGroupAdded();
+                loadingCallBack(false)
+                setSubmitButtonState(true)
+            })
+        }
+
+        document.getElementById("input").value = "";
+    }
+
+    return (
+        <React.Fragment>
+            <ToggleButtonGroup
+                color="primary"
+                value={submit}
+                exclusive
+                onChange={handleSubmit}
+                id = "submitGroup"
+            >
+                <ToggleButton value="create">Create Group</ToggleButton>
+                <ToggleButton value="join">Join Group</ToggleButton>
+            </ToggleButtonGroup>
+
+            <Paper elevation={7} style={{width: "100%", marginBottom: 10, paddingBottom: 10, paddingTop:10}}>
+
+            <div className="d-inline-flex container-fluid">
+                <TextField  style={groupStyle.input}  id="input" label={submit === "create" ? "Group Name":"#Group ID"} onChange={ValidateInput.bind(this)}/>
+                <LoadingButton
+                    onClick={() => {
+                        submit_data(updateLoading)
+                    }}
+                    variant="contained"
+                    color="primary"
+                    loading={loading}
+                    disabled={submitButtonState}
+                    id="loadingButtonSubmit"
+                >
+                    Submit
+                </LoadingButton>
+
+            </div>
+</Paper>
+        </React.Fragment>
+
+    );
+
 }
 
 export default NewGroup;

@@ -24,12 +24,15 @@ import SurveyPage from "./pages/SurveyPage";
 import HomePageMasonry from "./pages/HomePageMasonry";
 import React, {useEffect} from "react";
 import UnauthorizedRedirect from "./components/UnauthorizedRedirect";
+import GroupPage from "./components/GroupPage";
 
 import auth from "./services/auth";
 import SignupPage from "./pages/Auth/SignupPage";
 import LoginPage from "./pages/Auth/LoginPage";
 import axios from "axios";
 import authService from "./services/auth";
+import CompleteSurveyPage from "./pages/CompleteSurveyPage";
+import ListUserPage from "./pages/ListUserPage";
 
 
 const Page = ({
@@ -75,12 +78,19 @@ function App() {
                     element={<Page title="Home" isPrivate><HomePage/></Page>}
                     exact>
 
+                
+
                     <Route path="/" index
                         element={
                             <Page
-                        title="Home" ><Group img="https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2944&q=80"
-                        title="COMP 3975" description="Web Scripting Course"/></Page>
+                        title="Home" ><GroupPage/></Page>
                         }/>
+                    <Route path="/completesurvey"
+                        element={<Page title="CompleteSurvey" isPrivate><CompleteSurveyPage/></Page>}
+                        exact></Route>
+                    <Route path="/listuserpage"
+                        element={<Page title="ListUserPage" isPrivate><ListUserPage/></Page>}
+                        exact></Route>
                     <Route path="/profile"
                         element={
                             <Page
