@@ -53,12 +53,6 @@ function NewSurvey() {
         
         const [survey_id, set_survey_id] = useState({});
 
-        // useEffect(() => {
-        //     console.log("how many times was this called")
-        //     let api_survey_id = api.addSurvey(peer_group_id)
-        //     set_survey_id(api_survey_id)
-        // }, []);
-
         const getNewSurvey = async () =>{
             console.log("how many times was this called")
             let api_survey_id = await api.addSurvey(peer_group_id)
