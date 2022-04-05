@@ -4,7 +4,7 @@ import TablePaginationUnstyled from '@mui/base/TablePaginationUnstyled';
 import Avatar from '@mui/material/Avatar';
 import AvatarGroup from '@mui/material/AvatarGroup';
 import {
-    CardHeader, Fade,
+    CardHeader, Fade, LinearProgress,
     Table,
     TableBody,
     TableCell,
@@ -193,6 +193,12 @@ export default function Groups() {
             <Box sx={{width: '100%'}}>
                 <Paper sx={{width: '100%', mb: 2}}>
                     <TableContainer>
+                        <Fade
+                            in={loading}
+                            unmountOnExit
+                        >
+                            <LinearProgress />
+                        </Fade>
                         <Table aria-label="custom pagination table">
                             <TableHead sx={{fontWeight: 'bold'}}>
                                 <TableRow>
@@ -202,6 +208,7 @@ export default function Groups() {
                                     <TableCell>Options</TableCell>
                                 </TableRow>
                             </TableHead>
+
                             <Fade in={!loading}>
                             <TableBody>
                                 {(rowsPerPage > 0
