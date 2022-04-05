@@ -9,6 +9,7 @@ import {useEffect, useState} from "react";
 import { Link } from 'react-router-dom';
 import auth from "../services/auth";
 import {CircularProgress, Fade, LinearProgress} from "@mui/material";
+import {Skeleton} from "@mui/lab";
 
 function getPercentage(rating) {
     let user = auth.getCurrentUserFull();
@@ -55,33 +56,30 @@ function SurveyCard(survey, size){
     }, [survey]);
     return (
         <React.Fragment>
-            <Fade
-                in={loading}
-                style={{
-                    transitionDelay: loading ? '800ms' : '0ms',
-                }}
-            >
-                <Box sx={{ width: '100%' }}>
-                    <LinearProgress />
-                </Box>
-            </Fade>
-
                 <CardContent>
                     <Typography sx={{ mb: 1.5 }} color="text.secondary">
                         SURVEY #{survey.id}
                     </Typography>
-                    <Fade
-                        in={!loading}
-                    >
                     <div>
                     <Typography variant="h5" component="div">
-                        {percentage}%
+                        {loading ?
+                            <Skeleton animation="wave" />
+                            :
+                                <div>
+                                {percentage}%
+                                </div>
+                        }
+
                     </Typography>
                     <Typography variant="body2">
-                        {completion}/{size} completed
+                        {loading ?
+                            <Skeleton animation="wave"  />
+                            :
+                            <div>
+                            {completion}/{size} completed
+                            </div>}
                     </Typography>
                     </div>
-                    </Fade>
                 </CardContent>
 
             <CardActions>
