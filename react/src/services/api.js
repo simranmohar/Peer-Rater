@@ -96,6 +96,18 @@ const exitPeerGroup = async (group_id, u) => {
     })
 }
 
+async function getGroupMember(_id) {
+
+    try {
+        return await axios.get(`/peer-groups/${_id}`, {}).then((response) => {
+            return response.data;
+        })
+    } catch (error) {
+        alert("ERROR: get peer groups + " + error)
+        return error
+    }
+}
+
 
 
 
@@ -107,7 +119,8 @@ const api = {
     getMe,
     addCategory,
     exitPeerGroup,
-    addRating
+    addRating,
+    getGroupMember
 };
 
 export default api;
