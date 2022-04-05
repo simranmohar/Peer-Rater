@@ -57,29 +57,33 @@ function SurveyCard(survey, size){
         <React.Fragment>
             <Fade
                 in={loading}
+                style={{
+                    transitionDelay: loading ? '800ms' : '0ms',
+                }}
             >
                 <Box sx={{ width: '100%' }}>
                     <LinearProgress />
                 </Box>
             </Fade>
-            <Fade
-                in={!loading}
-                style={{
-                    transitionDelay: '800ms'
-                }}
-            >
+
                 <CardContent>
                     <Typography sx={{ mb: 1.5 }} color="text.secondary">
                         SURVEY #{survey.id}
                     </Typography>
+                    <Fade
+                        in={!loading}
+                    >
+                    <div>
                     <Typography variant="h5" component="div">
                         {percentage}%
                     </Typography>
                     <Typography variant="body2">
                         {completion}/{size} completed
                     </Typography>
+                    </div>
+                    </Fade>
                 </CardContent>
-            </Fade>
+
             <CardActions>
                 <Button component={Link} to="/listuserpage" state={{survey:survey}}size="small">
                     COMPLETE</Button>
