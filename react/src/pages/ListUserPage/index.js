@@ -89,7 +89,12 @@ function ListUserPage({}) {
                     </AccordionSummary>
                     <AccordionDetails>
                         {category.map(function (cat, index) {
-                            let recipientRatings = arrayOfRatings.find(rating => rating.recipient_id == user.id);
+                            let recipientRatings = []
+                            arrayOfRatings.forEach((rating)=> {
+                                if (rating.recipient_id === user.id) {
+                                    recipientRatings.push(rating);
+                                }
+                            });
                             return (<Survey cat={cat} user={user} rate={rate} arrayOfRatings={recipientRatings} ratingID={cat.id} key={index}/>)
                         })}
                     </AccordionDetails>
