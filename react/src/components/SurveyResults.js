@@ -43,7 +43,7 @@ function SurveyCard(survey, size, row){
     const [loading, setLoading] = React.useState(true);
     useEffect(() => {
         const fetchData = async () => {
-            const [ratingsResult, categoryResult] = await Promise.all([fetch(`http://praterlaravel.azurewebsites.net/api/peer-groups/${survey.peer_group_id}/surveys/${survey.id}/ratings`),fetch(`http://praterlaravel.azurewebsites.net/api/peer-groups/${survey.peer_group_id}/surveys/${survey.id}/categories`)]);
+            const [ratingsResult, categoryResult] = await Promise.all([fetch(`https://praterlaravel.azurewebsites.net/api/peer-groups/${survey.peer_group_id}/surveys/${survey.id}/ratings`),fetch(`https://praterlaravel.azurewebsites.net/api/peer-groups/${survey.peer_group_id}/surveys/${survey.id}/categories`)]);
             const rating = await ratingsResult.json();
             const category = await categoryResult.json();
             setNewRate(rating);

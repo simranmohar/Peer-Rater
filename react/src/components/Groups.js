@@ -152,7 +152,7 @@ export default function Groups() {
         const user = JSON.parse(localStorage.getItem("user"));
         var bearer = 'Bearer ' + user.access_token;
         const fetchData = async () => {
-            const result = await fetch(`http://praterlaravel.azurewebsites.net/api/peer-groups/`, {
+            const result = await fetch(`https://praterlaravel.azurewebsites.net/api/peer-groups/`, {
                 method: 'get',
                 headers: {
                     'Authorization': bearer,
