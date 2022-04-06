@@ -31,8 +31,6 @@ function CompleteSurveyPage () {
        }
     }
     others.forEach(element => filter_categories(element))
-    console.log("what is others", others)
-    console.log("what is filtered", othersFiltered)
 
     function add_scores(othersFiltered) {
         let sum = 0

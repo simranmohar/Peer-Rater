@@ -11,7 +11,6 @@ let currentValueOfRating = null;
 
 async function postRating(newValue, cat, user, id) {
     if (id == null) {
-        console.log("NEW")
         // (_survey_id, _peer_group_id, _category_id, _recipient_id, _ratings)
         return await api.addRating(cat.survey_id, cat.peer_group_id, cat.id, user.id, newValue)
     } else {

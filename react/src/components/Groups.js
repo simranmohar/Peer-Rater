@@ -258,23 +258,25 @@ export default function Groups() {
                                                 <SurveyPage group={row}/>
                                             </TableCell>
                                             <TableCell style={{width: "15em", minWidth: "15em"}}>
+                                                {instructor === 1 ? <>
                                                 <Tooltip title="Add Survey" key="AddSurveyToolTip">
                                                     <Button>
                                                         <Link to={`/newsurvey`}
                                                               state={{peer_group_id: row.id}}><Add/></Link>
                                                     </Button>
                                                 </Tooltip>
-                                                {instructor === 1 ? <>
+                                            </> :
+                                            <>
+                                            </>
+                                            }
+
                                                         <Tooltip title="Exit Group" key="ExitGroupToolTip">
                                                             <LoadingButton loading={buttonLoading === index + "button"}
                                                                            key={index + "button"} color="error" onClick={() => {
                                                                 handleClick(row, index + "button")
                                                             }}><ExitToApp/></LoadingButton>
                                                         </Tooltip>
-                                                    </> :
-                                                    <>
-                                                    </>
-                                                }
+
                                             </TableCell>
 
                                         </TableRow>

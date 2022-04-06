@@ -5,7 +5,6 @@ import { CardMedia, Typography } from '@mui/material';
 
 
 const GroupPage = () => {
-    console.log("group page is getting called")
     const [peerGroups, setNewPeerGroups] = useState('')
     useEffect(() => {
         const user = JSON.parse(localStorage.getItem("user"));
@@ -19,7 +18,6 @@ const GroupPage = () => {
                 }
             });
             const body = await result.json();
-            console.log("logging awaited body", body)
             setNewPeerGroups(body);
         }
         fetchData();

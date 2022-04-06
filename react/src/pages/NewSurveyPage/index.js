@@ -1,4 +1,3 @@
-import { Card, CardMedia } from '@mui/material';
 import React from 'react';
 import NewSurvey from '../../components/NewSurvey';
 import survey from '../../img/survey.png';

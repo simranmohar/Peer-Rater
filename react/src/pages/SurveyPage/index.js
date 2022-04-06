@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import SurveyResults from "../../components/SurveyResults";
 import List from "@mui/material/List";
-import {useLocation} from "react-router-dom";
 import {Fade} from "@mui/material";
 
 function SurveyPage({group}) {

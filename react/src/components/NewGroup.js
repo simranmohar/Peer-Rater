@@ -1,7 +1,5 @@
-import React, {Component, useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import api from "../services/api";
-import Groups from "./Groups";
-import Container from "@mui/material/Container";
 import Paper from "@mui/material/Paper";
 import {LoadingButton } from "@mui/lab";
 import { ToggleButton } from '@mui/material';
@@ -9,7 +7,6 @@ import { ToggleButtonGroup } from '@mui/material';
 import {TextField} from "@mui/material";
 import Auth from "../services/auth";
 import authService from "../services/auth";
-// import { PostPeerGroup } from '../../src/services/modules/index.js'
 
 function NewGroup({newGroupAdded}) {
     const groupStyle = {
@@ -84,14 +81,6 @@ function NewGroup({newGroupAdded}) {
 
     return (
         <React.Fragment>
-
-            {instructor === 0 ? <>
-
-                </> :
-                <>
-
-                </>
-            }
 
             {instructor === 0 ? <>
                 <ToggleButtonGroup
