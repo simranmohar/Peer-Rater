@@ -54,11 +54,11 @@ const cardStyle = {
         width: '100%',
     },
     hover: {
+        transform: 'scale(1.02)',
         background: '$clr-primary',
         color: 'white',
-        transform: 'scale(1.02)',
     },
-    parent: { 
+    parent: {
         width: '300px',
     },
     link:{
@@ -70,7 +70,7 @@ const cardStyle = {
 function Group(props) {
     return (
         <div id="test" style={cardStyle.parent}>
-        <Card variant = "outlined"> <div className="row">
+            <Card variant = "outlined"> <div className="row">
                 <div style={cardStyle.card_v1}>
                     <div className="card__body" style={cardStyle.card_v1}>
                         <img style={cardStyle.image} src={props.img} />
@@ -78,8 +78,12 @@ function Group(props) {
                         <Typography className="card__description" style={cardStyle.description}>Milestone 1</Typography>
                         <Typography>Peer group id: {props.id_value}</Typography>
                     </div>
-                    <button className="card__btn" tyle={cardStyle.button}><Link to={`/newsurvey`} state={{ peer_group_id: props.id_value}}>
-                New Survey</Link></button>
+                    <Link to={`/newsurvey`} state={{ peer_group_id: props.id_value}} style={cardStyle.link}> <Button variant="outlined" sx={{margin: '20px'}}>
+                        <Typography variant="buttons" text-decoration="none">
+                            new survey
+                        </Typography>
+                    </Button>
+                    </Link>
                 </div>
             </div></Card>
 
