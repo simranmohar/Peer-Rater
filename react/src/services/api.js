@@ -73,6 +73,9 @@ const addCategory = (_survey_id, _peer_group_id, _description) =>{
 
 const addRating = (_survey_id, _peer_group_id, _category_id, _recipient_id, _ratings) =>{
     const user = JSON.parse(localStorage.getItem("user"));
+    if (_ratings === null) {
+        _ratings = 0;
+    }
     if (user) {
         return axios.post(`/peer-groups/${_peer_group_id}/surveys/${_survey_id}/ratings`, {category_id: _category_id, recipient_id: _recipient_id, rating: _ratings}).then((response) => {
             return response.data;
@@ -86,6 +89,9 @@ const addRating = (_survey_id, _peer_group_id, _category_id, _recipient_id, _rat
 
 const putRating = (_survey_id, _peer_group_id, _category_id, _recipient_id, _ratings, id) =>{
     const user = JSON.parse(localStorage.getItem("user"));
+    if (_ratings === null) {
+        _ratings = 0;
+    }
     if (user) {
         return axios.put(`/peer-groups/${_peer_group_id}/surveys/${_survey_id}/ratings/${id}`, {category_id: _category_id, recipient_id: _recipient_id, rating: _ratings}).then((response) => {
             return response.data;
