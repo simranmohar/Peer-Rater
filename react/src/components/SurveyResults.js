@@ -9,6 +9,7 @@ import {useEffect, useState} from "react";
 import { Link } from 'react-router-dom';
 import auth from "../services/auth";
 import {CircularProgress, Fade, LinearProgress} from "@mui/material";
+import {Skeleton} from "@mui/lab";
 
 function getPercentage(rating) {
     let user = auth.getCurrentUserFull();
@@ -56,31 +57,32 @@ function SurveyCard(survey, size, row){
 
     return (
         <React.Fragment>
-            <Fade
-                in={loading}
-            >
-                <Box sx={{ width: '100%' }}>
-                    <LinearProgress />
-                </Box>
-            </Fade>
-            <Fade
-                in={!loading}
-                style={{
-                    transitionDelay: '800ms'
-                }}
-            >
                 <CardContent>
                     <Typography sx={{ mb: 1.5 }} color="text.secondary">
                         SURVEY #{survey.id}
                     </Typography>
+                    <div>
                     <Typography variant="h5" component="div">
-                        {percentage}%
+                        {loading ?
+                            <Skeleton animation="wave" />
+                            :
+                                <div>
+                                {percentage}%
+                                </div>
+                        }
+
                     </Typography>
                     <Typography variant="body2">
-                        {completion}/{size} completed
+                        {loading ?
+                            <Skeleton animation="wave"  />
+                            :
+                            <div>
+                            {completion}/{size} completed
+                            </div>}
                     </Typography>
+                    </div>
                 </CardContent>
-            </Fade>
+
             <CardActions>
                 <Button component={Link} to="/listuserpage" state={{survey:survey, row:row, category:category, rate:rate}} size="small">
                     COMPLETE</Button>

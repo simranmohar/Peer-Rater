@@ -4,7 +4,7 @@ import TablePaginationUnstyled from '@mui/base/TablePaginationUnstyled';
 import Avatar from '@mui/material/Avatar';
 import AvatarGroup from '@mui/material/AvatarGroup';
 import {
-    CardHeader,
+    CardHeader, Fade, LinearProgress,
     Table,
     TableBody,
     TableCell,
@@ -14,21 +14,17 @@ import {
     TableRow,
     Tooltip
 } from "@mui/material";
-import avatar1 from '../img/avatars/avatar1.png'
-import avatar2 from '../img/avatars/avatar2.png'
-import avatar3 from '../img/avatars/avatar3.png'
-import avatar4 from '../img/avatars/avatar4.png'
 import NewGroup from "./NewGroup";
 import {useEffect, useState} from "react";
 import Paper from "@mui/material/Paper";
 import {Link} from "react-router-dom";
 import SurveyPage from "../pages/SurveyPage";
-import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import {Add, ExitToApp} from "@mui/icons-material";
 import Button from "@mui/material/Button";
 import api from '../services/api';
 import auth from "../services/auth";
+import {LoadingButton} from "@mui/lab";
 
 
 const blue = {
@@ -135,14 +131,19 @@ export default function Groups() {
     const [exitUpdateNeeded, setExitUpdateNeeded] = React.useState(false);
     const [rows, setNewRows] = useState('')
     const [updateNeeded, setUpdateNeeded] = useState(false)
-
-    function handleClick(item) {
+    const [loading, setLoading] = React.useState(true);
+    const [barLoading, setBarLoading] = React.useState(true);
+    const [buttonLoading, setButtonLoading] = React.useState('');
+    function handleClick(item, button) {
+        setButtonLoading(button)
         api.exitPeerGroup(item.id, auth.getCurrentUserFull().id).then(() => {
             setExitUpdateNeeded(true)
+            setBarLoading(true);
         })
     }
 
     function UpdateNeeded() {
+        setBarLoading(true);
         setUpdateNeeded(true);
     }
 
@@ -160,6 +161,9 @@ export default function Groups() {
             });
             const body = await result.json();
             setNewRows(body);
+            setLoading(false);
+            setBarLoading(false);
+            setButtonLoading('');
         }
         fetchData();
         return () => {
@@ -192,6 +196,12 @@ export default function Groups() {
             <Box sx={{width: '100%'}}>
                 <Paper sx={{width: '100%', mb: 2}}>
                     <TableContainer>
+                        <Fade
+                            in={barLoading}
+                            unmountOnExit
+                        >
+                            <LinearProgress />
+                        </Fade>
                         <Table aria-label="custom pagination table">
                             <TableHead sx={{fontWeight: 'bold'}}>
                                 <TableRow>
@@ -201,6 +211,8 @@ export default function Groups() {
                                     <TableCell>Options</TableCell>
                                 </TableRow>
                             </TableHead>
+
+                            <Fade in={!loading}>
                             <TableBody>
                                 {(rowsPerPage > 0
                                         ? row.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
@@ -245,9 +257,9 @@ export default function Groups() {
                                                 </Button>
                                             </Tooltip>
                                             <Tooltip title="Exit Group" key="ExitGroupToolTip">
-                                                <Button color="error" onClick={() => {
-                                                    handleClick(row)
-                                                }}><ExitToApp/></Button>
+                                                <LoadingButton loading={buttonLoading === index+"button"} key={index+"button"} color="error" onClick={() => {
+                                                    handleClick(row, index+"button")
+                                                }}><ExitToApp/></LoadingButton>
                                             </Tooltip>
                                         </TableCell>
 
@@ -260,6 +272,7 @@ export default function Groups() {
                                     </TableRow>
                                 )}
                             </TableBody>
+                            </Fade>
                         </Table>
                     </TableContainer>
                     <TablePagination
