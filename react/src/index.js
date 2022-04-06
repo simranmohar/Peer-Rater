@@ -17,7 +17,7 @@ const handleLogout = () => {
 axios.interceptors.response.use(function (response) {
     return response;
 }, function (error) {
-    if (403 === error.response.status || 500 === error.response.status) {
+    if (403 === error.response.status) {
         handleLogout()
     } else {
         return Promise.reject(error);
