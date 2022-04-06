@@ -6,15 +6,16 @@ import survey from '../../img/survey.png';
 
 const NewSurveyPage = () => (
     <>
-        <Card>
+        {/* <Card>
             <CardMedia
                 component="img"
                 height="340"
                 image={survey}
                 alt="peer rater banner"
             />
+        </Card> */}
             <NewSurvey />
-        </Card>
+
     </>
 
 )
