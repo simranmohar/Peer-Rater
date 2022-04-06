@@ -85,7 +85,7 @@ function NewSurvey() {
         <>
             <div style={{ width: '100%', height: '80vh', textAlign: 'center' }}>
                 <ThemeProvider theme={Theme}>
-                    <div style={{ paddingTop: '20vh' }}>
+                    <div style={{ paddingTop: '5vh' }}>
                         <Typography variant="createsurvey">Create Survey</Typography>
                     </div>
                     <br />
