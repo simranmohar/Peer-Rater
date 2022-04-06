@@ -1,6 +1,7 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom'
 import api from '../services/api';
+import { Link } from 'react-router-dom';
 import { useState, useEffect, useRef } from 'react';
 import { TextField, createTheme, ThemeProvider, Typography, Button, List, Card, CardMedia, CardContent, CardActions } from '@mui/material';
 
@@ -14,7 +15,7 @@ const Theme = createTheme({
                     },
                     style: {
                         color: '#5E4AE3',
-                        fontSize: '4.5em',
+                        fontSize: '5.2em',
                         fontWeight: 'bold'
                     }
                 }
@@ -32,19 +33,15 @@ function NewSurvey() {
     const [survey_id, set_survey_id] = useState({});
 
     const getNewSurvey = async () => {
-        if (surveyName.current.value == "") {
-            alert('Please enter a name for your survey')
-        } else{
-            console.log("how many times was this called")
-            let api_survey_id = await api.addSurvey(peer_group_id)
-            console.log("this is our api survey id inside get New Survey", api_survey_id)
-            set_survey_id(api_survey_id)
-            add_categories(api_survey_id, peer_group_id)
-        }
+        console.log("how many times was this called")
+        let api_survey_id = await api.addSurvey(peer_group_id)
+        console.log("this is our api survey id inside get New Survey", api_survey_id)
+        set_survey_id(api_survey_id)
+        add_categories(api_survey_id, peer_group_id)
     }
 
     function add_categories(survey_id, peer_group_id) {
-        
+
         for (var i = 0; i < cards.length; i++) {
             console.log(cards[i].name)
             api.addCategory(survey_id, peer_group_id, cards[i].name)
@@ -54,22 +51,12 @@ function NewSurvey() {
 
     console.log("this is our survey id", survey_id)
 
-    const surveyName = useRef('')
-    window.onload = function () {
-        var inputSurvey = document.getElementById("survey-text");
-        if (inputSurvey) {
-            document.getElementById("survey-text").addEventListener("change", function () {
-                document.getElementById("title").innerHTML = surveyName.current.value
-            })
-        }
-    }
-
     const questionName = useRef('')
     const [cardCount, setCardCount] = useState(0)
     const [cards, setCards] = useState([]);
 
     function addCard() {
-        setCards([...cards, {id: cardCount, name: questionName.current.value}])
+        setCards([...cards, { id: cardCount, name: questionName.current.value }])
         setCardCount(prevCount => prevCount + 1);
         console.log(cards)
     }
@@ -89,16 +76,12 @@ function NewSurvey() {
                         <div style={{ textAlign: 'center', display: 'grid', alignItems: 'center' }}>
                             <div>
                                 <Typography variant="createsurvey">Create Survey</Typography>
-                                <TextField id="survey-text" inputRef={surveyName} label='Survey Name' variant="standard" style={{ width: '20vw', fontSize: '4em' }} />
-                                <Button sx={{ paddingLeft: '20px', paddingRight: '20px', marginTop: '2vh', textAlign: 'left', marginLeft: '4em' }} variant="outlined" onClick={() => getNewSurvey()}>
-                                    <Typography variant="buttons">
-                                        Submit
-                                    </Typography>
-                                </Button>
+                                <br />
+
                             </div>
                         </div>
-                        <div style={{ gridArea: '1 / 2 / span 2 / span 1', width: '100%', border: '1px solid #9787ff', borderRadius: '5px', padding: '2vh', textAlign: 'center', overflow: 'hidden', overflowY: 'scroll' }}>
-                            <Typography id="title" variant="createsurvey"></Typography>
+                        <div style={{ gridArea: '1 / 2 / span 2 / span 1', width: '100%', padding: '2vh', textAlign: 'center', overflow: 'hidden', overflowY: 'scroll' }}>
+                            {/* <Typography id="title" variant="createsurvey"></Typography> */}
                             <div id='cardDisplay'>
                                 {cards.map((card => (
                                     <Card key={card.id} sx={{ maxWidth: '20vw', margin: '5vh auto auto auto' }}>
@@ -119,12 +102,18 @@ function NewSurvey() {
                         </div>
                         <div style={{ textAlign: 'center', display: 'grid', alignItems: 'center' }}>
                             <div>
-                                <Typography variant="createsurvey">Create Questions</Typography>
-                                <br />
-                                <TextField id="input-question" inputRef={questionName} label='Question' variant="standard" style={{ width: '20vw', fontSize: '4em' }} />
-                                <Button sx={{ paddingLeft: '20px', paddingRight: '20px', marginTop: '2vh', textAlign: 'left', marginLeft: '4em' }} variant="outlined" onClick={() => addCard()} >
+                                <div style={{ marginTop: '5vh' }}>
+                                    <TextField id="input-question" inputRef={questionName} label='Question' variant="standard" style={{ width: '20vw', fontSize: '4em' }} />
+                                    <br />
+                                    <Button sx={{ paddingLeft: '20px', paddingRight: '20px', marginTop: '1vh', textAlign: 'left' }} variant="outlined" onClick={() => addCard()} >
+                                        <Typography variant="buttons">
+                                            Add Question
+                                        </Typography>
+                                    </Button>
+                                </div>
+                                <Button sx={{ paddingLeft: '50px', paddingRight: '50px', marginTop: '9vh', textAlign: 'left' }} variant="outlined" onClick={() => getNewSurvey()} component={Link} to="/groups" >
                                     <Typography variant="buttons">
-                                        Submit
+                                        Submit Survey
                                     </Typography>
                                 </Button>
                             </div>
