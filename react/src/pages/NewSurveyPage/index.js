@@ -1,10 +1,13 @@
+import { Card } from '@mui/material';
 import React from 'react';
 import NewSurvey from '../../components/NewSurvey';
 
 
 const NewSurveyPage = () => (
     <>
-        <NewSurvey/>
+        <Card>
+            <NewSurvey/>
+        </Card>
     </>
 
 )
