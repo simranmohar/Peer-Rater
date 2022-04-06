@@ -58,8 +58,10 @@ function ListUserPage({}) {
     const {rate} = location.state
 
     const arrayOfRatings = [];
+
+    const userId = auth.getCurrentUserFull().id
     rate.map(function (rating, index) {
-        if (rating.writer_id == auth.getCurrentUserFull().id){
+        if (rating.writer_id === userId){
             arrayOfRatings.push(rating)
         }
     });
