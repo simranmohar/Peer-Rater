@@ -16,7 +16,7 @@ function CompleteSurveyPage () {
     const [categories, setNewCategories] = useState('')
             useEffect(() => {
             const fetchData = async () => {
-                const result = await fetch(`http://praterlaravel.azurewebsites.net/api/categories`);
+                const result = await fetch(`https://praterlaravel.azurewebsites.net/api/categories`);
                     const body = await result.json();
                     setNewCategories(body);
             }

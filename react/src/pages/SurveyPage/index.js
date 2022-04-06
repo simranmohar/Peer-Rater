@@ -15,7 +15,7 @@ function SurveyPage({group}) {
         const [surveys, setNewSurveys] = useState('')
         useEffect(() => {
                 const fetchData = async () => {
-                    const result = await fetch(`http://praterlaravel.azurewebsites.net/api/peer-groups/${group.id}/surveys`);
+                    const result = await fetch(`https://praterlaravel.azurewebsites.net/api/peer-groups/${group.id}/surveys`);
                         const body = await result.json();
                         setNewSurveys(body);
                         setLoading(false);

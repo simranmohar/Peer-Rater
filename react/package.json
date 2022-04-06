@@ -2,7 +2,7 @@
   "name": "peer-rater",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://praterlaravel.azurewebsites.net/api",
+  "proxy": "https://praterlaravel.azurewebsites.net/api",
   "dependencies": {
     "@emotion/react": "^11.8.2",
     "@emotion/styled": "^11.8.1",
