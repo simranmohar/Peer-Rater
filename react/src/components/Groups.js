@@ -25,6 +25,7 @@ import Button from "@mui/material/Button";
 import api from '../services/api';
 import auth from "../services/auth";
 import {LoadingButton} from "@mui/lab";
+import authService from "../services/auth";
 
 
 const blue = {
@@ -134,6 +135,7 @@ export default function Groups() {
     const [loading, setLoading] = React.useState(true);
     const [barLoading, setBarLoading] = React.useState(true);
     const [buttonLoading, setButtonLoading] = React.useState('');
+
     function handleClick(item, button) {
         setButtonLoading(button)
         api.exitPeerGroup(item.id, auth.getCurrentUserFull().id).then(() => {
@@ -190,6 +192,9 @@ export default function Groups() {
         setPage(0);
     };
 
+    const instructor = authService.getCurrentUserFull().isInstructor;
+
+
     return (
         <Root sx={{width: '100%'}}>
             <NewGroup newGroupAdded={UpdateNeeded}/>
@@ -200,7 +205,7 @@ export default function Groups() {
                             in={barLoading}
                             unmountOnExit
                         >
-                            <LinearProgress />
+                            <LinearProgress/>
                         </Fade>
                         <Table aria-label="custom pagination table">
                             <TableHead sx={{fontWeight: 'bold'}}>
@@ -208,7 +213,13 @@ export default function Groups() {
                                     <TableCell>Group</TableCell>
                                     <TableCell>Participants</TableCell>
                                     <TableCell>Surveys</TableCell>
-                                    <TableCell>Options</TableCell>
+                                    {instructor === 1 ? <>
+                                            <TableCell>Options</TableCell>
+                                        </> :
+                                        <>
+                                        </>
+                                    }
+
                                 </TableRow>
                             </TableHead>
 
@@ -238,30 +249,39 @@ export default function Groups() {
                                                         <AvatarGroup total={row.users.length} key={"AvatarGroup"}>
                                                             {row.users.map(function (name, indexInner) {
                                                                 return (
-                                                                    <Tooltip title={name.name} key={index + "avatar" + indexInner}>
+                                                                    <Tooltip title={name.name}
+                                                                             key={index + "avatar" + indexInner}>
                                                                         <Avatar
-                                                                            key={index+"avatar"}>{name.name.charAt(0).toUpperCase()}</Avatar>
+                                                                            key={index + "avatar"}>{name.name.charAt(0).toUpperCase()}</Avatar>
                                                                     </Tooltip>)
                                                             })}
                                                         </AvatarGroup>
                                                     }
                                                 />
                                             </TableCell>
-                                            <TableCell sx={{overflowX: "auto", maxWidth:"30em"}}>
+                                            <TableCell sx={{overflowX: "auto", maxWidth: "30em"}}>
                                                 <SurveyPage group={row}/>
                                             </TableCell>
-                                            <TableCell style={{width: "15em", minWidth: "15em"}}>
-                                                <Tooltip title="Add Survey" key="AddSurveyToolTip">
-                                                    <Button>
-                                                        <Link to={`/newsurvey`} state={{ peer_group_id: row.id}}><Add/></Link>
-                                                    </Button>
-                                                </Tooltip>
-                                                <Tooltip title="Exit Group" key="ExitGroupToolTip">
-                                                    <LoadingButton loading={buttonLoading === index+"button"} key={index+"button"} color="error" onClick={() => {
-                                                        handleClick(row, index+"button")
-                                                    }}><ExitToApp/></LoadingButton>
-                                                </Tooltip>
-                                            </TableCell>
+                                            {instructor === 1 ? <>
+                                                    <TableCell style={{width: "15em", minWidth: "15em"}}>
+                                                        <Tooltip title="Add Survey" key="AddSurveyToolTip">
+                                                            <Button>
+                                                                <Link to={`/newsurvey`}
+                                                                      state={{peer_group_id: row.id}}><Add/></Link>
+                                                            </Button>
+                                                        </Tooltip>
+                                                        <Tooltip title="Exit Group" key="ExitGroupToolTip">
+                                                            <LoadingButton loading={buttonLoading === index + "button"}
+                                                                           key={index + "button"} color="error" onClick={() => {
+                                                                handleClick(row, index + "button")
+                                                            }}><ExitToApp/></LoadingButton>
+                                                        </Tooltip>
+                                                    </TableCell>
+                                                </> :
+                                                <>
+                                                </>
+                                            }
+
 
                                         </TableRow>
                                     ))}
