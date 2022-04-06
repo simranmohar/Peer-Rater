@@ -1,8 +1,8 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom'
 import api from '../services/api';
-import { useState, useEffect } from 'react';
-import { TextField, createTheme, ThemeProvider, Typography, Button, List } from '@mui/material';
+import { useState, useEffect, useRef } from 'react';
+import { TextField, createTheme, ThemeProvider, Typography, Button, List, Card, CardMedia, CardContent, CardActions } from '@mui/material';
 
 const Theme = createTheme({
     components: {
@@ -29,102 +29,109 @@ function NewSurvey() {
     const { peer_group_id } = location.state
 
 
-    //Some helper functions for page functionality
-    function add_new() {
-        var ul = document.getElementById("list");
-        var li = document.createElement("li");
-        var input = document.getElementById("input").value;
-
-        li.style.textAlign = 'center';
-        li.style.color = '#5E4AE3';
-        li.style.marginTop = '1vh';
-        li.style.marginBottom = '1vh';
-
-        if (input !== "") {
-            li.appendChild(document.createTextNode(input));
-            ul.appendChild(li);
-        }
-
-        document.getElementById("input").value = "";
-    }
-
-    function clear_data() {
-        document.getElementById("input").value = "";
-        document.getElementById("list").innerHTML = "";
-    }
-
-
     const [survey_id, set_survey_id] = useState({});
 
-    // useEffect(() => {
-    //     console.log("how many times was this called")
-    //     let api_survey_id = api.addSurvey(peer_group_id)
-    //     set_survey_id(api_survey_id)
-    // }, []);
-
     const getNewSurvey = async () => {
-        console.log("how many times was this called")
-        let api_survey_id = await api.addSurvey(peer_group_id)
-        console.log("this is our api survey id inside get New Survey", api_survey_id)
-        set_survey_id(api_survey_id)
-        let variable_list = document.getElementById("list")
-        add_categories(api_survey_id, peer_group_id)
+        if (surveyName.current.value == "") {
+            alert('Please enter a name for your survey')
+        } else{
+            console.log("how many times was this called")
+            let api_survey_id = await api.addSurvey(peer_group_id)
+            console.log("this is our api survey id inside get New Survey", api_survey_id)
+            set_survey_id(api_survey_id)
+            add_categories(api_survey_id, peer_group_id)
+        }
     }
 
     function add_categories(survey_id, peer_group_id) {
-        var list = document.getElementById("list")
-        var children = list.children;
-        for (var i = 0; i < children.length; i++) {
-            console.log(children[i].innerHTML)
-            api.addCategory(survey_id, peer_group_id, children[i].innerHTML)
-
+        
+        for (var i = 0; i < cards.length; i++) {
+            console.log(cards[i].name)
+            api.addCategory(survey_id, peer_group_id, cards[i].name)
         }
-        list.innerHTML = ""
-
+        console.log("OK!")
     }
 
     console.log("this is our survey id", survey_id)
 
+    const surveyName = useRef('')
+    window.onload = function () {
+        var inputSurvey = document.getElementById("survey-text");
+        if (inputSurvey) {
+            document.getElementById("survey-text").addEventListener("change", function () {
+                document.getElementById("title").innerHTML = surveyName.current.value
+            })
+        }
+    }
+
+    const questionName = useRef('')
+    const [cardCount, setCardCount] = useState(0)
+    const [cards, setCards] = useState([]);
+
+    function addCard() {
+        setCards([...cards, {id: cardCount, name: questionName.current.value}])
+        setCardCount(prevCount => prevCount + 1);
+        console.log(cards)
+    }
+
+    function deleteCard(index) {
+        const list = [...cards];
+        const indexToRemove = list.indexOf(index)
+        list.splice(indexToRemove, 1);
+        setCards(list)
+    }
+
     return (
         <>
-            <div style={{ width: '100%', height: '80vh', textAlign: 'center' }}>
+            <div>
                 <ThemeProvider theme={Theme}>
-                    <div style={{ paddingTop: '20vh' }}>
-                        <Typography variant="createsurvey">Create Survey</Typography>
-                    </div>
-                    <br />
-                    <div>
-                        <TextField id="input" label="Name" variant="standard" style={{ width: '27vw' }} />
-                    </div>
-                    <div style={{ margin: '5vh auto auto auto', textAlign: 'center', border: '1px solid #9787ff', borderRadius: '5px', width: '35%' }} >
-                        {/* List */}
-                        <List id="list" style={{ textAlign: 'center', overflow: 'hidden', overflowY: 'scroll', height: '10vh' }} >
-                            {/* Example Listitem */}
-                            {/* <li style={{textAlign: 'center', color: '#5E4AE3', marginTop: '1vh', marginBottom: '1vh' }}>
-                                test */}
-                        </List>
-
-                    </div>
-                    <div style={{ display: 'inline-flex', marginTop: '5vh' }}>
-                        <Button sx={{ paddingLeft: '20px', paddingRight: '20px', marginLeft: '1vw', marginRight: '1vw' }} variant="outlined" color='error' onClick={clear_data}>
-                            <Typography variant="buttons">
-                                Clear
-                            </Typography>
-                        </Button>
-                        <Button sx={{ paddingLeft: '20px', paddingRight: '20px', marginLeft: '1vw', marginRight: '1vw' }} variant="outlined" onClick={add_new}>
-                            <Typography variant="buttons">
-                                New Category
-                            </Typography>
-                        </Button>
-                        <Button sx={{ paddingLeft: '20px', paddingRight: '20px', marginLeft: '1vw', marginRight: '1vw' }} variant="outlined" onClick={() => getNewSurvey()}>
-                            <Typography variant="buttons">
-                                Submit
-                            </Typography>
-                        </Button>
+                    <div style={{ display: 'grid', gridTemplateRows: '40vh 40vh', gridTemplateColumns: '40vw auto' }}>
+                        <div style={{ textAlign: 'center', display: 'grid', alignItems: 'center' }}>
+                            <div>
+                                <Typography variant="createsurvey">Create Survey</Typography>
+                                <TextField id="survey-text" inputRef={surveyName} label='Survey Name' variant="standard" style={{ width: '20vw', fontSize: '4em' }} />
+                                <Button sx={{ paddingLeft: '20px', paddingRight: '20px', marginTop: '2vh', textAlign: 'left', marginLeft: '4em' }} variant="outlined" onClick={() => getNewSurvey()}>
+                                    <Typography variant="buttons">
+                                        Submit
+                                    </Typography>
+                                </Button>
+                            </div>
+                        </div>
+                        <div style={{ gridArea: '1 / 2 / span 2 / span 1', width: '100%', border: '1px solid #9787ff', borderRadius: '5px', padding: '2vh', textAlign: 'center', overflow: 'hidden', overflowY: 'scroll' }}>
+                            <Typography id="title" variant="createsurvey"></Typography>
+                            <div id='cardDisplay'>
+                                {cards.map((card => (
+                                    <Card key={card.id} sx={{ maxWidth: '20vw', margin: '5vh auto auto auto' }}>
+                                        <CardContent>
+                                            <Typography gutterBottom variant="h5" component="div">
+                                                Question {card.id}
+                                            </Typography>
+                                            <Typography variant="body2" color="text.secondary">
+                                                {card.name}
+                                            </Typography>
+                                        </CardContent>
+                                        <CardActions>
+                                            <Button size="small" onClick={() => deleteCard(card.id)}>Delete</Button>
+                                        </CardActions>
+                                    </Card>
+                                )))}
+                            </div>
+                        </div>
+                        <div style={{ textAlign: 'center', display: 'grid', alignItems: 'center' }}>
+                            <div>
+                                <Typography variant="createsurvey">Create Questions</Typography>
+                                <br />
+                                <TextField id="input-question" inputRef={questionName} label='Question' variant="standard" style={{ width: '20vw', fontSize: '4em' }} />
+                                <Button sx={{ paddingLeft: '20px', paddingRight: '20px', marginTop: '2vh', textAlign: 'left', marginLeft: '4em' }} variant="outlined" onClick={() => addCard()} >
+                                    <Typography variant="buttons">
+                                        Submit
+                                    </Typography>
+                                </Button>
+                            </div>
+                        </div>
                     </div>
                 </ThemeProvider>
             </div>
-
         </>
 
 
