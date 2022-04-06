@@ -44,20 +44,6 @@ export const mainListItems = (
             </ListItemIcon>
             <ListItemTextWhite primary="Groups"/>
         </ListItemButton>
-        <ListItemButton component={Link}
-            to="/completesurvey">
-            <ListItemIcon>
-            <CreateIcon/>
-            </ListItemIcon>
-            <ListItemTextWhite primary="Complete Survey"/>
-        </ListItemButton>
-        <ListItemButton component={Link}
-            to="/listuserpage">
-            <ListItemIcon>
-            <CreateIcon/>
-            </ListItemIcon>
-            <ListItemTextWhite primary="List User Page"/>
-        </ListItemButton>
     </React.Fragment>
 );
 

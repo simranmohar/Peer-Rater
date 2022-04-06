@@ -1,7 +1,7 @@
 import * as React from "react";
 import api from "../services/api";
 import { Link } from 'react-router-dom';
-import { Button } from "@mui/material";
+import { Button, Card, Typography } from "@mui/material";
 
 // "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
 
@@ -13,7 +13,8 @@ const cardStyle = {
         flexDirection: 'column',
         justifyContent: 'space-between',
         cursor: 'pointer',
-        transition: 'transform 200ms ease-in'
+        transition: 'transform 200ms ease-in',
+        textAlign: 'center',
     },
     image: {
         height: '18rem',
@@ -63,6 +64,9 @@ const cardStyle = {
     },
     parent: { 
         width: '300px',
+    },
+    link:{
+        textDecoration: 'none',
     }
 
 }
@@ -72,20 +76,26 @@ function Group(props) {
     //     api.addSurvey(props)
     // }
     return (
-        <div id="test" style={cardStyle.parent}>
-            <div className="row">
+        <div id="test" style={cardStyle.parent}>  
+        <Card variant = "outlined"> <div className="row">
                 <div style={cardStyle.card_v1}>
                     <div className="card__body" style={cardStyle.card_v1}>
                         <img style={cardStyle.image} src={props.img} />
                         <h3 className="card__title" style={cardStyle.title}>{props.description}</h3>
-                        <p className="card__description" style={cardStyle.description}>Milestone 1</p>
-                        <p>Peer group id: {props.id_value}</p>
+                        <Typography className="card__description" style={cardStyle.description}>Milestone 1</Typography>
+                        <Typography>Peer group id: {props.id_value}</Typography>
                     </div>
-                    <button className="card__btn" style={cardStyle.button}><Link to={`/newsurvey`} state={{ peer_group_id: props.id_value}}>
-                New Survey</Link></button>
+                   <Link to={`/newsurvey`} state={{ peer_group_id: props.id_value}} style={cardStyle.link}> <Button variant="outlined" sx={{margin: '20px'}}> 
+                            <Typography variant="buttons" text-decoration="none">
+                                new survey
+                            </Typography>
+                    </Button>
+               </Link>
                 </div>
-            </div>
+            </div></Card>
+           
         </div>
+      
     );
 }
 // onClick={() => getNewSurvey(props.id_value)}
