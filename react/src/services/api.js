@@ -75,7 +75,7 @@ const addRating = (_survey_id, _peer_group_id, _category_id, _recipient_id, _rat
     const user = JSON.parse(localStorage.getItem("user"));
     if (user) {
         return axios.post(`/peer-groups/${_peer_group_id}/surveys/${_survey_id}/ratings`, {category_id: _category_id, recipient_id: _recipient_id, rating: _ratings}).then((response) => {
-            return response;
+            return response.data;
         }).catch((e) => {
             console.log("Failed to add rating " + e)
             return e;
