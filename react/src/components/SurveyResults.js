@@ -24,7 +24,7 @@ function getPercentage(rating) {
     if (ratingCount === 0) {
         return 0;
     }
-    return ratingValue / (ratingCount * 5) * 100;
+    return Math.round(ratingValue / (ratingCount * 5) * 100);
 }
 
 function getCompletion(rating, category, size) {
