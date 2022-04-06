@@ -9,7 +9,6 @@ function Survey({props, user, rate}){
     const [value, setValue] = React.useState(0);
     function postRating(newValue) {
         setValue(newValue)
-       // (_survey_id, _peer_group_id, _category_id, _recipient_id, _ratings)
         api.addRating(props.survey_id, props.peer_group_id, props.id, user.id, newValue)
     }
 
