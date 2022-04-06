@@ -84,8 +84,16 @@ function SurveyCard(survey, size, row){
                 </CardContent>
 
             <CardActions>
-                <Button component={Link} to="/listuserpage" state={{survey:survey, row:row, category:category, rate:rate}} size="small">
-                    COMPLETE</Button>
+                <div style={{width:"100%"}}>
+                {loading ?
+                    <Skeleton animation="wave"  />
+                    :
+
+                        <Button style={{width:"100%"}} component={Link} to="/listuserpage" state={{survey:survey, row:row, category:category, rate:rate}} size="small">
+                            VIEW</Button>}
+                </div>
+
+
             </CardActions>
         </React.Fragment>
     );
