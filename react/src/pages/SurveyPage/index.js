@@ -5,6 +5,8 @@ import {useLocation} from "react-router-dom";
 import {Fade} from "@mui/material";
 
 function SurveyPage({group}) {
+    const [loading, setLoading] = React.useState(true);
+
     const flexContainer = {
         display: 'flex',
         flexDirection: 'row',
