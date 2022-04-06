@@ -84,6 +84,15 @@ function NewGroup({newGroupAdded}) {
 
     return (
         <React.Fragment>
+
+            {instructor === 0 ? <>
+
+                </> :
+                <>
+
+                </>
+            }
+
             {instructor === 0 ? <>
                 <ToggleButtonGroup
                 color="primary"
