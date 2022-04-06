@@ -1,8 +1,7 @@
 import * as React from "react";
 import { Link } from 'react-router-dom';
 import { Button, Card, Typography } from "@mui/material";
-
-// "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
+import { CardMedia } from '@mui/material';
 
 const cardStyle = {
     card_v1: {
@@ -31,7 +30,7 @@ const cardStyle = {
         backfaceVisibility: 'hidden',
         backgroundColor: '#405cf5',
         borderRadius: '6px',
-        borderWidth:'0',
+        borderWidth: '0',
         boxShadow: 'rgba(50, 50, 93, .1) 0 0 0 1px inset,rgba(50, 50, 93, .1) 0 2px 5px 0,rgba(0, 0, 0, .07) 0 1px 1px 0',
         boxSizing: 'border-box',
         color: '#fff',
@@ -39,7 +38,7 @@ const cardStyle = {
         fontFamily: '-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Ubuntu,sans-serif',
         fontSize: '100%',
         height: '44px',
-        lineHeight:'1.15',
+        lineHeight: '1.15',
         margin: '12px 0 0',
         outline: 'none',
         overflow: 'hidden',
@@ -61,7 +60,7 @@ const cardStyle = {
     parent: {
         width: '300px',
     },
-    link:{
+    link: {
         textDecoration: 'none',
     }
 
@@ -70,15 +69,20 @@ const cardStyle = {
 function Group(props) {
     return (
         <div id="test" style={cardStyle.parent}>
-            <Card variant = "outlined"> <div className="row">
+            <Card variant="outlined"> <div className="row">
                 <div style={cardStyle.card_v1}>
                     <div className="card__body" style={cardStyle.card_v1}>
-                        <img style={cardStyle.image} src={props.img} />
+                        <CardMedia
+                            component="img"
+                            height="200"
+                            image={props.img}
+                            alt="group image"
+                        />
                         <h3 className="card__title" style={cardStyle.title}>{props.description}</h3>
                         <Typography className="card__description" style={cardStyle.description}>Milestone 1</Typography>
                         <Typography>Peer group id: {props.id_value}</Typography>
                     </div>
-                    <Link to={`/newsurvey`} state={{ peer_group_id: props.id_value}} style={cardStyle.link}> <Button variant="outlined" sx={{margin: '20px'}}>
+                    <Link to={`/newsurvey`} state={{ peer_group_id: props.id_value }} style={cardStyle.link}> <Button variant="outlined" sx={{ margin: '20px' }}>
                         <Typography variant="buttons" text-decoration="none">
                             new survey
                         </Typography>
