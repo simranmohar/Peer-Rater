@@ -17,11 +17,8 @@ function CompleteSurveyPage () {
             useEffect(() => {
             const fetchData = async () => {
                 const result = await fetch(`http://praterlaravel.azurewebsites.net/api/categories`);
-                    
                     const body = await result.json();
-                    
                     setNewCategories(body);
-                    
             }
             fetchData();
     }, []);
@@ -39,7 +36,7 @@ function CompleteSurveyPage () {
 
     function add_scores(othersFiltered) {
         let sum = 0
-        
+
      }
 
     return(

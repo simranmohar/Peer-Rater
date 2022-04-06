@@ -28,8 +28,6 @@ function NewSurvey() {
     const location = useLocation()
     const { peer_group_id } = location.state
 
-    console.log("this is our bundle info", { peer_group_id })
-    console.log("try to extract peer group id", peer_group_id)
 
     //Some helper functions for page functionality
     function add_new() {

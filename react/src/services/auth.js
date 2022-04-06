@@ -9,7 +9,6 @@ const signup = (email, password, name, isInstructor) => {
             if (response.data.access_token) {
                 localStorage.setItem("user", JSON.stringify(response.data));
                 axios.defaults.headers.common["authorization"] = `Bearer ${response.data.access_token}`;
-                console.log(response.data)
             }
             return response.data;
         });

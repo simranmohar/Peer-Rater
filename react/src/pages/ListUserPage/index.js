@@ -1,65 +1,89 @@
-import React from 'react';
-import Survey from '../../components/Survey';
-import { useState, useEffect } from 'react';
-import { List } from '@mui/material';
-import { Button } from 'react-bootstrap';
+import * as React from 'react';
+import {styled} from '@mui/material/styles';
+import ArrowForwardIosSharpIcon from '@mui/icons-material/ArrowForwardIosSharp';
+import MuiAccordion from '@mui/material/Accordion';
+import MuiAccordionSummary from '@mui/material/AccordionSummary';
+import MuiAccordionDetails from '@mui/material/AccordionDetails';
+import Typography from '@mui/material/Typography';
 import {useLocation} from "react-router-dom";
-import api from '../../services/api'
-import UserList from '../../components/userListComponent'
+import {useEffect, useState} from "react";
+import api from "../../services/api";
+import {Chip, Grid, Stack, Tooltip} from "@mui/material";
+import Avatar from "@mui/material/Avatar";
+import Survey from "../../components/Survey";
 
+const Accordion = styled((props) => (
+    <MuiAccordion disableGutters elevation={0} square {...props} />
+))(({theme}) => ({
+    border: `1px solid ${theme.palette.divider}`,
+    '&:not(:last-child)': {
+        borderBottom: 0,
+    },
+    '&:before': {
+        display: 'none',
+    },
+}));
 
+const AccordionSummary = styled((props) => (
+    <MuiAccordionSummary
+        expandIcon={<ArrowForwardIosSharpIcon sx={{fontSize: '0.9rem'}}/>}
+        {...props}
+    />
+))(({theme}) => ({
+    backgroundColor:
+        theme.palette.mode === 'dark'
+            ? 'rgba(255, 255, 255, .05)'
+            : 'rgba(0, 0, 0, .03)',
+    flexDirection: 'row-reverse',
+    '& .MuiAccordionSummary-expandIconWrapper.Mui-expanded': {
+        transform: 'rotate(90deg)',
+    },
+    '& .MuiAccordionSummary-content': {
+        marginLeft: theme.spacing(1),
+    },
+}));
 
-function ListUserPage ({}) {
+const AccordionDetails = styled(MuiAccordionDetails)(({theme}) => ({
+    padding: theme.spacing(2),
+    borderTop: '1px solid rgba(0, 0, 0, .125)',
+}));
+
+function ListUserPage({}) {
     const location = useLocation()
-    const { survey } = location.state
-    
-    const peer_group_id = survey.peer_group_id
-    const survey_id = survey.id
-    console.log(survey_id, peer_group_id)
+    const {survey} = location.state
+    const {row} = location.state
+    const {category} = location.state
+    const {rate} = location.state
 
-    const [peer_group_object, set_peer_group] = useState({});
-
-    useEffect(() => {
-       const peer_group = async() => {
-        let peers = await api.getGroupMember(peer_group_id)
-        set_peer_group(peers.users)
-    }
-        peer_group();
-}, []);
-
-    console.log("peer groups: ",peer_group_object)
-
-    async function populate(){
-        // const list = document.getElementById("members")
-        // var li = document.createElement("li");
-
-        let users = await peer_group_object.users 
-        return users
-        // if(users.length>0){
-        //     for(var i=0; i< users.length; i++){
-        //         // console.log("user: ",peer_group_object.users[i])
-        //         // li.appendChild(document.createTextNode(peer_group_object.users[i].name));
-        //         // list.appendChild(li);
-        //     }
-        // }
-
-    }
-
-    // populate()
-
-    const flexContainer = {
-        display: 'flex',
-        flexDirection: 'row',
-        padding: 0,
-        flexWrap: 'wrap',
+    const [expanded, setExpanded] = React.useState('0');
+    const handleChange = (panel) => (event, newExpanded) => {
+        setExpanded(newExpanded ? panel : false);
     };
 
 
-    return(
-        <div>
-            <UserList state={{users : populate()}} />
-            
-        </div>
-    )
+
+   return (row.users.map(function(user, index){
+          return(
+               <Accordion expanded={expanded === `panel${index}`} onChange={handleChange(`panel${index}`)} key={index}>
+                   <AccordionSummary aria-controls={`panel${index}d-content`} id={`panel${index}d-content`}>
+                       <Grid container justifyContent="flex-start">
+                           <Typography style={{textTransform: "capitalize"}}>{user.name}</Typography>
+                       </Grid>
+                       <Grid container justifyContent="flex-end">
+                           <Chip label="Outstanding" color="error"/>
+                       </Grid>
+                   </AccordionSummary>
+                   <AccordionDetails>
+                       {category.map(function (cat, index) {
+                           return (<Survey props={cat} user={user} rate={rate} key={index}/>)
+                       })}
+                   </AccordionDetails>
+               </Accordion>
+          );
+    })
+   )
+
+
 }
+
 export default ListUserPage;

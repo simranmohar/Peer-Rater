@@ -66,7 +66,6 @@ const SignupForm = () => {
                         })
                     },
                     (error) => {
-                        console.log(error);
                         setMessage("Email address already in use.");
                     }
                 );

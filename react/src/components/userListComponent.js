@@ -4,7 +4,6 @@ import Button from "@mui/material/Button";
 
 function userListComponent(){
 
-    console.log("these are all of the users in our system")
 
     return(
         <div>

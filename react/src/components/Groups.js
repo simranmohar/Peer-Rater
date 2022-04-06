@@ -241,7 +241,7 @@ export default function Groups() {
                                         <TableCell style={{width: "15em", minWidth: "15em"}}>
                                             <Tooltip title="Add Survey" key="AddSurveyToolTip">
                                                 <Button>
-                                                <Link to={`/newsurvey`} state={{ peer_group_id: row.id}}><Add/></Link>
+                                                    <Link to={`/newsurvey`} state={{ peer_group_id: row.id}}><Add/></Link>
                                                 </Button>
                                             </Tooltip>
                                             <Tooltip title="Exit Group" key="ExitGroupToolTip">

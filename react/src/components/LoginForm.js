@@ -31,7 +31,6 @@ const LoginForm = () => {
                         // check for token and user already exists with 200
                         //   console.log("Sign up successfully", response);
                         const verify = AuthService.verifyCurrentUser();
-                        console.log(!!!verify)
                         if (!!!verify){
                             setPasswordNotFoundMessage("");
                             navigate("/");
@@ -39,13 +38,11 @@ const LoginForm = () => {
                         }
                     },
                     (error) => {
-                        console.log(error);
                         setPasswordNotFoundMessage("Invalid email or password. Please try again.");
                     }
                 );
             } catch (err) {
                 setPasswordNotFoundMessage("Something went wrong. Please try again later.");
-                console.log(err);
             }
         }
     }

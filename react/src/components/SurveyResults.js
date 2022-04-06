@@ -34,7 +34,7 @@ function getCompletion(rating, category, size) {
     return Math.floor(calc);
 }
 
-function SurveyCard(survey, size){
+function SurveyCard(survey, size, row){
     const [rate, setNewRate] = useState('')
     const [category, setNewCategory] = useState('')
     const [percentage, setNewPercentage] = useState('')
@@ -53,6 +53,7 @@ function SurveyCard(survey, size){
         }
         fetchData();
     }, [survey]);
+
     return (
         <React.Fragment>
             <Fade
@@ -81,17 +82,17 @@ function SurveyCard(survey, size){
                 </CardContent>
             </Fade>
             <CardActions>
-                <Button component={Link} to="/listuserpage" state={{survey:survey}}size="small">
+                <Button component={Link} to="/listuserpage" state={{survey:survey, row:row, category:category, rate:rate}} size="small">
                     COMPLETE</Button>
             </CardActions>
         </React.Fragment>
     );
 }
 
-export default function SurveyResults({survey, size})  {
+export default function SurveyResults({survey, size, row})  {
     return (
         <Box sx={{ maxWidth: 150 }}>
-            <Card variant="outlined">{SurveyCard(survey, size)}</Card>
+            <Card variant="outlined">{SurveyCard(survey, size, row)}</Card>
         </Box>
     );
 }

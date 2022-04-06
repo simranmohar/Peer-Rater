@@ -4,6 +4,7 @@ import List from "@mui/material/List";
 import {useLocation} from "react-router-dom";
 
 function SurveyPage({group}) {
+
     const flexContainer = {
         display: 'flex',
         flexDirection: 'row',
@@ -22,7 +23,7 @@ function SurveyPage({group}) {
         return (<>
                     <List style={flexContainer}>
                             {others.map((groups, key) => (
-                            <SurveyResults key={key} survey={groups} size={group.users.length}/>
+                            <SurveyResults key={key} survey={groups} row={group} size={group.users.length}/>
                             ))}
                     </List>
             </>
