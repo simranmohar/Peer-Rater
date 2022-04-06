@@ -6,10 +6,7 @@ import MuiAccordionSummary from '@mui/material/AccordionSummary';
 import MuiAccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
 import {useLocation} from "react-router-dom";
-import {useEffect, useState} from "react";
-import api from "../../services/api";
 import {Chip, Grid, Stack, Tooltip} from "@mui/material";
-import Avatar from "@mui/material/Avatar";
 import Survey from "../../components/Survey";
 
 const Accordion = styled((props) => (

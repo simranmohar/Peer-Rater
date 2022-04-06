@@ -1,5 +1,4 @@
 import * as React from "react";
-import api from "../services/api";
 import { Link } from 'react-router-dom';
 import { Button, Card, Typography } from "@mui/material";
 
@@ -72,9 +71,6 @@ const cardStyle = {
 }
 
 function Group(props) {
-    // const getNewSurvey = (props) =>{
-    //     api.addSurvey(props)
-    // }
     return (
         <div id="test" style={cardStyle.parent}>  
         <Card variant = "outlined"> <div className="row">
@@ -98,7 +94,6 @@ function Group(props) {
       
     );
 }
-// onClick={() => getNewSurvey(props.id_value)}
 
 
 export default Group;
