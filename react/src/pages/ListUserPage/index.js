@@ -11,6 +11,7 @@ import api from "../../services/api";
 import {Chip, Grid, Stack, Tooltip} from "@mui/material";
 import Avatar from "@mui/material/Avatar";
 import Survey from "../../components/Survey";
+import auth from "../../services/auth";
 
 const Accordion = styled((props) => (
     <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -55,11 +56,23 @@ function ListUserPage({}) {
     const {category} = location.state
     const {rate} = location.state
 
+    const arrayOfRatings = [];
+    rate.map(function (rating, index) {
+        if (rating.writer_id == auth.getCurrentUserFull().id){
+            arrayOfRatings.push(rating)
+        }
+    });
+
     const [expanded, setExpanded] = React.useState('0');
     const handleChange = (panel) => (event, newExpanded) => {
         setExpanded(newExpanded ? panel : false);
     };
 
+
+
+
+    // console.log("category", category)
+    // console.log("rate", rate);
 
 
    return (row.users.map(function(user, index){
@@ -75,7 +88,8 @@ function ListUserPage({}) {
                    </AccordionSummary>
                    <AccordionDetails>
                        {category.map(function (cat, index) {
-                           return (<Survey props={cat} user={user} rate={rate} key={index}/>)
+                           let recipientRatings = arrayOfRatings.find(rating => rating.recipient_id == user.id);
+                           return (<Survey cat={cat} user={user} rate={rate} arrayOfRatings={recipientRatings} ratingID={cat.id} key={index}/>)
                        })}
                    </AccordionDetails>
                </Accordion>

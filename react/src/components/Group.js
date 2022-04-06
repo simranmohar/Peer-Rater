@@ -37,12 +37,9 @@ const cardStyle = {
         transition: 'background 200ms ease-in, color 200ms ease-in',
     },
     hover: {
-        transform: 'scale(1.02)',
-    },
-    
-    hover: {
         background: '$clr-primary',
         color: 'white',
+        transform: 'scale(1.02)',
     },
     parent: { 
         width: '300px',
@@ -64,7 +61,7 @@ function Group(props) {
                         <p className="card__description" style={cardStyle.description}>Milestone 1</p>
                         <p>Peer group id: {props.id_value}</p>
                     </div>
-                    <button className="card__btn" tyle={cardStyle.button}><Link to={`/newsurvey`} state={{ peer_group_id: props.id_value}}>
+                    <button className="card__btn" style={cardStyle.button}><Link to={`/newsurvey`} state={{ peer_group_id: props.id_value}}>
                 New Survey</Link></button>
                 </div>
             </div>

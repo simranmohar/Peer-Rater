@@ -63,7 +63,6 @@ function NewSurvey() {
     // }, []);
 
     const getNewSurvey = async () => {
-        console.log("how many times was this called")
         let api_survey_id = await api.addSurvey(peer_group_id)
         console.log("this is our api survey id inside get New Survey", api_survey_id)
         set_survey_id(api_survey_id)
@@ -75,15 +74,12 @@ function NewSurvey() {
         var list = document.getElementById("list")
         var children = list.children;
         for (var i = 0; i < children.length; i++) {
-            console.log(children[i].innerHTML)
             api.addCategory(survey_id, peer_group_id, children[i].innerHTML)
-
         }
         list.innerHTML = ""
 
     }
 
-    console.log("this is our survey id", survey_id)
 
     return (
         <>

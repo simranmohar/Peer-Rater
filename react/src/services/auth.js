@@ -17,7 +17,6 @@ const signup = (email, password, name, isInstructor) => {
             if (response.data.access_token) {
                 localStorage.setItem("user", JSON.stringify(response.data));
                 axios.defaults.headers.common["authorization"] = `Bearer ${response.data.access_token}`;
-                console.log(response.data)
             }
             return response.data;
         });
@@ -70,10 +69,8 @@ const verifyCurrentUser = () => {
          axios.get('/me', null).then((response) => {
             if (response.data.name) {
                 localStorage.setItem("currentUser", JSON.stringify(response.data));
-                console.log("added currentuser to local storage")
                 return true;
             }else {
-                console.log("Failed to get user. Please re-login")
                 localStorage.removeItem("currentUser");
                 localStorage.removeItem("user");
                 return true
