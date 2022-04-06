@@ -213,65 +213,65 @@ export default function Groups() {
                             </TableHead>
 
                             <Fade in={!loading}>
-                            <TableBody>
-                                {(rowsPerPage > 0
-                                        ? row.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                                        : row
-                                ).map((row, index) => (
-                                    <TableRow key={index}>
-                                        <TableCell style={{width: "15em", minWidth: "15em"}}>
-                                            <CardHeader
-                                                avatar={
-                                                    <Avatar sx={{
-                                                        backgroundColor: "#90caf9",
-                                                        color: "black",
-                                                        fontSize: "90%"
-                                                    }} key={"avatar" + index}>{`#${row.id}`}</Avatar>
-                                                }
-                                                title={row.description}
-                                            />
+                                <TableBody>
+                                    {(rowsPerPage > 0
+                                            ? row.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                                            : row
+                                    ).map((row, index) => (
+                                        <TableRow key={index}>
+                                            <TableCell style={{width: "15em", minWidth: "15em"}}>
+                                                <CardHeader
+                                                    avatar={
+                                                        <Avatar sx={{
+                                                            backgroundColor: "#90caf9",
+                                                            color: "black",
+                                                            fontSize: "90%"
+                                                        }} key={"avatar" + index}>{`#${row.id}`}</Avatar>
+                                                    }
+                                                    title={row.description}
+                                                />
 
-                                        </TableCell>
-                                        <TableCell style={{width: "15em", minWidth: "15em"}}>
-                                            <CardHeader
-                                                avatar={
-                                                    <AvatarGroup total={row.users.length} key={"AvatarGroup"}>
-                                                        {row.users.map(function (name, indexInner) {
-                                                            return (
-                                                                <Tooltip title={name.name} key={index + "avatar" + indexInner}>
-                                                                    <Avatar
-                                                                        key={index+"avatar"}>{name.name.charAt(0).toUpperCase()}</Avatar>
-                                                                </Tooltip>)
-                                                        })}
-                                                    </AvatarGroup>
-                                                }
-                                            />
-                                        </TableCell>
-                                        <TableCell sx={{overflowX: "auto", maxWidth:"30em"}}>
-                                            <SurveyPage group={row}/>
-                                        </TableCell>
-                                        <TableCell style={{width: "15em", minWidth: "15em"}}>
-                                            <Tooltip title="Add Survey" key="AddSurveyToolTip">
-                                                <Button>
-                                                    <Link to={`/newsurvey`} state={{ peer_group_id: row.id}}><Add/></Link>
-                                                </Button>
-                                            </Tooltip>
-                                            <Tooltip title="Exit Group" key="ExitGroupToolTip">
-                                                <LoadingButton loading={buttonLoading === index+"button"} key={index+"button"} color="error" onClick={() => {
-                                                    handleClick(row, index+"button")
-                                                }}><ExitToApp/></LoadingButton>
-                                            </Tooltip>
-                                        </TableCell>
+                                            </TableCell>
+                                            <TableCell style={{width: "15em", minWidth: "15em"}}>
+                                                <CardHeader
+                                                    avatar={
+                                                        <AvatarGroup total={row.users.length} key={"AvatarGroup"}>
+                                                            {row.users.map(function (name, indexInner) {
+                                                                return (
+                                                                    <Tooltip title={name.name} key={index + "avatar" + indexInner}>
+                                                                        <Avatar
+                                                                            key={index+"avatar"}>{name.name.charAt(0).toUpperCase()}</Avatar>
+                                                                    </Tooltip>)
+                                                            })}
+                                                        </AvatarGroup>
+                                                    }
+                                                />
+                                            </TableCell>
+                                            <TableCell sx={{overflowX: "auto", maxWidth:"30em"}}>
+                                                <SurveyPage group={row}/>
+                                            </TableCell>
+                                            <TableCell style={{width: "15em", minWidth: "15em"}}>
+                                                <Tooltip title="Add Survey" key="AddSurveyToolTip">
+                                                    <Button>
+                                                        <Link to={`/newsurvey`} state={{ peer_group_id: row.id}}><Add/></Link>
+                                                    </Button>
+                                                </Tooltip>
+                                                <Tooltip title="Exit Group" key="ExitGroupToolTip">
+                                                    <LoadingButton loading={buttonLoading === index+"button"} key={index+"button"} color="error" onClick={() => {
+                                                        handleClick(row, index+"button")
+                                                    }}><ExitToApp/></LoadingButton>
+                                                </Tooltip>
+                                            </TableCell>
 
-                                    </TableRow>
-                                ))}
+                                        </TableRow>
+                                    ))}
 
-                                {emptyRows > 0 && (
-                                    <TableRow style={{height: 53 * emptyRows}}>
-                                        <TableCell colSpan={6}/>
-                                    </TableRow>
-                                )}
-                            </TableBody>
+                                    {emptyRows > 0 && (
+                                        <TableRow style={{height: 53 * emptyRows}}>
+                                            <TableCell colSpan={6}/>
+                                        </TableRow>
+                                    )}
+                                </TableBody>
                             </Fade>
                         </Table>
                     </TableContainer>
