@@ -1,88 +1,131 @@
-import React, { Component } from 'react';
-import {Button, Form} from "react-bootstrap";
+import React from 'react';
+import { useLocation } from 'react-router-dom'
+import api from '../services/api';
+import { Link } from 'react-router-dom';
+import { useState, useEffect, useRef } from 'react';
+import { TextField, createTheme, ThemeProvider, Typography, Button, List, Card, CardMedia, CardContent, CardActions } from '@mui/material';
 
-class NewSurvey extends Component {
-    render() {
-
-        const surveyStyle = {
-            list: {
-        
-                flexWrap: 'wrap'
-            },
-        
-            container: {
-                height: '200px',
-                overflow: 'scroll',
-                padding: '10px'
-            },
-            button: {
-                margin: '10px'
-            },
-            input: {
-                width: '100%',
-                margin: '2px'
-            }
+const Theme = createTheme({
+    components: {
+        MuiTypography: {
+            variants: [
+                {
+                    props: {
+                        variant: 'createsurvey'
+                    },
+                    style: {
+                        color: '#5E4AE3',
+                        fontSize: '5.2em',
+                        fontWeight: 'bold'
+                    }
+                }
+            ]
         }
-
-        //Some helper functions for page functionality
-        function add_new() {
-            var ul = document.getElementById("list");
-            var li = document.createElement("li");
-            var input = document.getElementById("input").value;
-            if (input !== "") {
-                li.appendChild(document.createTextNode(input));
-                ul.appendChild(li);
-            }
-
-            document.getElementById("input").value = "";
-        }
-
-        function submit_data() {
-            //must be connected to database
-            document.getElementById("input").value = "";
-            document.getElementById("list").innerHTML = "";
-
-
-        }
-
-        function clear_data() {
-            document.getElementById("input").value = "";
-            document.getElementById("list").innerHTML = "";
-        }
-
-
-     
-        return (
-            <div id="wrapper">
-           
-            <div id="content-wrapper" className="d-flex flex-column">
-                
-                <div className="container" id="main-container">
-                    <React.Fragment>
-                        <h2>Creating New Survey:</h2>
-                        <input style={surveyStyle.input} type="text" id="input"/>
-                        <div style={surveyStyle.container}>
-
-                            <ul style={surveyStyle.list} id="list">
-                            </ul>
-                        </div>
-                        <button style={surveyStyle.button} onClick={add_new} type="button" className="btn btn-primary">Add
-                            New Category
-                        </button>
-                        <button style={surveyStyle.button} onClick={submit_data} type="button"
-                                className="btn btn-primary">Submit
-                        </button>
-                        <button type="button" onClick={clear_data} className="btn btn-danger">Clear</button>
-                    </React.Fragment>
-
-                </div>
-               
-            </div>
-        </div>
-        
-        
-        );
     }
+});
+
+function NewSurvey() {
+
+    const location = useLocation()
+    const { peer_group_id } = location.state
+
+
+    const [survey_id, set_survey_id] = useState({});
+
+    const getNewSurvey = async () => {
+        console.log("how many times was this called")
+        let api_survey_id = await api.addSurvey(peer_group_id)
+        console.log("this is our api survey id inside get New Survey", api_survey_id)
+        set_survey_id(api_survey_id)
+        add_categories(api_survey_id, peer_group_id)
+    }
+
+    function add_categories(survey_id, peer_group_id) {
+
+        for (var i = 0; i < cards.length; i++) {
+            console.log(cards[i].name)
+            api.addCategory(survey_id, peer_group_id, cards[i].name)
+        }
+        console.log("OK!")
+    }
+
+    console.log("this is our survey id", survey_id)
+
+    const questionName = useRef('')
+    const [cardCount, setCardCount] = useState(0)
+    const [cards, setCards] = useState([]);
+
+    function addCard() {
+        setCards([...cards, { id: cardCount, name: questionName.current.value }])
+        setCardCount(prevCount => prevCount + 1);
+        console.log(cards)
+    }
+
+    function deleteCard(index) {
+        const list = [...cards];
+        const indexToRemove = list.indexOf(index)
+        list.splice(indexToRemove, 1);
+        setCards(list)
+    }
+
+    return (
+        <>
+            <div>
+                <ThemeProvider theme={Theme}>
+                    <div style={{ display: 'grid', gridTemplateRows: '40vh 40vh', gridTemplateColumns: '40vw auto' }}>
+                        <div style={{ textAlign: 'center', display: 'grid', alignItems: 'center' }}>
+                            <div>
+                                <Typography variant="createsurvey">Create Survey</Typography>
+                                <br />
+
+                            </div>
+                        </div>
+                        <div style={{ gridArea: '1 / 2 / span 2 / span 1', width: '100%', padding: '2vh', textAlign: 'center', overflow: 'hidden', overflowY: 'scroll' }}>
+                            {/* <Typography id="title" variant="createsurvey"></Typography> */}
+                            <div id='cardDisplay'>
+                                {cards.map((card => (
+                                    <Card key={card.id} sx={{ maxWidth: '20vw', margin: '5vh auto auto auto' }}>
+                                        <CardContent>
+                                            <Typography gutterBottom variant="h5" component="div">
+                                                Question {card.id}
+                                            </Typography>
+                                            <Typography variant="body2" color="text.secondary">
+                                                {card.name}
+                                            </Typography>
+                                        </CardContent>
+                                        <CardActions>
+                                            <Button size="small" onClick={() => deleteCard(card.id)}>Delete</Button>
+                                        </CardActions>
+                                    </Card>
+                                )))}
+                            </div>
+                        </div>
+                        <div style={{ textAlign: 'center', display: 'grid', alignItems: 'center' }}>
+                            <div>
+                                <div style={{ marginTop: '5vh' }}>
+                                    <TextField id="input-question" inputRef={questionName} label='Question' variant="standard" style={{ width: '20vw', fontSize: '4em' }} />
+                                    <br />
+                                    <Button sx={{ paddingLeft: '20px', paddingRight: '20px', marginTop: '1vh', textAlign: 'left' }} variant="outlined" onClick={() => addCard()} >
+                                        <Typography variant="buttons">
+                                            Add Question
+                                        </Typography>
+                                    </Button>
+                                </div>
+                                <Button sx={{ paddingLeft: '50px', paddingRight: '50px', marginTop: '9vh', textAlign: 'left' }} variant="outlined" onClick={() => getNewSurvey()} component={Link} to="/groups" >
+                                    <Typography variant="buttons">
+                                        Submit Survey
+                                    </Typography>
+                                </Button>
+                            </div>
+                        </div>
+                    </div>
+                </ThemeProvider>
+            </div>
+        </>
+
+
+    );
+
 }
 
 export default NewSurvey;

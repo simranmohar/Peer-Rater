@@ -1,12 +1,8 @@
 import authService from "../services/auth";
+import {Navigate} from 'react-router-dom';
 
-
-const UnauthorizedRedirect = () => {
-    const isLogged = !!authService.getCurrentUser();
-    if (!isLogged) {
-        window.location.href = '/login'
-    }
-    return null;
+function UnauthorizedRedirect () {
+    return <Navigate to="/login"/>;
 }
 
 export default UnauthorizedRedirect;

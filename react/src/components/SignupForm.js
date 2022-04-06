@@ -1,16 +1,28 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {Button, Form} from "react-bootstrap";
 import AuthService from "../services/auth";
-import { useNavigate } from "react-router-dom";
+import {useNavigate} from "react-router-dom";
+import {FormControlLabel, FormGroup, Switch} from "@mui/material";
+
 
 const SignupForm = () => {
 
     const [form, setForm] = useState({})
     const [errors, setErrors] = useState({})
     const [message, setMessage] = useState("");
+    const [checked, setChecked] = useState(false);
+    const [checkedMessage, setCheckedMessage] = useState("Student Account")
+
+    const handleChange = (event) => {
+        if (event.target.checked === true){
+            setCheckedMessage("Instructor Account")
+        }else {
+            setCheckedMessage("Student Account")
+        }
+        setChecked(event.target.checked);
+    };
 
     const navigate = useNavigate();
-
     const setField = (field, value) => {
         setForm({
             ...form,
@@ -37,15 +49,22 @@ const SignupForm = () => {
             setErrors(newErrors)
         } else {
             try {
-                await AuthService.signup(email, password, name).then(
+                let instructorBool;
+                if (!!!checked){
+                    instructorBool = 0;
+                }else {
+                    instructorBool = 1;
+                }
+
+                await AuthService.signup(email, password, name, instructorBool).then(
                     (response) => {
                         // check for token and user already exists with 200
-                        //   console.log("Sign up successfully", response);
-                        navigate("/");
-                        window.location.reload();
+                        AuthService.setCurrentUser().then(() => {
+                            navigate("/");
+                            window.location.reload();
+                        })
                     },
                     (error) => {
-                        console.log(error);
                         setMessage("Email address already in use.");
                     }
                 );
@@ -55,6 +74,8 @@ const SignupForm = () => {
             }
         }
     }
+
+
 
     const findFormErrors = () => {
         const regex = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
@@ -72,9 +93,12 @@ const SignupForm = () => {
 
         return newErrors
     }
+
+
+
     return (
 
-    <Form className="user">
+        <Form className="user">
             <Form.Group className="form-group">
                 <Form.Control type="text"
                               className={"form-control form-control-user login-box-username"}
@@ -83,7 +107,8 @@ const SignupForm = () => {
                               onChange={e => setField('name', e.target.value)}
                               isInvalid={!!errors.name}/>
 
-                <Form.Control.Feedback type='invalid' className={"ml-3 mt-2 failure-message"}>{errors.name}</Form.Control.Feedback>
+                <Form.Control.Feedback type='invalid'
+                                       className={"ml-3 mt-2 failure-message"}>{errors.name}</Form.Control.Feedback>
             </Form.Group>
 
 
@@ -95,7 +120,8 @@ const SignupForm = () => {
                               onChange={name => setField('email', name.target.value)}
                               isInvalid={!!errors.email}/>
 
-                <Form.Control.Feedback type='invalid' className={"ml-3 mt-2 failure-message"}>{errors.email}</Form.Control.Feedback>
+                <Form.Control.Feedback type='invalid'
+                                       className={"ml-3 mt-2 failure-message"}>{errors.email}</Form.Control.Feedback>
                 <div className="ml-3 mt-2 failure-message">{message ? <p>{message}</p> : null}</div>
 
             </Form.Group>
@@ -107,8 +133,18 @@ const SignupForm = () => {
                               aria-describedby={"passwordHelp"}
                               onChange={password => setField('password', password.target.value)}
                               isInvalid={!!errors.password}/>
-                <Form.Control.Feedback type='invalid' className={"ml-3 mt-2 failure-message"}>{errors.password}</Form.Control.Feedback>
+                <Form.Control.Feedback type='invalid'
+                                       className={"ml-3 mt-2 failure-message"}>{errors.password}</Form.Control.Feedback>
             </Form.Group>
+            <FormGroup>
+                <FormControlLabel control={ <Switch
+                    checked={checked}
+                    onChange={handleChange}
+                    inputProps={{ 'aria-label': 'controlled' }
+                    }
+                />} label={checkedMessage} />
+            </FormGroup>
+
             <Button className="btn btn-primary btn-user btn-block signup-button mt-5" variant="primary" type="submit"
                     onClick={handleSubmit}>
                 Sign up

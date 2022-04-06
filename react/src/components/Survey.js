@@ -1,101 +1,66 @@
-import React, { Component } from 'react';
-import {Button, Form} from "react-bootstrap";
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import Rating from '@mui/material/Rating';
+import Typography from '@mui/material/Typography';
+import api from '../services/api';
+import auth from "../services/auth";
+import {useState} from "react";
 
-class Survey extends Component {
 
-    
-    render() {
+let currentValueOfRating = null;
 
-        const surveyStyle = {
-        main:{
-            alignItems:"center",
-            textAlign:"center"
-        },
-        radio:{
-            marginRight: "12.5%"
-        },
-
-        list:{
-            listStyle: 'none'
-
-        },
-        button:{
-            width: "75%"
-        }
-
+async function postRating(newValue, cat, user, id) {
+    if (id == null) {
+        console.log("NEW")
+        // (_survey_id, _peer_group_id, _category_id, _recipient_id, _ratings)
+        return await api.addRating(cat.survey_id, cat.peer_group_id, cat.id, user.id, newValue)
+    } else {
+        return await api.putRating(cat.survey_id, cat.peer_group_id, cat.id, user.id, newValue, id)
     }
-        return (
-            <div style={surveyStyle.main}>
-                <h1>Milestone 1</h1>
-                <ul style={surveyStyle.list}>
-                    <li>
-                         <Form >
-               
-               <div> 
-               <label style={surveyStyle.radio} class="radio-inline">
-                     Category 1
-               </label>
 
-                <input name = "drone" style={surveyStyle.radio} type="radio"></input>
-                <input name = "drone" style={surveyStyle.radio} type="radio"></input>
-                <input name = "drone" style={surveyStyle.radio} type="radio"></input>
-                <input name = "drone" style={surveyStyle.radio} type="radio"></input>
-                <input name = "drone" style={surveyStyle.radio} type="radio"></input>
-
-                </div>
-             
-               
-            </Form> 
-                    </li>
-
-                    <li>
-                         <Form >
-               
-               <div> 
-               <label style={surveyStyle.radio} class="radio-inline">
-                     Category 1
-               </label>
-
-                <input name = "drone" style={surveyStyle.radio} type="radio"></input>
-                <input name = "drone" style={surveyStyle.radio} type="radio"></input>
-                <input name = "drone" style={surveyStyle.radio} type="radio"></input>
-                <input name = "drone" style={surveyStyle.radio} type="radio"></input>
-                <input name = "drone" style={surveyStyle.radio} type="radio"></input>
-
-                </div>
-             
-               
-            </Form> 
-                    </li>
-
-                    <li>
-                         <Form >
-               
-               <div> 
-               <label style={surveyStyle.radio} class="radio-inline">
-                     Category 1
-               </label>
-
-                <input name = "drone" style={surveyStyle.radio} type="radio"></input>
-                <input name = "drone" style={surveyStyle.radio} type="radio"></input>
-                <input name = "drone" style={surveyStyle.radio} type="radio"></input>
-                <input name = "drone" style={surveyStyle.radio} type="radio"></input>
-                <input name = "drone" style={surveyStyle.radio} type="radio"></input>
-
-                </div>
-             
-               
-            </Form> 
-                    </li>
-                </ul>
-           
-            <Button style={surveyStyle.button} className="btn btn-primary btn-user btn-block signup-button mt-5" variant="primary" type="submit">
-                    Submit
-            </Button>
-            </div>
-            
-        );
-    }
 }
 
-export default Survey;
+
+
+function Survey({cat, user, arrayOfRatings, ratingID}){
+
+
+    let id = null;
+    let oldOldValue = 0;
+    arrayOfRatings.forEach((rating) => {
+        if (cat.id === rating.category_id) {
+            id = rating.id
+            oldOldValue = rating.rating
+        }
+    })
+
+    const [idValue, setIdValue] = useState(id)
+    const [oldValue, setOldValue] = useState(oldOldValue);
+    return (
+        <>
+            <Box
+                sx={{
+                    '& > legend': { mt: 2 },
+                }}
+            >
+                <Typography component="legend" style={{textTransform: "capitalize", marginLeft: 3, marginBottom: 8}}>{cat.description}</Typography>
+                    <Rating
+                        name="simple-controlled"
+                        value={oldValue}
+                        onChange={async (event, newValue) => {
+                            setOldValue(newValue);
+                            await postRating(newValue, cat, user, idValue).then((output) => {
+                                if (idValue === null) {
+                                    setIdValue(output.rating.id)
+                                }
+                            });
+
+
+                        }}
+                    />
+            </Box>
+        </>
+    );
+}
+
+export default Survey

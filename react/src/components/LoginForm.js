@@ -30,17 +30,19 @@ const LoginForm = () => {
                     (response) => {
                         // check for token and user already exists with 200
                         //   console.log("Sign up successfully", response);
-                        navigate("/");
-                        window.location.reload();
+                        const verify = AuthService.verifyCurrentUser();
+                        if (!!!verify){
+                            setPasswordNotFoundMessage("");
+                            navigate("/");
+                            window.location.reload();
+                        }
                     },
                     (error) => {
-                        console.log(error);
                         setPasswordNotFoundMessage("Invalid email or password. Please try again.");
                     }
                 );
             } catch (err) {
                 setPasswordNotFoundMessage("Something went wrong. Please try again later.");
-                console.log(err);
             }
         }
     }

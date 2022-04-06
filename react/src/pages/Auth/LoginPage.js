@@ -1,10 +1,10 @@
 import React from 'react';
-import LoginForm from "../components/LoginForm";
-import '../style/auth.css';
+import './auth.css';
+import LoginForm from "../../components/LoginForm";
 import {Link} from "react-router-dom";
 
 const LoginPage = () => (
-    <div className="container-flex h-100">
+    <div className="container-flex h-100" style={{overflow:"hidden"}}>
         <div className="row justify-content-center h-100">
             <div className="col-lg-12 col-md-9 h-100">
                 <div className="o-hidden border-0 shadow-lg h-100">
@@ -28,7 +28,6 @@ const LoginPage = () => (
                                     <LoginForm/>
                                     <hr/>
                                     <div className="text-center mb-2">
-
                                         <Link to="/forgotpassword" className="sign-up-link">Forgot Password?</Link>
                                     </div>
                                     <div className="text-center">

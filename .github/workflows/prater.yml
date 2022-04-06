@@ -1,0 +1,42 @@
+name: Deploy React App to Azure Storage
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - '*'
+defaults:
+  run:
+    working-directory: ./
+env:
+  NODE_VERSION: '17'                # set this to the node version to use
+  CI: false
+  AZURE_WEBAPP_NAME: prater    # set this to your application's name
+  AZURE_WEBAPP_PACKAGE_PATH: './web'      # set this to the path to your web app project, defaults to the repository root
+jobs:
+  build-and-deploy-react:
+    name: Build and Deploy react
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js ${{ env.NODE_VERSION }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+    - name: npm install & build
+      run: |
+        # Build and test the project, then
+        # deploy to Azure Web App.
+        # cd react
+        npm install
+        npm run build
+      working-directory: ./react
+    - name: 'Deploy react app to Azure blob storage'
+      uses: bacongobbler/azure-blob-storage-upload@main
+      with:
+          source_dir: './react/build'
+          container_name: '$web'
+          connection_string: ${{ secrets.AZURE_STORAGE }} 
+          sync: 'true'
