@@ -7,7 +7,7 @@ const user = JSON.parse(localStorage.getItem("user"));
 //     // Redirect to login page here
 // }
 
-const API_URL = `http://praterlaravel.azurewebsites.net/api`;
+const API_URL = `https://praterlaravel.azurewebsites.net/api`;
 // CHANGE API_URL ONCE BACKEND IS DONE
 
 // ------------------------- Get All peer-groups request -------------------------

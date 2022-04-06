@@ -25,7 +25,7 @@ const joinPeerGroup = async (group_id, u) => {
 const getMe = async () => {
     const user = JSON.parse(localStorage.getItem("user"));
     let bearer = 'Bearer ' + user.access_token;
-    const result = await fetch(`http://praterlaravel.azurewebsites.net/api/me`, {
+    const result = await fetch(`https://praterlaravel.azurewebsites.net/api/me`, {
         method: 'get',
         headers: {
             'Authorization': bearer,
