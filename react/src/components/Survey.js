@@ -21,11 +21,19 @@ function postRating(newValue, cat, user) {
 }
 
 
+
 function Survey({cat, user, arrayOfRatings, ratingID}){
+    let currentValue = null;
     let categoryId;
     try {
         categoryId = arrayOfRatings.category_id
-    } catch {
+        if (categoryId === ratingID){
+            currentValue = arrayOfRatings.rating;
+        }else {
+            currentValue = null;
+        }
+    }
+     catch {
         categoryId = null;
     }
 
@@ -37,21 +45,13 @@ function Survey({cat, user, arrayOfRatings, ratingID}){
                 }}
             >
                 <Typography component="legend" style={{textTransform: "capitalize", marginLeft: 3, marginBottom: 8}}>{cat.description}</Typography>
-                {arrayOfRatings && (categoryId === ratingID ?
                     <Rating
                         name="simple-controlled"
-                        value={currentValueOfRating}
+                        value={currentValue}
                         onChange={(event, newValue) => {
                             postRating(newValue);
                         }}
-                    /> : <Rating
-                        name="simple-controlled"
-                        value={currentValueOfRating}
-                        onChange={(event, newValue) => {
-                            postRating(newValue);
-                        }}
-                    />)}
-
+                    />
             </Box>
         </>
     );
