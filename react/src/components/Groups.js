@@ -213,12 +213,7 @@ export default function Groups() {
                                     <TableCell>Group</TableCell>
                                     <TableCell>Participants</TableCell>
                                     <TableCell>Surveys</TableCell>
-                                    {instructor === 1 ? <>
-                                            <TableCell>Options</TableCell>
-                                        </> :
-                                        <>
-                                        </>
-                                    }
+                                    <TableCell>Options</TableCell>
 
                                 </TableRow>
                             </TableHead>
@@ -262,26 +257,25 @@ export default function Groups() {
                                             <TableCell sx={{overflowX: "auto", maxWidth: "30em"}}>
                                                 <SurveyPage group={row}/>
                                             </TableCell>
-                                            {instructor === 1 ? <>
-                                                    <TableCell style={{width: "15em", minWidth: "15em"}}>
-                                                        <Tooltip title="Add Survey" key="AddSurveyToolTip">
-                                                            <Button>
-                                                                <Link to={`/newsurvey`}
-                                                                      state={{peer_group_id: row.id}}><Add/></Link>
-                                                            </Button>
-                                                        </Tooltip>
+                                            <TableCell style={{width: "15em", minWidth: "15em"}}>
+                                                <Tooltip title="Add Survey" key="AddSurveyToolTip">
+                                                    <Button>
+                                                        <Link to={`/newsurvey`}
+                                                              state={{peer_group_id: row.id}}><Add/></Link>
+                                                    </Button>
+                                                </Tooltip>
+                                                {instructor === 1 ? <>
                                                         <Tooltip title="Exit Group" key="ExitGroupToolTip">
                                                             <LoadingButton loading={buttonLoading === index + "button"}
                                                                            key={index + "button"} color="error" onClick={() => {
                                                                 handleClick(row, index + "button")
                                                             }}><ExitToApp/></LoadingButton>
                                                         </Tooltip>
-                                                    </TableCell>
-                                                </> :
-                                                <>
-                                                </>
-                                            }
-
+                                                    </> :
+                                                    <>
+                                                    </>
+                                                }
+                                            </TableCell>
 
                                         </TableRow>
                                     ))}
