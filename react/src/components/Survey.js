@@ -5,48 +5,29 @@ import Typography from '@mui/material/Typography';
 import api from '../services/api';
 
 
-let currentValueOfRating = null;
-
-function postRating(newValue, cat, user) {
-    console.log(newValue)
-    currentValueOfRating = newValue
-    if (currentValueOfRating == null){
-        console.log("NEW")
-        // (_survey_id, _peer_group_id, _category_id, _recipient_id, _ratings)
-        api.addRating(cat.survey_id, cat.peer_group_id, cat.id, user.id, newValue)
-    }else {
-        console.log("HAD OLD RATING")
+function Survey({props, user, rate}){
+    const [value, setValue] = React.useState(0);
+    function postRating(newValue) {
+        setValue(newValue)
+       // (_survey_id, _peer_group_id, _category_id, _recipient_id, _ratings)
+        api.addRating(props.survey_id, props.peer_group_id, props.id, user.id, newValue)
     }
 
-}
-
-
-function Survey({cat, user, arrayOfRatings, ratingID}){
     return (
-        <>
       <Box
         sx={{
           '& > legend': { mt: 2 },
         }}
       >
-          <Typography component="legend" style={{textTransform: "capitalize", marginLeft: 3, marginBottom: 8}}>{cat.description}</Typography>
-          {arrayOfRatings && (arrayOfRatings.category_id === ratingID ?
-              <Rating
-              name="simple-controlled"
-              value={currentValueOfRating}
-              onChange={(event, newValue) => {
-                  postRating(newValue);
-              }}
-          /> : <Rating
-              name="simple-controlled"
-              value={currentValueOfRating}
-              onChange={(event, newValue) => {
-                  postRating(newValue);
-              }}
-          />)}
-
+          <Typography component="legend" style={{textTransform: "capitalize", marginLeft: 3, marginBottom: 8}}>{props.description}</Typography>
+        <Rating
+          name="simple-controlled"
+          value={value}
+          onChange={(event, newValue) => {
+            postRating(newValue);
+          }}
+        />
       </Box>
-        </>
     );
 }
 
