@@ -34,6 +34,7 @@ function Survey({cat, user, arrayOfRatings, ratingID}){
         }
     })
 
+    const [idValue, setIdValue] = useState(id)
     const [oldValue, setOldValue] = useState(oldOldValue);
     return (
         <>
@@ -48,11 +49,12 @@ function Survey({cat, user, arrayOfRatings, ratingID}){
                         value={oldValue}
                         onChange={async (event, newValue) => {
                             setOldValue(newValue);
-                            let oldId = id
-                            id = await postRating(newValue, cat, user, oldId);
-                            if (oldId === null) {
-                                id = id.rating["id"]
-                            }
+                            await postRating(newValue, cat, user, idValue).then((output) => {
+                                if (idValue === null) {
+                                    setIdValue(output.rating.id)
+                                }
+                            });
+
 
                         }}
                     />
