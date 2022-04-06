@@ -50,7 +50,7 @@ const setCurrentUser = () => {
     if (user) {
         return axios.get("/me").then((response) => {
             if (response.data) {
-                 localStorage.setItem("currentUser", JSON.stringify(response.data));
+                localStorage.setItem("currentUser", JSON.stringify(response.data));
             }
         }).catch((e) => {
             alert("Fail")
@@ -66,7 +66,7 @@ const getCurrentUser = () => {
 const verifyCurrentUser = () => {
     const user = JSON.parse(localStorage.getItem("user"));
     if (user) {
-         axios.get('/me', null).then((response) => {
+        axios.get('/me', null).then((response) => {
             if (response.data.name) {
                 localStorage.setItem("currentUser", JSON.stringify(response.data));
                 return true;
