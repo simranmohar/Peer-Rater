@@ -8,9 +8,10 @@ import { ToggleButton } from '@mui/material';
 import { ToggleButtonGroup } from '@mui/material';
 import {TextField} from "@mui/material";
 import Auth from "../services/auth";
+import authService from "../services/auth";
 // import { PostPeerGroup } from '../../src/services/modules/index.js'
 
-function NewGroup ({newGroupAdded}) {
+function NewGroup({newGroupAdded}) {
     const groupStyle = {
         list: {
             flexWrap: 'wrap'
@@ -30,7 +31,7 @@ function NewGroup ({newGroupAdded}) {
         }
     }
 
-    const [submit, setNewSubmit] = useState('create')
+    const [submit, setNewSubmit] = useState('join')
     const handleSubmit = (event, newSubmit) => {
         if (newSubmit !== null) {
             setNewSubmit(newSubmit);
@@ -47,10 +48,10 @@ function NewGroup ({newGroupAdded}) {
     };
 
     function ValidateInput(event) {
-        let inputText= event.target.value;
-        if (inputText.length === 0){
+        let inputText = event.target.value;
+        if (inputText.length === 0) {
             setSubmitButtonState(true);
-        }else {
+        } else {
             setSubmitButtonState(false);
         }
     }
@@ -78,38 +79,55 @@ function NewGroup ({newGroupAdded}) {
         document.getElementById("input").value = "";
     }
 
+    const instructor =  authService.getCurrentUserFull().isInstructor;
+
+
     return (
         <React.Fragment>
-            <ToggleButtonGroup
+            {instructor === 0 ? <>
+                <ToggleButtonGroup
                 color="primary"
                 value={submit}
                 exclusive
                 onChange={handleSubmit}
-                id = "submitGroup"
+                id="submitGroup"
             >
-                <ToggleButton value="create">Create Group</ToggleButton>
                 <ToggleButton value="join">Join Group</ToggleButton>
-            </ToggleButtonGroup>
-
-            <Paper elevation={7} style={{width: "100%", marginBottom: 10, paddingBottom: 10, paddingTop:10}}>
-
-            <div className="d-inline-flex container-fluid">
-                <TextField  style={groupStyle.input}  id="input" label={submit === "create" ? "Group Name":"#Group ID"} onChange={ValidateInput.bind(this)}/>
-                <LoadingButton
-                    onClick={() => {
-                        submit_data(updateLoading)
-                    }}
-                    variant="contained"
+            </ToggleButtonGroup></> :  <>
+                <ToggleButtonGroup
                     color="primary"
-                    loading={loading}
-                    disabled={submitButtonState}
-                    id="loadingButtonSubmit"
+                    value={submit}
+                    exclusive
+                    onChange={handleSubmit}
+                    id="submitGroup"
                 >
-                    Submit
-                </LoadingButton>
+                    <ToggleButton value="join">Join Group</ToggleButton>
+                    <ToggleButton value="create">Create Group</ToggleButton>
+                </ToggleButtonGroup></> }
 
-            </div>
-</Paper>
+
+
+            <Paper elevation={7} style={{width: "100%", marginBottom: 10, paddingBottom: 10, paddingTop: 10}}>
+
+                <div className="d-inline-flex container-fluid">
+                    <TextField style={groupStyle.input} id="input"
+                               label={submit === "create" ? "Group Name" : "#Group ID"}
+                               onChange={ValidateInput.bind(this)}/>
+                    <LoadingButton
+                        onClick={() => {
+                            submit_data(updateLoading)
+                        }}
+                        variant="contained"
+                        color="primary"
+                        loading={loading}
+                        disabled={submitButtonState}
+                        id="loadingButtonSubmit"
+                    >
+                        Submit
+                    </LoadingButton>
+
+                </div>
+            </Paper>
         </React.Fragment>
 
     );
