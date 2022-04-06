@@ -56,7 +56,7 @@ function ResultsCard(ratings, categories, users){
     return (
         <React.Fragment>
 
-            {completion === users.length ?
+            {completion >= users.length ?
                 <Accordion align="right">
                     <AccordionSummary>
                         Survey Results ({completion}/{users.length} completed)

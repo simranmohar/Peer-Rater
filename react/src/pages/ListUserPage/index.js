@@ -12,6 +12,7 @@ import {Chip, Grid, Stack, Tooltip} from "@mui/material";
 import Avatar from "@mui/material/Avatar";
 import Survey from "../../components/Survey";
 import auth from "../../services/auth";
+import TotalSurveyResults from "../../components/TotalSurveyResults";
 
 const Accordion = styled((props) => (
     <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -98,4 +99,15 @@ function ListUserPage({}) {
 
 }
 
-export default ListUserPage;
+export default function ListUser() {
+    const location = useLocation()
+    const {row} = location.state
+    const {category} = location.state
+    const {rate} = location.state
+    return(
+        <>
+            <TotalSurveyResults ratings={rate} categories={category} users={row.users}/>
+            <ListUserPage/>
+        </>
+    )
+};
