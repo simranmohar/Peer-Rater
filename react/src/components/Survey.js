@@ -47,12 +47,13 @@ function Survey({cat, user, arrayOfRatings, ratingID}){
                         name="simple-controlled"
                         value={oldValue}
                         onChange={async (event, newValue) => {
+                            setOldValue(newValue);
                             let oldId = id
                             id = await postRating(newValue, cat, user, oldId);
                             if (oldId === null) {
                                 id = id.rating["id"]
                             }
-                            setOldValue(newValue);
+
                         }}
                     />
             </Box>
