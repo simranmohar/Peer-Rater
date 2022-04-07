@@ -12,7 +12,7 @@ const SignupPage = () => (
                         <div className="row d-flex h-100">
                             <div className="col-lg-5 d-none d-lg-block bg-image-register">
                             </div>
-                            <div className="col-lg-7  col-md-12 p-5 h-100">
+                            <div className="col-lg-7  col-md-12 p-5 h-100" style={{overflowY:"auto"}}>
                                 <div className="p-5">
                                     <div className="text-center mb-5">
                                         <div className="title">PEER RATER</div>
