@@ -135,16 +135,18 @@ EnhancedTableHead.propTypes = {
 };
 
 const EnhancedTableToolbar = (props) => {
-    const { numSelected, selectedIDs, peerGroupID } = props;
+    const { numSelected, selectedIDs, peerGroupID, callback} = props;
 
     async function addToDatabase() {
         selectedIDs.map(async (id_) => {
             const result = await api.addToPeerGroup(peerGroupID, id_).then((response) => {
                 if (200 === response.status) {
-                    selectedIDs.remove()
+                    callback();
                 }
             });
         });
+
+        callback();
     }
 
     return (
@@ -180,8 +182,8 @@ const EnhancedTableToolbar = (props) => {
 
             {numSelected > 0 ? (
                 <Tooltip title="Add">
-                    <IconButton>
-                        <AddTaskIcon onClick={addToDatabase}/>
+                    <IconButton onClick={addToDatabase}>
+                        <AddTaskIcon/>
                     </IconButton>
                 </Tooltip>
             ) : (
@@ -217,6 +219,9 @@ export default function TransferList(props) {
     const { peer_group_id, peer_group } = location.state
 
 
+    function callbackUpdate(){
+      // call back if needed after users added to groups.
+    }
 
     useEffect(()=>{
         if (!!rows){
@@ -280,7 +285,7 @@ export default function TransferList(props) {
         return (
             <Box sx={{ width: '100%' }}>
                 <Paper sx={{ width: '100%', mb: 2 }}>
-                    <EnhancedTableToolbar numSelected={selected.length} selectedIDs={selected} peerGroupID={peer_group_id}/>
+                    <EnhancedTableToolbar numSelected={selected.length} selectedIDs={selected} peerGroupID={peer_group_id} callback={callbackUpdate}/>
                     <TableContainer>
                         <Table
                             sx={{ minWidth: 750 }}

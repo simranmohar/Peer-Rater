@@ -4,6 +4,7 @@ import "jquery/dist/jquery.min.js";
 import "popper.js/dist/umd/popper.min.js";
 import "bootstrap/dist/js/bootstrap.min.js";
 import "./style/footer.css";
+import 'react-toastify/dist/ReactToastify.css';
 
 import HomePage from "./pages/HomePage";
 import PrivacyPage from "./pages/PrivacyPage";
@@ -14,8 +15,6 @@ import NewGroupPage from "./pages/NewGroupPage";
 import SettingsPage from "./pages/SettingsPage";
 // Routing stuff
 import {BrowserRouter, Route, Routes} from "react-router-dom";
-
-
 import Groups from "./components/Groups";
 import People from "./components/People";
 import Group from "./components/Group";
@@ -34,6 +33,7 @@ import authService from "./services/auth";
 import CompleteSurveyPage from "./pages/CompleteSurveyPage";
 import ListUserPage from "./pages/ListUserPage";
 import TransferList from "./components/TransferList";
+import { ToastContainer, toast } from 'react-toastify';
 
 
 const Page = ({
@@ -61,6 +61,7 @@ const Page = ({
 function App() {
     return (
         <BrowserRouter>
+            <ToastContainer />
             <Routes>
                 <Route path="/login"
                     element={
