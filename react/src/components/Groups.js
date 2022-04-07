@@ -1,10 +1,13 @@
 import * as React from 'react';
+import {useEffect, useState} from 'react';
 import {styled} from '@mui/system';
 import TablePaginationUnstyled from '@mui/base/TablePaginationUnstyled';
 import Avatar from '@mui/material/Avatar';
 import AvatarGroup from '@mui/material/AvatarGroup';
 import {
-    CardHeader, Fade, LinearProgress,
+    CardHeader,
+    Fade,
+    LinearProgress,
     Table,
     TableBody,
     TableCell,
@@ -15,7 +18,6 @@ import {
     Tooltip
 } from "@mui/material";
 import NewGroup from "./NewGroup";
-import {useEffect, useState} from "react";
 import Paper from "@mui/material/Paper";
 import {Link} from "react-router-dom";
 import SurveyPage from "../pages/SurveyPage";
@@ -24,6 +26,7 @@ import {Add, ExitToApp} from "@mui/icons-material";
 import Button from "@mui/material/Button";
 import api from '../services/api';
 import auth from "../services/auth";
+import authService from "../services/auth";
 import {LoadingButton} from "@mui/lab";
 
 
@@ -134,6 +137,7 @@ export default function Groups() {
     const [loading, setLoading] = React.useState(true);
     const [barLoading, setBarLoading] = React.useState(true);
     const [buttonLoading, setButtonLoading] = React.useState('');
+
     function handleClick(item, button) {
         setButtonLoading(button)
         api.exitPeerGroup(item.id, auth.getCurrentUserFull().id).then(() => {
@@ -149,23 +153,12 @@ export default function Groups() {
 
 
     useEffect(() => {
-        const user = JSON.parse(localStorage.getItem("user"));
-        var bearer = 'Bearer ' + user.access_token;
-        const fetchData = async () => {
-            const result = await fetch(`https://praterlaravel.azurewebsites.net/api/peer-groups/`, {
-                method: 'get',
-                headers: {
-                    'Authorization': bearer,
-                    'Content-Type': 'application/json'
-                }
-            });
-            const body = await result.json();
-            setNewRows(body);
+        api.getPeerGroups().then((response) => {
+            setNewRows(response.data);
             setLoading(false);
             setBarLoading(false);
             setButtonLoading('');
-        }
-        fetchData();
+        })
         return () => {
             // Clean up the subscription
             setUpdateNeeded(false);
@@ -190,6 +183,9 @@ export default function Groups() {
         setPage(0);
     };
 
+    const instructor = authService.getCurrentUserFull().isInstructor;
+
+
     return (
         <Root sx={{width: '100%'}}>
             <NewGroup newGroupAdded={UpdateNeeded}/>
@@ -200,7 +196,7 @@ export default function Groups() {
                             in={barLoading}
                             unmountOnExit
                         >
-                            <LinearProgress />
+                            <LinearProgress/>
                         </Fade>
                         <Table aria-label="custom pagination table">
                             <TableHead sx={{fontWeight: 'bold'}}>
@@ -209,6 +205,7 @@ export default function Groups() {
                                     <TableCell>Participants</TableCell>
                                     <TableCell>Surveys</TableCell>
                                     <TableCell>Options</TableCell>
+
                                 </TableRow>
                             </TableHead>
 
@@ -238,29 +235,39 @@ export default function Groups() {
                                                         <AvatarGroup total={row.users.length} key={"AvatarGroup"}>
                                                             {row.users.map(function (name, indexInner) {
                                                                 return (
-                                                                    <Tooltip title={name.name} key={index + "avatar" + indexInner}>
+                                                                    <Tooltip title={name.name}
+                                                                             key={index + "avatar" + indexInner}>
                                                                         <Avatar
-                                                                            key={index+"avatar"}>{name.name.charAt(0).toUpperCase()}</Avatar>
+                                                                            key={index + "avatar"}>{name.name.charAt(0).toUpperCase()}</Avatar>
                                                                     </Tooltip>)
                                                             })}
                                                         </AvatarGroup>
                                                     }
                                                 />
                                             </TableCell>
-                                            <TableCell sx={{overflowX: "auto", maxWidth:"30em"}}>
+                                            <TableCell sx={{overflowX: "auto", maxWidth: "30em"}}>
                                                 <SurveyPage group={row}/>
                                             </TableCell>
                                             <TableCell style={{width: "15em", minWidth: "15em"}}>
+                                                {instructor === 1 ? <>
                                                 <Tooltip title="Add Survey" key="AddSurveyToolTip">
                                                     <Button>
-                                                        <Link to={`/newsurvey`} state={{ peer_group_id: row.id}}><Add/></Link>
+                                                        <Link to={`/newsurvey`}
+                                                              state={{peer_group_id: row.id}}><Add/></Link>
                                                     </Button>
                                                 </Tooltip>
-                                                <Tooltip title="Exit Group" key="ExitGroupToolTip">
-                                                    <LoadingButton loading={buttonLoading === index+"button"} key={index+"button"} color="error" onClick={() => {
-                                                        handleClick(row, index+"button")
-                                                    }}><ExitToApp/></LoadingButton>
-                                                </Tooltip>
+                                            </> :
+                                            <>
+                                            </>
+                                            }
+
+                                                        <Tooltip title="Exit Group" key="ExitGroupToolTip">
+                                                            <LoadingButton loading={buttonLoading === index + "button"}
+                                                                           key={index + "button"} color="error" onClick={() => {
+                                                                handleClick(row, index + "button")
+                                                            }}><ExitToApp/></LoadingButton>
+                                                        </Tooltip>
+
                                             </TableCell>
 
                                         </TableRow>

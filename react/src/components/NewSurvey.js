@@ -33,9 +33,7 @@ function NewSurvey() {
     const [survey_id, set_survey_id] = useState({});
 
     const getNewSurvey = async () => {
-        console.log("how many times was this called")
         let api_survey_id = await api.addSurvey(peer_group_id)
-        console.log("this is our api survey id inside get New Survey", api_survey_id)
         set_survey_id(api_survey_id)
         add_categories(api_survey_id, peer_group_id)
     }
@@ -43,13 +41,10 @@ function NewSurvey() {
     function add_categories(survey_id, peer_group_id) {
 
         for (var i = 0; i < cards.length; i++) {
-            console.log(cards[i].name)
             api.addCategory(survey_id, peer_group_id, cards[i].name)
         }
-        console.log("OK!")
     }
 
-    console.log("this is our survey id", survey_id)
 
     const questionName = useRef('')
     const [cardCount, setCardCount] = useState(0)
@@ -58,7 +53,6 @@ function NewSurvey() {
     function addCard() {
         setCards([...cards, { id: cardCount, name: questionName.current.value }])
         setCardCount(prevCount => prevCount + 1);
-        console.log(cards)
     }
 
     function deleteCard(index) {

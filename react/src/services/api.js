@@ -22,27 +22,35 @@ const joinPeerGroup = async (group_id, u) => {
     })
 }
 
-const getMe = async () => {
-    const user = JSON.parse(localStorage.getItem("user"));
-    let bearer = 'Bearer ' + user.access_token;
-    const result = await fetch(`https://praterlaravel.azurewebsites.net/api/me`, {
-        method: 'get',
-        headers: {
-            'Authorization': bearer,
-            'Content-Type': 'application/json'
-        }
-    });
-    return result.json();
-}
-
-
 async function getPeerGroups() {
-
     try {
         return await axios.get('/peer-groups', {});
     } catch (error) {
-        alert("ERROR: get peer groups + " + error)
-        return error
+        console.log("ERROR: get peer groups + " + error)
+    }
+}
+
+async function getRatings(peer_group_id, survey_id) {
+    try {
+        return await axios.get(`/peer-groups/${peer_group_id}/surveys/${survey_id}/ratings`, {});
+    } catch (error) {
+        console.log("ERROR: get ratings + " + error)
+    }
+}
+
+async function getCategories(peer_group_id, survey_id) {
+    try {
+        return await axios.get(`peer-groups/${peer_group_id}/surveys/${survey_id}/categories`, {});
+    } catch (error) {
+        console.log("ERROR: get categories + " + error)
+    }
+}
+
+async function getSurveys(group_id) {
+    try {
+        return await axios.get(`peer-groups/${group_id}/surveys`, {});
+    } catch (error) {
+        console.log("ERROR: get categories + " + error)
     }
 }
 
@@ -131,12 +139,14 @@ const api = {
     getPeerGroups,
     joinPeerGroup,
     addSurvey,
-    getMe,
     addCategory,
     exitPeerGroup,
     addRating,
     putRating,
-    getGroupMember
+    getRatings,
+    getCategories,
+    getGroupMember,
+    getSurveys
 };
 
 export default api;

@@ -23,7 +23,7 @@ export default function NavbarMenu() {
     useEffect(() => {
         setTimeout(() => {  setUsername(authService.getCurrentUserFull().name); }, 1000);
         setTimeout(() => {
-            if (authService.getCurrentUserFull().isInstructor == 1){
+            if (authService.getCurrentUserFull().isInstructor === 1){
                 setIsInstructor(" (Instructor) ");
             }else {
                 setIsInstructor(" (Student) ");

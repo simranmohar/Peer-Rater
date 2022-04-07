@@ -8,8 +8,8 @@ import Typography from '@mui/material/Typography';
 import {useEffect, useState} from "react";
 import { Link } from 'react-router-dom';
 import auth from "../services/auth";
-import {CircularProgress, Fade, LinearProgress} from "@mui/material";
-import {Skeleton} from "@mui/lab";
+import { Skeleton } from '@mui/material';
+import api from "../services/api";
 
 function getPercentage(rating) {
     let user = auth.getCurrentUserFull();
@@ -43,9 +43,10 @@ function SurveyCard(survey, size, row){
     const [loading, setLoading] = React.useState(true);
     useEffect(() => {
         const fetchData = async () => {
-            const [ratingsResult, categoryResult] = await Promise.all([fetch(`https://praterlaravel.azurewebsites.net/api/peer-groups/${survey.peer_group_id}/surveys/${survey.id}/ratings`),fetch(`https://praterlaravel.azurewebsites.net/api/peer-groups/${survey.peer_group_id}/surveys/${survey.id}/categories`)]);
-            const rating = await ratingsResult.json();
-            const category = await categoryResult.json();
+            const [ratingsResult, categoryResult] = await Promise.all([api.getRatings(survey.peer_group_id, survey.id),
+                api.getCategories(survey.peer_group_id, survey.id)]);
+            const rating = await ratingsResult.data;
+            const category = await categoryResult.data;
             setNewRate(rating);
             setNewCategory(category);
             setNewPercentage(getPercentage(rating));
@@ -61,14 +62,14 @@ function SurveyCard(survey, size, row){
                     <Typography sx={{ mb: 1.5 }} color="text.secondary">
                         SURVEY #{survey.id}
                     </Typography>
-                    <div>
+                    <>
                     <Typography variant="h5" component="div">
                         {loading ?
                             <Skeleton animation="wave" />
                             :
-                                <div>
+                                <>
                                 {percentage}%
-                                </div>
+                                </>
                         }
 
                     </Typography>
@@ -76,11 +77,11 @@ function SurveyCard(survey, size, row){
                         {loading ?
                             <Skeleton animation="wave"  />
                             :
-                            <div>
+                            <>
                             {completion}/{size} completed
-                            </div>}
+                            </>}
                     </Typography>
-                    </div>
+                    </>
                 </CardContent>
 
             <CardActions>

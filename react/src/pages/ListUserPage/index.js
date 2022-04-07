@@ -6,13 +6,11 @@ import MuiAccordionSummary from '@mui/material/AccordionSummary';
 import MuiAccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
 import {useLocation} from "react-router-dom";
-import {useEffect, useState} from "react";
-import api from "../../services/api";
-import {Chip, Grid, Stack, Tooltip} from "@mui/material";
-import Avatar from "@mui/material/Avatar";
+import {Chip, Grid} from "@mui/material";
 import Survey from "../../components/Survey";
 import auth from "../../services/auth";
 import TotalSurveyResults from "../../components/TotalSurveyResults";
+import authService from "../../services/auth";
 
 const Accordion = styled((props) => (
     <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -108,9 +106,12 @@ export default function ListUser() {
     const {row} = location.state
     const {category} = location.state
     const {rate} = location.state
+    const instructor =  authService.getCurrentUserFull().isInstructor;
     return(
         <>
-            <TotalSurveyResults ratings={rate} categories={category} users={row.users}/>
+            {instructor === 1 ?
+                <TotalSurveyResults ratings={rate} categories={category} users={row.users}/>
+                : null}
             <ListUserPage/>
         </>
     )
