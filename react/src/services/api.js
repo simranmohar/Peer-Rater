@@ -22,6 +22,17 @@ const joinPeerGroup = async (group_id, u) => {
     })
 }
 
+
+function addToPeerGroup(group_id, u) {
+    return axios.post(`/peer-groups/${group_id}/attach`, {peerGroup_id: group_id, user_id: u})
+        .then(function (response) {
+            return response
+        })
+        .catch(function (error) {
+            return error
+        });
+}
+
 async function getPeerGroups() {
     try {
         return await axios.get('/peer-groups', {});
@@ -132,12 +143,25 @@ async function getGroupMember(_id) {
 }
 
 
+async function getUsers() {
+    try {
+        return await axios.get(`/users`, {}).then((response) => {
+            return response.data;
+        })
+    } catch (error) {
+        alert("ERROR: get peer groups + " + error)
+        return error
+    }
+}
+
+
 
 
 const api = {
     addPeerGroup,
     getPeerGroups,
     joinPeerGroup,
+    addToPeerGroup,
     addSurvey,
     addCategory,
     exitPeerGroup,
@@ -146,7 +170,9 @@ const api = {
     getRatings,
     getCategories,
     getGroupMember,
-    getSurveys
+    getSurveys,
+    getUsers,
+
 };
 
 export default api;

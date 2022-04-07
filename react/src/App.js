@@ -4,6 +4,7 @@ import "jquery/dist/jquery.min.js";
 import "popper.js/dist/umd/popper.min.js";
 import "bootstrap/dist/js/bootstrap.min.js";
 import "./style/footer.css";
+import 'react-toastify/dist/ReactToastify.css';
 
 import HomePage from "./pages/HomePage";
 import PrivacyPage from "./pages/PrivacyPage";
@@ -14,8 +15,6 @@ import NewGroupPage from "./pages/NewGroupPage";
 import SettingsPage from "./pages/SettingsPage";
 // Routing stuff
 import {BrowserRouter, Route, Routes} from "react-router-dom";
-
-
 import Groups from "./components/Groups";
 import People from "./components/People";
 import Group from "./components/Group";
@@ -33,6 +32,8 @@ import axios from "axios";
 import authService from "./services/auth";
 import CompleteSurveyPage from "./pages/CompleteSurveyPage";
 import ListUserPage from "./pages/ListUserPage";
+import TransferList from "./components/TransferList";
+import { ToastContainer, toast } from 'react-toastify';
 
 
 const Page = ({
@@ -60,6 +61,7 @@ const Page = ({
 function App() {
     return (
         <BrowserRouter>
+            <ToastContainer limit={10} autoClose={4000}/>
             <Routes>
                 <Route path="/login"
                     element={
@@ -89,18 +91,18 @@ function App() {
                         element={<Page title="CompleteSurvey" isPrivate><CompleteSurveyPage/></Page>}
                         exact></Route>
                     <Route path="/listuserpage"
-                        element={<Page title="ListUserPage" isPrivate><ListUserPage/></Page>}
+                        element={<Page title="Survey" isPrivate><ListUserPage/></Page>}
                         exact></Route>
                     <Route path="/profile"
                         element={
                             <Page
-                        isPrivate><ProfilePage/></Page>
+                        isPrivate title="Profile" ><ProfilePage/></Page>
                         }
                         exact/>
                     <Route path="/newsurvey"
                         element={
                             <Page
-                        isPrivate><NewSurveyPage/></Page>
+                        isPrivate title="Add Survey" ><NewSurveyPage/></Page>
                         }
                         exact/>
                     <Route path="/newgroup"
@@ -112,14 +114,14 @@ function App() {
                     <Route path="/groups"
                         element={
                             <Page
-                        isPrivate><Groups/></Page>
+                        isPrivate title="Groups" ><Groups/></Page>
                         }
                         title="Groups"
                         exact/>
                     <Route path="/surveys"
                         element={
                             <Page
-                        isPrivate><SurveyPage/></Page>
+                        isPrivate ><SurveyPage/></Page>
                         }
                         title="Surveys"
                         exact/>
@@ -143,6 +145,9 @@ function App() {
                         isPrivate><HomePageMasonry/></Page>
                         }
                         Grid/>
+                    <Route path="/addUsersToList"
+                           element={<Page title="Add Users" isPrivate><TransferList/></Page>}
+                           exact/>
                 </Route>
             </Routes>
         </BrowserRouter>

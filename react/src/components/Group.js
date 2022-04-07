@@ -87,7 +87,7 @@ function Group(props) {
                     {instructor === 1 ? <>
 
                     <Link to={`/newsurvey`} state={{ peer_group_id: props.id_value }} style={cardStyle.link}> <Button variant="outlined" sx={{ margin: '20px' }}>
-                        <Typography variant="buttons" text-decoration="none">
+                        <Typography variant="buttons" style={{textDecoration: "none"}}>
                             new survey
                         </Typography>
                     </Button>

@@ -1,11 +1,10 @@
 import axios from "axios";
 import React from "react";
-import {AxiosResponse} from "axios";
 
 
 const signup = (email, password, name, isInstructor) => {
     if (isInstructor === 0){
-        return axios.post("/register", {email, password, name}).then((response:AxiosResponse) => {
+        return axios.post("/register", {email, password, name}).then((response) => {
             if (response.data.access_token) {
                 localStorage.setItem("user", JSON.stringify(response.data));
                 axios.defaults.headers.common["authorization"] = `Bearer ${response.data.access_token}`;
@@ -13,7 +12,7 @@ const signup = (email, password, name, isInstructor) => {
             return response.data;
         });
     }else {
-        return axios.post("/register", {email, password, name, isInstructor}).then((response:AxiosResponse) => {
+        return axios.post("/register", {email, password, name, isInstructor}).then((response) => {
             if (response.data.access_token) {
                 localStorage.setItem("user", JSON.stringify(response.data));
                 axios.defaults.headers.common["authorization"] = `Bearer ${response.data.access_token}`;
@@ -24,8 +23,8 @@ const signup = (email, password, name, isInstructor) => {
 
 };
 
-const login = (email, password) => {
-    return axios.post("/login", {email, password}).then((response:AxiosResponse) => {
+const login = async (email, password) => {
+    return await axios.post("/login", {email, password}).then((response) => {
         if (response.data.access_token) {
             localStorage.setItem("user", JSON.stringify(response.data));
             axios.defaults.headers.common["authorization"] = `Bearer ${response.data.access_token}`;
@@ -34,8 +33,8 @@ const login = (email, password) => {
     });
 };
 
-const logout = () => {
-    return axios.post("/logout", null).then((response:AxiosResponse) => {
+const logout = async () => {
+    return await axios.post("/logout", null).then((response) => {
         localStorage.removeItem("user");
         localStorage.removeItem("currentUser");
         return response.data;
