@@ -2,6 +2,7 @@ import * as React from "react";
 import { Link } from 'react-router-dom';
 import { Button, Card, Typography } from "@mui/material";
 import { CardMedia } from '@mui/material';
+import authService from "../services/auth";
 
 const cardStyle = {
     card_v1: {
@@ -67,6 +68,7 @@ const cardStyle = {
 }
 
 function Group(props) {
+    const instructor = authService.getCurrentUserFull().isInstructor;
     return (
         <div id="test" style={cardStyle.parent}>
             <Card variant="outlined"> <div className="row">
@@ -82,12 +84,16 @@ function Group(props) {
                         <Typography className="card__description" style={cardStyle.description}>Milestone 1</Typography>
                         <Typography>Peer group id: {props.id_value}</Typography>
                     </div>
+                    {instructor === 1 ? <>
+
                     <Link to={`/newsurvey`} state={{ peer_group_id: props.id_value }} style={cardStyle.link}> <Button variant="outlined" sx={{ margin: '20px' }}>
                         <Typography variant="buttons" text-decoration="none">
                             new survey
                         </Typography>
                     </Button>
-                    </Link>
+                    </Link> </>:
+                    <div style={{height: "2em"}}/>
+                    }
                 </div>
             </div></Card>
 
