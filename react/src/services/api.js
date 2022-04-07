@@ -132,6 +132,18 @@ async function getGroupMember(_id) {
 }
 
 
+async function getUsers() {
+    try {
+        return await axios.get(`/users`, {}).then((response) => {
+            return response.data;
+        })
+    } catch (error) {
+        alert("ERROR: get peer groups + " + error)
+        return error
+    }
+}
+
+
 
 
 const api = {
@@ -146,7 +158,9 @@ const api = {
     getRatings,
     getCategories,
     getGroupMember,
-    getSurveys
+    getSurveys,
+    getUsers,
+
 };
 
 export default api;

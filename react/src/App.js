@@ -33,6 +33,7 @@ import axios from "axios";
 import authService from "./services/auth";
 import CompleteSurveyPage from "./pages/CompleteSurveyPage";
 import ListUserPage from "./pages/ListUserPage";
+import TransferList from "./components/TransferList";
 
 
 const Page = ({
@@ -143,6 +144,9 @@ function App() {
                         isPrivate><HomePageMasonry/></Page>
                         }
                         Grid/>
+                    <Route path="/addUsersToList"
+                           element={<Page title="ListUserPage" isPrivate><TransferList/></Page>}
+                           exact/>
                 </Route>
             </Routes>
         </BrowserRouter>
