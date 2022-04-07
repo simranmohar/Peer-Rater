@@ -24,7 +24,7 @@ import Paper from "@mui/material/Paper";
 import {Link} from "react-router-dom";
 import SurveyPage from "../pages/SurveyPage";
 import Box from "@mui/material/Box";
-import {Add, ExitToApp} from "@mui/icons-material";
+import {Add, ExitToApp, PersonAddAlt} from "@mui/icons-material";
 import Button from "@mui/material/Button";
 import api from '../services/api';
 import auth from "../services/auth";
@@ -250,18 +250,18 @@ export default function Groups() {
                                             <TableCell sx={{overflowX: "auto", maxWidth: "30em"}}>
                                                 <SurveyPage group={row}/>
                                             </TableCell>
-                                            <TableCell style={{width: "15em", minWidth: "15em"}}>
+                                            <TableCell style={{width: "15em", minWidth: instructor === 1 ? "20em" : "10em"}}>
                                                 {instructor === 1 ? <>
                                                 <Tooltip title="Add Survey" key="AddSurveyToolTip">
-                                                    <Button>
-                                                        <Link to={`/newsurvey`}
-                                                              state={{peer_group_id: row.id}}><Add/></Link>
+                                                    <Button component={Link} to={`/newsurvey`}
+                                                            state={{peer_group_id: row.id}}>
+                                                        <Add/>
                                                     </Button>
                                                 </Tooltip>
-                                                        <Tooltip title="Add Users To List" key="AddUsersList">
-                                                            <Button>
-                                                                <Link to={`/addUsersToList`}
-                                                                      state={{peer_group_id: row.id}}><AddTaskIcon/></Link>
+                                                        <Tooltip title="Add Users" key="AddUsersList">
+                                                            <Button component={Link}  to={`/addUsersToList`}
+                                                                    state={{peer_group_id: row.id}}>
+                                                                <PersonAddAlt/>
                                                             </Button>
                                                         </Tooltip>
 
