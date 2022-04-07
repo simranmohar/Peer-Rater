@@ -208,7 +208,7 @@ function LoadView() {
 
 export default function TransferList(props) {
     const [order, setOrder] = React.useState('asc');
-    const [orderBy, setOrderBy] = React.useState('');
+    const [orderBy, setOrderBy] = React.useState('id');
     const [selected, setSelected] = React.useState([]);
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
@@ -322,7 +322,7 @@ export default function TransferList(props) {
                                                 role="checkbox"
                                                 aria-checked={isItemSelected}
                                                 tabIndex={-1}
-                                                key={row.name}
+                                                key={row.id}
                                                 selected={isItemSelected}
                                             >
                                                 <TableCell padding="checkbox">
