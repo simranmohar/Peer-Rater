@@ -30,8 +30,10 @@ axios.interceptors.response.use(function (response) {
                 closeOnClick: true,
                 pauseOnHover: false,
                 draggable: true,
-                progress: 3000,
-                toastId: "403401Error"
+                toastId: "403401Error",
+                onClose: () => {
+                    handleLogout();
+                }
             });
             return error;
 
@@ -59,7 +61,6 @@ axios.interceptors.response.use(function (response) {
                 closeOnClick: true,
                 pauseOnHover: false,
                 draggable: true,
-                progress: 3000,
                 toastId: "422Error"
             });
             return error;
