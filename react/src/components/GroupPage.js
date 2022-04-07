@@ -8,11 +8,9 @@ import api from "../services/api";
 const GroupPage = () => {
     const [peerGroups, setNewPeerGroups] = useState('')
     useEffect(() => {
-        const fetchData = async () => {
-            api.getPeerGroups().then((response) => {
-                setNewPeerGroups(response.data);
-            })
-        }
+        api.getPeerGroups().then((response) => {
+            setNewPeerGroups(response.data);
+        })
     }, []);
     let group_list = Object.values(peerGroups)
     return (<>
