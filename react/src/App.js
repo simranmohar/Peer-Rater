@@ -90,18 +90,18 @@ function App() {
                         element={<Page title="CompleteSurvey" isPrivate><CompleteSurveyPage/></Page>}
                         exact></Route>
                     <Route path="/listuserpage"
-                        element={<Page title="ListUserPage" isPrivate><ListUserPage/></Page>}
+                        element={<Page title="Survey" isPrivate><ListUserPage/></Page>}
                         exact></Route>
                     <Route path="/profile"
                         element={
                             <Page
-                        isPrivate><ProfilePage/></Page>
+                        isPrivate title="Profile" ><ProfilePage/></Page>
                         }
                         exact/>
                     <Route path="/newsurvey"
                         element={
                             <Page
-                        isPrivate><NewSurveyPage/></Page>
+                        isPrivate title="Add Survey" ><NewSurveyPage/></Page>
                         }
                         exact/>
                     <Route path="/newgroup"
@@ -113,14 +113,14 @@ function App() {
                     <Route path="/groups"
                         element={
                             <Page
-                        isPrivate><Groups/></Page>
+                        isPrivate title="Groups" ><Groups/></Page>
                         }
                         title="Groups"
                         exact/>
                     <Route path="/surveys"
                         element={
                             <Page
-                        isPrivate><SurveyPage/></Page>
+                        isPrivate ><SurveyPage/></Page>
                         }
                         title="Surveys"
                         exact/>
@@ -145,7 +145,7 @@ function App() {
                         }
                         Grid/>
                     <Route path="/addUsersToList"
-                           element={<Page title="ListUserPage" isPrivate><TransferList/></Page>}
+                           element={<Page title="Add Users" isPrivate><TransferList/></Page>}
                            exact/>
                 </Route>
             </Routes>
