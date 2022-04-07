@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import SurveyResults from "../../components/SurveyResults";
 import List from "@mui/material/List";
 import {Fade} from "@mui/material";
+import api from "../../services/api";
 
 function SurveyPage({group}) {
     const [loading, setLoading] = React.useState(true);
@@ -13,13 +14,10 @@ function SurveyPage({group}) {
     };
         const [surveys, setNewSurveys] = useState('')
         useEffect(() => {
-                const fetchData = async () => {
-                    const result = await fetch(`https://praterlaravel.azurewebsites.net/api/peer-groups/${group.id}/surveys`);
-                        const body = await result.json();
-                        setNewSurveys(body);
-                        setLoading(false);
-                }
-                fetchData();
+            api.getSurveys(group.id).then((response) => {
+                setNewSurveys(response.data);
+                setLoading(false);
+            })
         }, [group]);
         let others = Object.values(surveys)
         return (<>

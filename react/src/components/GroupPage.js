@@ -2,25 +2,17 @@ import React, { useEffect, useState } from 'react';
 import Group from './Group';
 import logo from '../img/peerrater.png';
 import { CardMedia, Typography } from '@mui/material';
+import api from "../services/api";
 
 
 const GroupPage = () => {
     const [peerGroups, setNewPeerGroups] = useState('')
     useEffect(() => {
-        const user = JSON.parse(localStorage.getItem("user"));
-        var bearer = 'Bearer ' + user.access_token;
         const fetchData = async () => {
-            const result = await fetch(`https://praterlaravel.azurewebsites.net/api/peer-groups/`, {
-                method: 'get',
-                headers: {
-                    'Authorization': bearer,
-                    'Content-Type': 'application/json'
-                }
-            });
-            const body = await result.json();
-            setNewPeerGroups(body);
+            api.getPeerGroups().then((response) => {
+                setNewPeerGroups(response.data);
+            })
         }
-        fetchData();
     }, []);
     let group_list = Object.values(peerGroups)
     return (<>

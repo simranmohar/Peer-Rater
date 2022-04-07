@@ -1,10 +1,13 @@
 import * as React from 'react';
+import {useEffect, useState} from 'react';
 import {styled} from '@mui/system';
 import TablePaginationUnstyled from '@mui/base/TablePaginationUnstyled';
 import Avatar from '@mui/material/Avatar';
 import AvatarGroup from '@mui/material/AvatarGroup';
 import {
-    CardHeader, Fade, LinearProgress,
+    CardHeader,
+    Fade,
+    LinearProgress,
     Table,
     TableBody,
     TableCell,
@@ -15,7 +18,6 @@ import {
     Tooltip
 } from "@mui/material";
 import NewGroup from "./NewGroup";
-import {useEffect, useState} from "react";
 import Paper from "@mui/material/Paper";
 import {Link} from "react-router-dom";
 import SurveyPage from "../pages/SurveyPage";
@@ -24,8 +26,8 @@ import {Add, ExitToApp} from "@mui/icons-material";
 import Button from "@mui/material/Button";
 import api from '../services/api';
 import auth from "../services/auth";
-import {LoadingButton} from "@mui/lab";
 import authService from "../services/auth";
+import {LoadingButton} from "@mui/lab";
 
 
 const blue = {
@@ -151,23 +153,12 @@ export default function Groups() {
 
 
     useEffect(() => {
-        const user = JSON.parse(localStorage.getItem("user"));
-        var bearer = 'Bearer ' + user.access_token;
-        const fetchData = async () => {
-            const result = await fetch(`https://praterlaravel.azurewebsites.net/api/peer-groups/`, {
-                method: 'get',
-                headers: {
-                    'Authorization': bearer,
-                    'Content-Type': 'application/json'
-                }
-            });
-            const body = await result.json();
-            setNewRows(body);
+        api.getPeerGroups().then((response) => {
+            setNewRows(response.data);
             setLoading(false);
             setBarLoading(false);
             setButtonLoading('');
-        }
-        fetchData();
+        })
         return () => {
             // Clean up the subscription
             setUpdateNeeded(false);
