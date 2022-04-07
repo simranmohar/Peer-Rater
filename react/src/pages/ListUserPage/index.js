@@ -5,12 +5,13 @@ import MuiAccordion from '@mui/material/Accordion';
 import MuiAccordionSummary from '@mui/material/AccordionSummary';
 import MuiAccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
-import {useLocation} from "react-router-dom";
-import {Chip, Grid} from "@mui/material";
+import {Link, useLocation} from "react-router-dom";
+import {Button, Chip, Grid, Tooltip} from "@mui/material";
 import Survey from "../../components/Survey";
 import auth from "../../services/auth";
 import TotalSurveyResults from "../../components/TotalSurveyResults";
 import authService from "../../services/auth";
+import CloseFullscreen from '@mui/icons-material/CloseFullscreen';
 
 const Accordion = styled((props) => (
     <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -106,13 +107,29 @@ export default function ListUser() {
     const {row} = location.state
     const {category} = location.state
     const {rate} = location.state
+    const {survey} = location.state
     const instructor =  authService.getCurrentUserFull().isInstructor;
     return(
         <>
+            <Grid container justifyContent={"space-between"}>
+                <Grid item>
+            <Typography variant="h5" sx={{color: "gray", marginLeft:"0.25em", paddingTop:"0.3em"}}>
+                SURVEY #{survey.id}
+            </Typography>
+                </Grid>
+                <Grid item>
+            <Tooltip title="Close" placement={"left"}>
+                <Button size="large" sx={{marginBottom:"1em"}} component={Link} to="/groups" >
+                    <CloseFullscreen/>
+                </Button>
+            </Tooltip>
+                </Grid>
+            </Grid>
             {instructor === 1 ?
                 <TotalSurveyResults ratings={rate} categories={category} users={row.users}/>
                 : null}
             <ListUserPage/>
+
         </>
     )
 };
