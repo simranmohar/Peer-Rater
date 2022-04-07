@@ -1,5 +1,5 @@
 import React from 'react';
-import { useLocation } from 'react-router-dom'
+import {useLocation, useNavigate} from 'react-router-dom'
 import api from '../services/api';
 import { Link } from 'react-router-dom';
 import { useState, useEffect, useRef } from 'react';
@@ -24,8 +24,9 @@ const Theme = createTheme({
         }
     }
 });
-
+let id = null;
 function NewSurvey() {
+    const navigate = useNavigate();
 
     const location = useLocation()
     const { peer_group_id } = location.state
@@ -33,7 +34,9 @@ function NewSurvey() {
 
     const [survey_id, set_survey_id] = useState({});
 
+
     const getNewSurvey = async () => {
+        id = toast.loading("Please wait while we create your survey!")
         let api_survey_id = await api.addSurvey(peer_group_id)
         set_survey_id(api_survey_id)
         add_categories(api_survey_id, peer_group_id)
@@ -41,14 +44,13 @@ function NewSurvey() {
 
     function add_categories(survey_id, peer_group_id) {
 
-       let promises = cards.map((card) => {
-            return api.addCategory(survey_id, peer_group_id, card.name)
-        });
-
-        const id = toast.loading("Please wait while we create your survey!")
+       let promises = cards.map(async (card) => {
+           return await api.addCategory(survey_id, peer_group_id, card.name)
+       });
 
         Promise.all(promises).then(function(results) {
             toast.update(id, { render: "Success. Houston, we have lift off!", type: "success", isLoading: false, autoClose: 2000, draggable: true });
+            navigate("/groups");
         });
     }
 
@@ -112,7 +114,7 @@ function NewSurvey() {
                                         </Typography>
                                     </Button>
                                 </div>
-                                <Button sx={{ paddingLeft: '50px', paddingRight: '50px', marginTop: '9vh', textAlign: 'left' }} variant="outlined" onClick={() => getNewSurvey()} component={Link} to="/groups" >
+                                <Button sx={{ paddingLeft: '50px', paddingRight: '50px', marginTop: '9vh', textAlign: 'left' }} variant="outlined" onClick={() => getNewSurvey()}>
                                     <Typography variant="buttons">
                                         Submit Survey
                                     </Typography>
