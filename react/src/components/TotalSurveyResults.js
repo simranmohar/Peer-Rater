@@ -85,7 +85,7 @@ function ResultsCard(ratings, categories, users) {
     return (
         <React.Fragment>
 
-            {completion >= users.length ?
+
                 <Accordion align="right">
                     <AccordionSummary>
                         <Grid container justifyContent="flex-start">
@@ -94,7 +94,10 @@ function ResultsCard(ratings, categories, users) {
                             </Typography>
                         </Grid>
                         <Grid container justifyContent="flex-end">
+                            {completion >= users.length ?
                             <Chip label="Completed" color="success"/>
+                                : null
+                            }
                         </Grid>
                     </AccordionSummary>
                     <AccordionDetails>
@@ -120,9 +123,6 @@ function ResultsCard(ratings, categories, users) {
                         </TableContainer>
                     </AccordionDetails>
                 </Accordion>
-
-                : null
-            }
         </React.Fragment>
     );
 }

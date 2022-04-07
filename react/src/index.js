@@ -31,6 +31,7 @@ axios.interceptors.response.use(function (response) {
                 pauseOnHover: false,
                 draggable: true,
                 progress: 3000,
+                toastId: "403401Error"
             });
             return error;
 
@@ -45,6 +46,7 @@ axios.interceptors.response.use(function (response) {
                 pauseOnHover: false,
                 draggable: true,
                 progress: 3000,
+                toastId: "404Error"
             });
             return error;
 
@@ -58,6 +60,7 @@ axios.interceptors.response.use(function (response) {
                 pauseOnHover: false,
                 draggable: true,
                 progress: 3000,
+                toastId: "422Error"
             });
             return error;
 
@@ -66,12 +69,12 @@ axios.interceptors.response.use(function (response) {
             toast.error('Please slow down with all these requests.. We are on a student plan :( ' +
                 'Try again Later? <3', {
                 position: "top-right",
-                autoClose: 3000,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: false,
                 draggable: true,
                 progress: 3000,
+                toastId: "429Error"
             });
 
             return error;
@@ -86,6 +89,7 @@ axios.interceptors.response.use(function (response) {
                 pauseOnHover: false,
                 draggable: true,
                 progress: 3000,
+                toastId: "500Error"
             });
 
             return error;

@@ -4,6 +4,7 @@ import api from '../services/api';
 import { Link } from 'react-router-dom';
 import { useState, useEffect, useRef } from 'react';
 import { TextField, createTheme, ThemeProvider, Typography, Button, List, Card, CardMedia, CardContent, CardActions } from '@mui/material';
+import {toast} from "react-toastify";
 
 const Theme = createTheme({
     components: {
@@ -40,9 +41,15 @@ function NewSurvey() {
 
     function add_categories(survey_id, peer_group_id) {
 
-        for (var i = 0; i < cards.length; i++) {
-            api.addCategory(survey_id, peer_group_id, cards[i].name)
-        }
+       let promises = cards.map((card) => {
+            return api.addCategory(survey_id, peer_group_id, card.name)
+        });
+
+        const id = toast.loading("Please wait while we create your survey!")
+
+        Promise.all(promises).then(function(results) {
+            toast.update(id, { render: "Success. Houston, we have lift off!", type: "success", isLoading: false, autoClose: 2000, draggable: true });
+        });
     }
 
 

@@ -63,7 +63,7 @@ function NewGroup({newGroupAdded}) {
         if (submit === "join") {
             api.joinPeerGroup(input, Auth.getCurrentUserFull()).then(r => {
                 newGroupAdded();
-                toast('Success. You have joined the peer group!', {
+                toast(`Success. You have joined peer group #${input}!`, {
                     position: "top-right",
                     autoClose: 3000,
                     hideProgressBar: false,
@@ -78,7 +78,7 @@ function NewGroup({newGroupAdded}) {
         } else {
             api.addPeerGroup(input).then(r => {
                 newGroupAdded();
-                toast('Success. Your peer group has been created!', {
+                toast(`Success. You have created peer group "${input}"!`, {
                     position: "top-right",
                     autoClose: 3000,
                     hideProgressBar: false,
