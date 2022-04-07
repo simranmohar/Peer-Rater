@@ -1,18 +1,8 @@
 import * as React from 'react';
-import Box from '@mui/material/Box';
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import {useEffect, useState} from "react";
-import {Link} from 'react-router-dom';
-import auth from "../services/auth";
 import {
     Chip,
-    CircularProgress,
-    Fade, Grid,
-    LinearProgress,
+    Grid,
     Table,
     TableBody,
     TableCell,
@@ -20,8 +10,6 @@ import {
     TableHead,
     TableRow
 } from "@mui/material";
-import {Skeleton} from "@mui/lab";
-import Paper from "@mui/material/Paper";
 import {styled} from "@mui/material/styles";
 import MuiAccordion from "@mui/material/Accordion";
 import MuiAccordionSummary from "@mui/material/AccordionSummary";
@@ -101,7 +89,7 @@ function ResultsCard(ratings, categories, users) {
                 <Accordion align="right">
                     <AccordionSummary>
                         <Grid container justifyContent="flex-start">
-                            <Typography style={{textTransform: "capitalize"}}> Survey Results
+                            <Typography style={{textTransform: "capitalize", paddingTop:"0.25em"}}> Survey Results
                                 ({completion}/{users.length} completed)
                             </Typography>
                         </Grid>
