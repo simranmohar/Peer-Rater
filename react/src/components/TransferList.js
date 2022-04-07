@@ -200,10 +200,10 @@ EnhancedTableToolbar.propTypes = {
 };
 
 function LoadView() {
-    return (<><TableRow><TableCell><Skeleton animation="wave" /></TableCell>
-        <TableCell component="th" scope="row" padding="none"><Skeleton width={50} animation="wave" /></TableCell>
-        <TableCell align="left"> <Skeleton width={100} animation="wave" /></TableCell>
-        <TableCell align="left"><Skeleton width={150} animation="wave" /></TableCell></TableRow></>)
+    return (<><TableRow><TableCell sx={{width:"10%"}}><Skeleton animation="wave" width={30} /></TableCell>
+        <TableCell sx={{width:"30%"}} component="th" scope="row" padding="none"><Skeleton width={30} animation="wave" /></TableCell>
+        <TableCell sx={{width:"30%"}} align="left"> <Skeleton width={100} animation="wave" /></TableCell>
+        <TableCell sx={{width:"30%"}} align="left"><Skeleton width={150} animation="wave" /></TableCell></TableRow></>)
 }
 
 export default function TransferList(props) {
@@ -325,7 +325,7 @@ export default function TransferList(props) {
                                                 key={row.id}
                                                 selected={isItemSelected}
                                             >
-                                                <TableCell padding="checkbox">
+                                                <TableCell sx={{width:"10%"}} padding="checkbox">
                                                     <Checkbox
                                                         color="primary"
                                                         checked={isItemSelected}
@@ -334,7 +334,7 @@ export default function TransferList(props) {
                                                         }}
                                                     />
                                                 </TableCell>
-                                                <TableCell
+                                                <TableCell sx={{width:"30%"}}
                                                     component="th"
                                                     id={labelId}
                                                     scope="row"
@@ -342,8 +342,8 @@ export default function TransferList(props) {
                                                 >
                                                     {row.id}
                                                 </TableCell>
-                                                <TableCell align="left">{row.name}</TableCell>
-                                                <TableCell align="left">{row.email}</TableCell>
+                                                <TableCell sx={{width:"30%"}} align="left">{row.name}</TableCell>
+                                                <TableCell sx={{width:"30%"}} align="left">{row.email}</TableCell>
                                             </TableRow>
                                         );
                                     })}
