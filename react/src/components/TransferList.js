@@ -21,6 +21,9 @@ import FilterListIcon from '@mui/icons-material/FilterList';
 import { visuallyHidden } from '@mui/utils';
 import {useEffect} from "react";
 import api from "../services/api";
+import AddTaskIcon from '@mui/icons-material/AddTask';
+
+import {useLocation} from "react-router-dom";
 
 function descendingComparator(a, b, orderBy) {
     if (b[orderBy] < a[orderBy]) {
@@ -130,12 +133,15 @@ EnhancedTableHead.propTypes = {
 };
 
 const EnhancedTableToolbar = (props) => {
-    const { numSelected, selectedIDs } = props;
+    const { numSelected, selectedIDs, peerGroupID } = props;
 
     function addToDatabase() {
         selectedIDs.map((id_) => {
-            api.joinPeerGroup()
+            api.joinPeerGroup(peerGroupID, id_).then((response)=>{
+                console.log(response);
+            })
         });
+
     }
     return (
         <Toolbar
@@ -171,7 +177,7 @@ const EnhancedTableToolbar = (props) => {
             {numSelected > 0 ? (
                 <Tooltip title="Delete">
                     <IconButton>
-                        <DeleteIcon onClick={addToDatabase}/>
+                        <AddTaskIcon onClick={addToDatabase}/>
                     </IconButton>
                 </Tooltip>
             ) : (
@@ -196,6 +202,9 @@ export default function TransferList(props) {
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
     const [rows, setRows] = React.useState([]);
+    const location = useLocation()
+    const { peer_group_id } = location.state
+
 
     useEffect(()=>{
         if (!!rows){
@@ -260,7 +269,7 @@ export default function TransferList(props) {
         return (
             <Box sx={{ width: '100%' }}>
                 <Paper sx={{ width: '100%', mb: 2 }}>
-                    <EnhancedTableToolbar numSelected={selected.length} selectedIDs={selected}/>
+                    <EnhancedTableToolbar numSelected={selected.length} selectedIDs={selected} peerGroupID={peer_group_id}/>
                     <TableContainer>
                         <Table
                             sx={{ minWidth: 750 }}

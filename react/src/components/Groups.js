@@ -4,6 +4,8 @@ import {styled} from '@mui/system';
 import TablePaginationUnstyled from '@mui/base/TablePaginationUnstyled';
 import Avatar from '@mui/material/Avatar';
 import AvatarGroup from '@mui/material/AvatarGroup';
+import AddTaskIcon from '@mui/icons-material/AddTask';
+
 import {
     CardHeader,
     Fade,
@@ -256,6 +258,13 @@ export default function Groups() {
                                                               state={{peer_group_id: row.id}}><Add/></Link>
                                                     </Button>
                                                 </Tooltip>
+                                                        <Tooltip title="Add Users To List" key="AddUsersList">
+                                                            <Button>
+                                                                <Link to={`/addUsersToList`}
+                                                                      state={{peer_group_id: row.id}}><AddTaskIcon/></Link>
+                                                            </Button>
+                                                        </Tooltip>
+
                                             </> :
                                             <>
                                             </>
