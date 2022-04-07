@@ -24,6 +24,7 @@ import api from "../services/api";
 import AddTaskIcon from '@mui/icons-material/AddTask';
 
 import {useLocation} from "react-router-dom";
+import {Skeleton} from "@mui/material";
 import {map} from "react-bootstrap/ElementChildren";
 
 function descendingComparator(a, b, orderBy) {
@@ -164,7 +165,7 @@ const EnhancedTableToolbar = (props) => {
                     variant="subtitle1"
                     component="div"
                 >
-                    {numSelected} selected
+                    {`${numSelected} user${numSelected === 1 ? "" : "s"} selected`}
                 </Typography>
             ) : (
                 <Typography
@@ -173,12 +174,12 @@ const EnhancedTableToolbar = (props) => {
                     id="tableTitle"
                     component="div"
                 >
-                    User List
+                    Add Users
                 </Typography>
             )}
 
             {numSelected > 0 ? (
-                <Tooltip title="Delete">
+                <Tooltip title="Add">
                     <IconButton>
                         <AddTaskIcon onClick={addToDatabase}/>
                     </IconButton>
@@ -198,6 +199,13 @@ EnhancedTableToolbar.propTypes = {
     numSelected: PropTypes.number.isRequired,
 };
 
+function LoadView() {
+    return (<><TableRow><TableCell><Skeleton animation="wave" /></TableCell>
+        <TableCell component="th" scope="row" padding="none"><Skeleton width={50} animation="wave" /></TableCell>
+        <TableCell align="left"> <Skeleton width={100} animation="wave" /></TableCell>
+        <TableCell align="left"><Skeleton width={150} animation="wave" /></TableCell></TableRow></>)
+}
+
 export default function TransferList(props) {
     const [order, setOrder] = React.useState('asc');
     const [orderBy, setOrderBy] = React.useState('');
@@ -213,7 +221,6 @@ export default function TransferList(props) {
     useEffect(()=>{
         if (!!rows){
             api.getUsers().then((response)=>{
-                 // console.log(peer_group.users.keys(obj).map(key => obj[key]))
                 setRows(response)
             })
         }
@@ -270,7 +277,6 @@ export default function TransferList(props) {
     const emptyRows =
         page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
-    if (rows){
         return (
             <Box sx={{ width: '100%' }}>
                 <Paper sx={{ width: '100%', mb: 2 }}>
@@ -290,7 +296,18 @@ export default function TransferList(props) {
                                 rowCount={rows.length}
                             />
                             <TableBody>
-                                {/* if you don't need to support IE11, you can replace the `stableSort` call with:
+                                {rows.length === 0 ?
+                                    <>
+                                    <LoadView/>
+                                    <LoadView/>
+                                    <LoadView/>
+                                    <LoadView/>
+                                    <LoadView/>
+                                    </>
+                                    :
+                                    <>
+
+                                    {/* if you don't need to support IE11, you can replace the `stableSort` call with:
                  rows.slice().sort(getComparator(order, orderBy)) */}
                                 {stableSort(rows, getComparator(order, orderBy))
                                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
@@ -339,8 +356,11 @@ export default function TransferList(props) {
                                         <TableCell colSpan={6} />
                                     </TableRow>
                                 )}
+                                    </>
+                                }
                             </TableBody>
                         </Table>
+
                     </TableContainer>
                     <TablePagination
                         rowsPerPageOptions={[5, 10, 25]}
@@ -353,9 +373,8 @@ export default function TransferList(props) {
                     />
                 </Paper>
             </Box>
+
         );
-    }else {
-        return <div>Loading...</div>
-    }
+
 
 }
