@@ -11,6 +11,7 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import GroupIcon from '@mui/icons-material/Group';
 import Sidebar from "../../components/SideBar";
 import {Link, Outlet} from "react-router-dom";
+import OutlinedTimeline from "../../components/HomeTimeLine";
 
 function ListItemTextWhite({primary}) {
     return (
@@ -70,7 +71,6 @@ function HomePage({title}) {
                     }>
                         <Outlet/>
                     </Container>
-
                     <Footer/>
                 </Box>
             </Box>

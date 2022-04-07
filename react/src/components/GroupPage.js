@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Group from './Group';
 import logo from '../img/peerrater.png';
 import { CardMedia, Typography } from '@mui/material';
+import OutlinedTimeline from './HomeTimeLine';
 
 
 const GroupPage = () => {
@@ -38,12 +39,7 @@ const GroupPage = () => {
                 <Group key={key} img="https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2944&q=80"
                     title="COMP 3975" description={group.description} id_value={group.id} />
             ))}
-            {/* <Typography variant="h4" align="left">
-                Peer Rater
-            </Typography>
-            <Typography variant="h11" align="left">
-                Rate your team today! View how you performed for the project/work today
-            </Typography> */}
+            <OutlinedTimeline/>
         </div>
     </>
     );
