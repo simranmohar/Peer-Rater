@@ -16,20 +16,8 @@ import {Link} from "react-router-dom";
 import {useEffect} from "react";
 
 
-export default function NavbarMenu() {
-    const [username, setUsername] = React.useState("");
-    const [isInstructor, setIsInstructor] = React.useState("");
-
-    useEffect(() => {
-        setTimeout(() => {  setUsername(authService.getCurrentUserFull().name); }, 1000);
-        setTimeout(() => {
-            if (authService.getCurrentUserFull().isInstructor === 1){
-                setIsInstructor(" (Instructor) ");
-            }else {
-                setIsInstructor(" (Student) ");
-            }
-        }, 1000);
-    },[])
+export default function NavbarMenu(props) {
+    const {username, isInstructor} = props;
 
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
