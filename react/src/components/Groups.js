@@ -155,6 +155,7 @@ export default function Groups() {
 
     useEffect(() => {
         api.getPeerGroups().then((response) => {
+            console.log(response.data);
             setNewRows(response.data);
             setLoading(false);
             setBarLoading(false);

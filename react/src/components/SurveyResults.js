@@ -36,25 +36,10 @@ function getCompletion(rating, category, size) {
 }
 
 function SurveyCard(survey, size, row){
-    const [rate, setNewRate] = useState('')
-    const [category, setNewCategory] = useState('')
-    const [percentage, setNewPercentage] = useState('')
-    const [completion, setNewCompletion] = useState('')
-    const [loading, setLoading] = React.useState(true);
-    useEffect(() => {
-        const fetchData = async () => {
-            const [ratingsResult, categoryResult] = await Promise.all([api.getRatings(survey.peer_group_id, survey.id),
-                api.getCategories(survey.peer_group_id, survey.id)]);
-            const rating = await ratingsResult.data;
-            const category = await categoryResult.data;
-            setNewRate(rating);
-            setNewCategory(category);
-            setNewPercentage(getPercentage(rating));
-            setNewCompletion(getCompletion(rating, category, size).toString());
-            setLoading(false);
-        }
-        fetchData();
-    }, [survey]);
+    let rate = survey.ratings;
+    let category = survey.categories;
+    let percentage = getPercentage(survey.ratings).toString();
+    let completion = getCompletion(survey.ratings, survey.categories, size).toString();
 
     return (
         <React.Fragment>
@@ -64,34 +49,19 @@ function SurveyCard(survey, size, row){
                     </Typography>
                     <>
                     <Typography variant="h5" component="div">
-                        {loading ?
-                            <Skeleton animation="wave" />
-                            :
-                                <>
                                 {percentage}%
-                                </>
-                        }
 
                     </Typography>
                     <Typography variant="body2">
-                        {loading ?
-                            <Skeleton animation="wave"  />
-                            :
-                            <>
                             {completion}/{size} completed
-                            </>}
                     </Typography>
                     </>
                 </CardContent>
 
             <CardActions>
                 <div style={{width:"100%"}}>
-                {loading ?
-                    <Skeleton animation="wave"  />
-                    :
-
                         <Button style={{width:"100%"}} component={Link} to="/listuserpage" state={{survey:survey, row:row, category:category, rate:rate}} size="small">
-                            VIEW</Button>}
+                            VIEW</Button>
                 </div>
 
 
