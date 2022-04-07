@@ -8,8 +8,7 @@ import Typography from '@mui/material/Typography';
 import {useEffect, useState} from "react";
 import { Link } from 'react-router-dom';
 import auth from "../services/auth";
-import {CircularProgress, Fade, LinearProgress} from "@mui/material";
-import {Skeleton} from "@mui/lab";
+import { Skeleton } from '@mui/material';
 import api from "../services/api";
 
 function getPercentage(rating) {
@@ -63,14 +62,14 @@ function SurveyCard(survey, size, row){
                     <Typography sx={{ mb: 1.5 }} color="text.secondary">
                         SURVEY #{survey.id}
                     </Typography>
-                    <div>
+                    <>
                     <Typography variant="h5" component="div">
                         {loading ?
                             <Skeleton animation="wave" />
                             :
-                                <div>
+                                <>
                                 {percentage}%
-                                </div>
+                                </>
                         }
 
                     </Typography>
@@ -78,11 +77,11 @@ function SurveyCard(survey, size, row){
                         {loading ?
                             <Skeleton animation="wave"  />
                             :
-                            <div>
+                            <>
                             {completion}/{size} completed
-                            </div>}
+                            </>}
                     </Typography>
-                    </div>
+                    </>
                 </CardContent>
 
             <CardActions>
