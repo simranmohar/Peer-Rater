@@ -65,57 +65,68 @@ function NewGroup({newGroupAdded}) {
                 if (!response){
                     toast("Could not find group.", {
                         position: "top-right",
-                        autoClose: 3000,
+                        autoClose: 1000,
                         hideProgressBar: false,
                         closeOnClick: true,
                         pauseOnHover: true,
                         draggable: true,
                         type: "error",
-                        progress: 3000,
+                        onClose: () => {
+                            loadingCallBack(false)
+                            setSubmitButtonState(true)
+                            newGroupAdded();
+                        }
                     });
                 }else {
                     if (response.data.message.includes("Error")) {
                         toast(response.data.message, {
                             position: "top-right",
-                            autoClose: 3000,
+                            autoClose: 1000,
                             hideProgressBar: false,
                             closeOnClick: true,
                             pauseOnHover: true,
                             draggable: true,
                             type: "error",
-                            progress: 3000,
+                            onClose: () => {
+                                loadingCallBack(false)
+                                setSubmitButtonState(true)
+                                newGroupAdded();
+                            }
                         });
                     } else if (response.data.message.includes("Success")) {
                         toast(`Success. You have joined peer group #${input}!`, {
                             position: "top-right",
-                            autoClose: 3000,
                             hideProgressBar: false,
                             closeOnClick: true,
                             pauseOnHover: true,
                             draggable: true,
-                            progress: 3000,
+                            type: "success",
+                            autoClose: 1000,
+                            onClose: () => {
+                                loadingCallBack(false)
+                                setSubmitButtonState(true)
+                                newGroupAdded();
+                            }
                         });
                     }
                 }
             })
 
-            loadingCallBack(false)
-            setSubmitButtonState(true)
-            newGroupAdded();
         } else {
             api.addPeerGroup(input).then(r => {
                 toast(`Success. You have created peer group "${input}"!`, {
                     position: "top-right",
-                    autoClose: 3000,
+                    autoClose: 1000,
                     hideProgressBar: false,
                     closeOnClick: true,
                     pauseOnHover: true,
                     draggable: true,
-                    progress: 3000,
+                    onClose: () => {
+                        loadingCallBack(false)
+                        setSubmitButtonState(true)
+                        newGroupAdded();
+                    }
                 });
-                newGroupAdded();
-                loadingCallBack(false)
-                setSubmitButtonState(true)
             })
         }
 
