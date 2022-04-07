@@ -153,7 +153,6 @@ export default function Groups() {
         setUpdateNeeded(true);
     }
 
-
     useEffect(() => {
         api.getPeerGroups().then((response) => {
             setNewRows(response.data);
@@ -261,7 +260,7 @@ export default function Groups() {
                                                         <Tooltip title="Add Users To List" key="AddUsersList">
                                                             <Button>
                                                                 <Link to={`/addUsersToList`}
-                                                                      state={{peer_group_id: row.id}}><AddTaskIcon/></Link>
+                                                                      state={{peer_group_id: row.id, peer_group: row}}><AddTaskIcon/></Link>
                                                             </Button>
                                                         </Tooltip>
 

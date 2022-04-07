@@ -19,11 +19,12 @@ import Tooltip from '@mui/material/Tooltip';
 import DeleteIcon from '@mui/icons-material/Delete';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import { visuallyHidden } from '@mui/utils';
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import api from "../services/api";
 import AddTaskIcon from '@mui/icons-material/AddTask';
 
 import {useLocation} from "react-router-dom";
+import {map} from "react-bootstrap/ElementChildren";
 
 function descendingComparator(a, b, orderBy) {
     if (b[orderBy] < a[orderBy]) {
@@ -135,14 +136,16 @@ EnhancedTableHead.propTypes = {
 const EnhancedTableToolbar = (props) => {
     const { numSelected, selectedIDs, peerGroupID } = props;
 
-    function addToDatabase() {
-        selectedIDs.map((id_) => {
-            api.addToPeerGroup(peerGroupID, id_).then((response)=>{
-                console.log(response);
-            })
+    async function addToDatabase() {
+        selectedIDs.map(async (id_) => {
+            const result = await api.addToPeerGroup(peerGroupID, id_).then((response) => {
+                if (200 === response.status) {
+                    selectedIDs.remove()
+                }
+            });
         });
-
     }
+
     return (
         <Toolbar
             sx={{
@@ -203,12 +206,14 @@ export default function TransferList(props) {
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
     const [rows, setRows] = React.useState([]);
     const location = useLocation()
-    const { peer_group_id } = location.state
+    const { peer_group_id, peer_group } = location.state
+
 
 
     useEffect(()=>{
         if (!!rows){
             api.getUsers().then((response)=>{
+                 // console.log(peer_group.users.keys(obj).map(key => obj[key]))
                 setRows(response)
             })
         }
