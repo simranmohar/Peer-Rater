@@ -26,6 +26,7 @@ import AddTaskIcon from '@mui/icons-material/AddTask';
 import {useLocation} from "react-router-dom";
 import {Skeleton} from "@mui/material";
 import {map} from "react-bootstrap/ElementChildren";
+import {toast} from "react-toastify";
 
 function descendingComparator(a, b, orderBy) {
     if (b[orderBy] < a[orderBy]) {
@@ -139,14 +140,18 @@ const EnhancedTableToolbar = (props) => {
 
     async function addToDatabase() {
         selectedIDs.map(async (id_) => {
-            const result = await api.addToPeerGroup(peerGroupID, id_).then((response) => {
-                if (200 === response.status) {
-                    callback();
+            await toast.promise(
+                api.addToPeerGroup(peerGroupID, id_),
+                {
+                    pending: 'Taking an uber to our database... ',
+                    success: 'User added 👌',
+                    error: 'Could not add user.. 🤯'
                 }
-            });
+            )
+
+
         });
 
-        callback();
     }
 
     return (
