@@ -15,7 +15,9 @@ const addPeerGroup = (_description) => {
 
 
 const joinPeerGroup = async (group_id, u) => {
-    return axios.post(`/peer-groups/${group_id}/attach`, {user_id: u.id}).then((response) => {
+    return axios.post(`/peer-groups/${group_id}/attach`, {user_id: u.id})
+        .then((response) => {
+            return response;
     }).catch((e) => {
         console.log("Failed to join peer group" + e)
         return e;

@@ -37,20 +37,20 @@ axios.interceptors.response.use(function (response) {
 
         }
 
-        if (404 === error.response.status) {
-            toast.error('Whoops, we could not find anything for the information you requested.', {
-                position: "top-right",
-                autoClose: 3000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: false,
-                draggable: true,
-                progress: 3000,
-                toastId: "404Error"
-            });
-            return error;
-
-        }
+        // if (404 === error.response.status) {
+        //     toast.error('Whoops, we could not find anything for the information you requested.', {
+        //         position: "top-right",
+        //         autoClose: 3000,
+        //         hideProgressBar: false,
+        //         closeOnClick: true,
+        //         pauseOnHover: false,
+        //         draggable: true,
+        //         progress: 3000,
+        //         toastId: "404Error"
+        //     });
+        //     return error;
+        //
+        // }
         if (422 === error.response.status) {
             toast.error('Your request could not be processed, check the parameters you have provided.', {
                 position: "top-right",

@@ -61,23 +61,49 @@ function NewGroup({newGroupAdded}) {
 
         let input = document.getElementById("input").value;
         if (submit === "join") {
-            api.joinPeerGroup(input, Auth.getCurrentUserFull()).then(r => {
-                newGroupAdded();
-                toast(`Success. You have joined peer group #${input}!`, {
-                    position: "top-right",
-                    autoClose: 3000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: 3000,
-                });
-                loadingCallBack(false)
-                setSubmitButtonState(true)
+            api.joinPeerGroup(input, Auth.getCurrentUserFull()).then(response => {
+                if (!response){
+                    toast("Could not find group.", {
+                        position: "top-right",
+                        autoClose: 3000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        type: "error",
+                        progress: 3000,
+                    });
+                }else {
+                    if (response.data.message.includes("Error")) {
+                        toast(response.data.message, {
+                            position: "top-right",
+                            autoClose: 3000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            type: "error",
+                            progress: 3000,
+                        });
+                    } else if (response.data.message.includes("Success")) {
+                        toast(`Success. You have joined peer group #${input}!`, {
+                            position: "top-right",
+                            autoClose: 3000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: 3000,
+                        });
+                    }
+                }
             })
+
+            loadingCallBack(false)
+            setSubmitButtonState(true)
+            newGroupAdded();
         } else {
             api.addPeerGroup(input).then(r => {
-                newGroupAdded();
                 toast(`Success. You have created peer group "${input}"!`, {
                     position: "top-right",
                     autoClose: 3000,
@@ -87,6 +113,7 @@ function NewGroup({newGroupAdded}) {
                     draggable: true,
                     progress: 3000,
                 });
+                newGroupAdded();
                 loadingCallBack(false)
                 setSubmitButtonState(true)
             })
