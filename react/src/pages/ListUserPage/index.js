@@ -81,9 +81,6 @@ function ListUserPage({}) {
                         <Grid container justifyContent="flex-start">
                             <Typography style={{textTransform: "capitalize"}}>{user.name}</Typography>
                         </Grid>
-                        <Grid container justifyContent="flex-end">
-                            <Chip label="Outstanding" color="error"/>
-                        </Grid>
                     </AccordionSummary>
                     <AccordionDetails>
                         {category.map(function (cat, index) {
