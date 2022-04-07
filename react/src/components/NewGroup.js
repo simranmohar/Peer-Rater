@@ -7,6 +7,7 @@ import { ToggleButtonGroup } from '@mui/material';
 import {TextField} from "@mui/material";
 import Auth from "../services/auth";
 import authService from "../services/auth";
+import {toast} from "react-toastify";
 
 function NewGroup({newGroupAdded}) {
     const groupStyle = {
@@ -62,12 +63,30 @@ function NewGroup({newGroupAdded}) {
         if (submit === "join") {
             api.joinPeerGroup(input, Auth.getCurrentUserFull()).then(r => {
                 newGroupAdded();
+                toast('Success. You have joined the peer group!', {
+                    position: "top-right",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: 3000,
+                });
                 loadingCallBack(false)
                 setSubmitButtonState(true)
             })
         } else {
             api.addPeerGroup(input).then(r => {
                 newGroupAdded();
+                toast('Success. Your peer group has been created!', {
+                    position: "top-right",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: 3000,
+                });
                 loadingCallBack(false)
                 setSubmitButtonState(true)
             })

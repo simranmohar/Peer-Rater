@@ -24,7 +24,6 @@ const LoginForm = () => {
             // We got errors!
             setErrors(newErrors)
         } else {
-
             try {
                 await AuthService.login(email, password).then(
                     (response) => {

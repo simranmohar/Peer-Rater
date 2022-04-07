@@ -27,6 +27,7 @@ import {useLocation} from "react-router-dom";
 import {Skeleton} from "@mui/material";
 import {map} from "react-bootstrap/ElementChildren";
 import {toast} from "react-toastify";
+import {AxiosResponse} from "axios";
 
 function descendingComparator(a, b, orderBy) {
     if (b[orderBy] < a[orderBy]) {
@@ -139,20 +140,20 @@ const EnhancedTableToolbar = (props) => {
     const { numSelected, selectedIDs, peerGroupID, callback} = props;
 
     async function addToDatabase() {
-        selectedIDs.map(async (id_) => {
-            await toast.promise(
-                api.addToPeerGroup(peerGroupID, id_),
-                {
-                    pending: 'Taking an uber to our database... ',
-                    success: 'User added 👌',
-                    error: 'Could not add user.. 🤯'
-                }
-            )
 
-
+        var promises = selectedIDs.map((id_) => {
+            return api.addToPeerGroup(peerGroupID, id_)
         });
 
-    }
+        const id = toast.loading("Please wait while we add users to the group.")
+
+        Promise.all(promises).then(function(results) {
+            toast.update(id, { render: "Success. Houston, we have lift off!", type: "success", isLoading: false, autoClose: 2000, draggable: true });
+        });
+
+
+        }
+
 
     return (
         <Toolbar

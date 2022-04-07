@@ -61,7 +61,7 @@ const Page = ({
 function App() {
     return (
         <BrowserRouter>
-            <ToastContainer />
+            <ToastContainer limit={10} autoClose={4000}/>
             <Routes>
                 <Route path="/login"
                     element={
