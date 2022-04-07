@@ -137,7 +137,7 @@ const EnhancedTableToolbar = (props) => {
 
     function addToDatabase() {
         selectedIDs.map((id_) => {
-            api.joinPeerGroup(peerGroupID, id_).then((response)=>{
+            api.addToPeerGroup(peerGroupID, id_).then((response)=>{
                 console.log(response);
             })
         });

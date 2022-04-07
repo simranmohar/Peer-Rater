@@ -22,6 +22,17 @@ const joinPeerGroup = async (group_id, u) => {
     })
 }
 
+
+const addToPeerGroup = async (group_id, u) => {
+    console.log(group_id, u)
+    axios.post(`/peer-groups/${group_id}/attach`, {peerGroup_id: group_id, user_id: u}).then((response) => {
+        return response
+    }).catch((e) => {
+        console.log("Failed to join peer group" + e)
+        return e;
+    })
+}
+
 async function getPeerGroups() {
     try {
         return await axios.get('/peer-groups', {});
@@ -150,6 +161,7 @@ const api = {
     addPeerGroup,
     getPeerGroups,
     joinPeerGroup,
+    addToPeerGroup,
     addSurvey,
     addCategory,
     exitPeerGroup,
