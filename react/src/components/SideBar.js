@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faFaceSurprise, faListNumeric
 } from "@fortawesome/free-solid-svg-icons";
@@ -10,16 +10,20 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import Divider from "@mui/material/Divider";
 import List from "@mui/material/List";
 import {mainListItems} from "../pages/HomePage";
-import {AppBar, Chip, Drawer} from "@mui/material";
+import {AppBar, Chip, CircularProgress, Drawer, Skeleton} from "@mui/material";
 import MuiDrawer from "@mui/material/Drawer";
 import MenuIcon from "@mui/icons-material/Menu";
 import Typography from "@mui/material/Typography";
 import MuiAppBar from "@mui/material/AppBar";
 import NavbarMenu from "./NavbarMenu";
 import ActiveLastBreadcrumb from "./ActiveLastBreadcrumb";
+import authService from "../services/auth";
+import Box from "@mui/material/Box";
 
 
-function Sidebar() {
+function Sidebar(props) {
+    const {username, isInstructor} = props;
+
     const drawerWidth = 240;
     const AppBar = styled(MuiAppBar, {
         shouldForwardProp: (prop) => prop !== 'open',
@@ -66,6 +70,7 @@ function Sidebar() {
             },
         }),
     );
+
     const [open, setOpen] = React.useState(true);
     const toggleDrawer = () => {
         setOpen(!open);
@@ -101,8 +106,7 @@ function Sidebar() {
                     >
                         <ActiveLastBreadcrumb/>
                     </Typography>
-                    <NavbarMenu/>
-
+                    <NavbarMenu username={username} isInstructor = {isInstructor}/>
                 </Toolbar>
             </AppBar>
 
@@ -128,10 +132,15 @@ function Sidebar() {
                     </IconButton>
                 </Toolbar>
                 <Divider/>
-                <List component="nav">
+                {username ? <><List component="nav">
                     {mainListItems}
                     <Divider sx={{my: 1}}/>
-                </List>
+                </List></> : <> <Box sx={{ display: 'flex' }}>
+                    <CircularProgress />
+                </Box></>}
+
+
+
             </Drawer>
         </>
     )
